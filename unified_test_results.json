@@ -1,0 +1,998 @@
+{
+  "metadata": {
+    "timestamp": "2025-09-08T17:07:59.262528",
+    "total_prescriptions": 5,
+    "processing_stats": {
+      "total_processed": 5,
+      "approved": 2,
+      "rejected": 4,
+      "held": 4,
+      "errors": 0,
+      "start_time": "2025-09-08T17:07:38.310753",
+      "end_time": "2025-09-08T17:07:59.262335"
+    },
+    "processor_version": "unified_v1.0"
+  },
+  "results": [
+    {
+      "prescription_id": "3GP25RF",
+      "patient_info": {
+        "name": "YALÇIN DURDAĞI",
+        "tc": "11916110202"
+      },
+      "processing_metadata": {
+        "source": "json_file",
+        "timestamp": "2025-09-08T17:07:41.749857",
+        "processing_time_seconds": 3.438998,
+        "sut_processing_time": 0.1,
+        "ai_processing_time": 3.43892765045166
+      },
+      "sut_analysis": {
+        "compliant": false,
+        "action": "hold",
+        "confidence": 0.6,
+        "issues_count": 2,
+        "warnings_count": 0
+      },
+      "ai_analysis": {
+        "action": "reject",
+        "confidence": 0.6,
+        "claude_used": true,
+        "method": "sut_plus_claude"
+      },
+      "final_decision": "reject",
+      "details": {
+        "sut_reason": "SUT compliance issues require manual review",
+        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçete SGK SUT kurallarına uygun değil. Özellikle ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete reddedilmelidir.",
+        "sut_issues": [
+          "Diagnosis mismatch: Required diagnoses ['B18.1', '06.01'] not found in []",
+          "Report required for VEMLIDY 25MG 30 FILM KAPLI TABLET but not found"
+        ],
+        "ai_risk_factors": [
+          "ICD tanı kodlarının eksikliği",
+          "Raporlu ilaçlar için rapor olmaması"
+        ],
+        "recommendations": [
+          "Reçetedeki ICD tanı kodlarının eklenmesi",
+          "VEMLIDY için gerekli raporun temin edilmesi"
+        ]
+      },
+      "raw_data": {
+        "prescription_data": {
+          "index": 1,
+          "recete_no": "3GP25RF",
+          "hasta_ad": "YALÇIN",
+          "hasta_soyad": "DURDAĞI",
+          "extraction_time": "2025-09-07T22:31:07.409991",
+          "hasta_tc": "11916110202",
+          "dogum_tarihi": "YOK",
+          "drugs": [
+            {
+              "ilac_adi": "PANTO 40 MG.28 TABLET",
+              "barkod": "8699516042257",
+              "adet": "3"
+            },
+            {
+              "ilac_adi": "VEMLIDY 25MG 30 FILM KAPLI TABLET",
+              "barkod": "8698760090229",
+              "adet": "33"
+            }
+          ],
+          "ilac_mesajlari": "1013(1) - 4.2.13.1 Kronik Hepatit B tedavisi",
+          "rapor_no": "1992805",
+          "rapor_tarihi": "22/05/2025"
+        },
+        "sut_full_result": {
+          "analysis": {
+            "prescription_id": "3GP25RF",
+            "analysis_timestamp": "2025-09-08T17:07:38.310858",
+            "overall_compliance": false,
+            "issues": [
+              "Diagnosis mismatch: Required diagnoses ['B18.1', '06.01'] not found in []",
+              "Report required for VEMLIDY 25MG 30 FILM KAPLI TABLET but not found"
+            ],
+            "warnings": [],
+            "drug_analyses": [
+              {
+                "drug_name": "PANTO 40 MG.28 TABLET",
+                "compliant": true,
+                "issues": [],
+                "warnings": []
+              },
+              {
+                "drug_name": "VEMLIDY 25MG 30 FILM KAPLI TABLET",
+                "compliant": false,
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['B18.1', '06.01'] not found in []",
+                  "Report required for VEMLIDY 25MG 30 FILM KAPLI TABLET but not found"
+                ],
+                "warnings": []
+              }
+            ],
+            "message_code_analysis": {
+              "valid_codes": [
+                "1013"
+              ],
+              "invalid_codes": [],
+              "missing_codes": []
+            },
+            "general_compliance": {
+              "compliant": true,
+              "issues": []
+            }
+          },
+          "recommendation": {
+            "action": "hold",
+            "confidence": 0.6,
+            "reason": "SUT compliance issues require manual review",
+            "issues": [
+              "Diagnosis mismatch: Required diagnoses ['B18.1', '06.01'] not found in []",
+              "Report required for VEMLIDY 25MG 30 FILM KAPLI TABLET but not found"
+            ]
+          },
+          "processing_time": 0.1
+        },
+        "ai_full_result": {
+          "result": {
+            "action": "reject",
+            "confidence": 0.6,
+            "reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçete SGK SUT kurallarına uygun değil. Özellikle ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete reddedilmelidir.",
+            "clinical_assessment": "Hastanın kronik hepatit B tedavisi için PANTO ve VEMLIDY ilaçları reçete edilmiş. Ancak ICD tanı kodları belirtilmediği için ilaç-tanı uyumluluğu değerlendirilememiştir. Ayrıca VEMLIDY için rapor gerekli olmasına rağmen rapor bilgileri mevcut değil.",
+            "sut_compliance": "SUT uyumluluğu açısından ciddi sorunlar var. ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete SUT kurallarına uygun değil.",
+            "risk_factors": [
+              "ICD tanı kodlarının eksikliği",
+              "Raporlu ilaçlar için rapor olmaması"
+            ],
+            "recommendations": [
+              "Reçetedeki ICD tanı kodlarının eklenmesi",
+              "VEMLIDY için gerekli raporun temin edilmesi"
+            ],
+            "key_findings": [
+              "ICD tanı kodları eksik",
+              "VEMLIDY için rapor gerekli ancak mevcut değil"
+            ],
+            "analysis_details": {
+              "sut_recommendation": {
+                "action": "hold",
+                "confidence": 0.6,
+                "reason": "SUT compliance issues require manual review",
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['B18.1', '06.01'] not found in []",
+                  "Report required for VEMLIDY 25MG 30 FILM KAPLI TABLET but not found"
+                ]
+              },
+              "claude_analysis": {
+                "action": "reject",
+                "confidence": 0.9,
+                "reason": "Bu reçete SGK SUT kurallarına uygun değil. Özellikle ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete reddedilmelidir.",
+                "clinical_assessment": "Hastanın kronik hepatit B tedavisi için PANTO ve VEMLIDY ilaçları reçete edilmiş. Ancak ICD tanı kodları belirtilmediği için ilaç-tanı uyumluluğu değerlendirilememiştir. Ayrıca VEMLIDY için rapor gerekli olmasına rağmen rapor bilgileri mevcut değil.",
+                "sut_compliance": "SUT uyumluluğu açısından ciddi sorunlar var. ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete SUT kurallarına uygun değil.",
+                "risk_factors": [
+                  "ICD tanı kodlarının eksikliği",
+                  "Raporlu ilaçlar için rapor olmaması"
+                ],
+                "recommendations": [
+                  "Reçetedeki ICD tanı kodlarının eklenmesi",
+                  "VEMLIDY için gerekli raporun temin edilmesi"
+                ],
+                "key_findings": [
+                  "ICD tanı kodları eksik",
+                  "VEMLIDY için rapor gerekli ancak mevcut değil"
+                ]
+              },
+              "decision_logic": "SUT: hold, Claude: reject -> Final: reject"
+            },
+            "analysis_method": "sut_plus_claude",
+            "timestamp": "2025-09-08T17:07:41.749707",
+            "prescription_id": "3GP25RF",
+            "claude_available": true
+          },
+          "processing_time": 3.43892765045166
+        }
+      }
+    },
+    {
+      "prescription_id": "3GPHER2",
+      "patient_info": {
+        "name": "HÜSEYİN ERDAL",
+        "tc": "44140110038"
+      },
+      "processing_metadata": {
+        "source": "json_file",
+        "timestamp": "2025-09-08T17:07:45.669767",
+        "processing_time_seconds": 3.399088,
+        "sut_processing_time": 0.1,
+        "ai_processing_time": 3.399005651473999
+      },
+      "sut_analysis": {
+        "compliant": false,
+        "action": "hold",
+        "confidence": 0.6,
+        "issues_count": 1,
+        "warnings_count": 0
+      },
+      "ai_analysis": {
+        "action": "hold",
+        "confidence": 0.6,
+        "claude_used": true,
+        "method": "sut_plus_claude"
+      },
+      "final_decision": "hold",
+      "details": {
+        "sut_reason": "SUT compliance issues require manual review",
+        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Reçetede bazı belirsizlikler ve uyumsuzluklar var, manuel inceleme gerekli.",
+        "sut_issues": [
+          "Diagnosis mismatch: Required diagnoses ['N40', 'N42'] not found in []"
+        ],
+        "ai_risk_factors": [
+          "Tanı kodu belirtilmemiş",
+          "Rapor gerekliliği doğrulanamadı",
+          "İlaç mesaj kodları tam olarak doğrulanamadı"
+        ],
+        "recommendations": [
+          "Hastanın tanısının netleştirilmesi",
+          "Rapor gerekliliğinin doğrulanması",
+          "İlaç mesaj kodlarının doğrulanması"
+        ]
+      },
+      "raw_data": {
+        "prescription_data": {
+          "index": 2,
+          "recete_no": "3GPHER2",
+          "hasta_ad": "HÜSEYİN",
+          "hasta_soyad": "ERDAL",
+          "extraction_time": "2025-09-07T22:35:56.448165",
+          "hasta_tc": "44140110038",
+          "dogum_tarihi": "YOK",
+          "drugs": [
+            {
+              "ilac_adi": "BELOC-ZOK 25 MG 20 KONT SAL FTB (BETA BLOKOR)",
+              "barkod": "8699786030114",
+              "adet": "5"
+            },
+            {
+              "ilac_adi": "XALFU XL 10 MG UZATILMIS SALIMLI 30 TB",
+              "barkod": "8699586032707",
+              "adet": "3"
+            }
+          ],
+          "ilac_mesajlari": "1301(13) - EK-4/E Madde 13- DİĞERLERİ; 3.madde ; Alfuzosin, Tamsulosin, Terazosin, Doksazosin, Silodosin",
+          "rapor_no": "1736587",
+          "rapor_tarihi": "23/06/2025"
+        },
+        "sut_full_result": {
+          "analysis": {
+            "prescription_id": "3GPHER2",
+            "analysis_timestamp": "2025-09-08T17:07:42.270677",
+            "overall_compliance": false,
+            "issues": [
+              "Diagnosis mismatch: Required diagnoses ['N40', 'N42'] not found in []"
+            ],
+            "warnings": [],
+            "drug_analyses": [
+              {
+                "drug_name": "BELOC-ZOK 25 MG 20 KONT SAL FTB (BETA BLOKOR)",
+                "compliant": true,
+                "issues": [],
+                "warnings": [
+                  "Drug BELOC-ZOK 25 MG 20 KONT SAL FTB (BETA BLOKOR) not found in SUT database"
+                ]
+              },
+              {
+                "drug_name": "XALFU XL 10 MG UZATILMIS SALIMLI 30 TB",
+                "compliant": false,
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['N40', 'N42'] not found in []"
+                ],
+                "warnings": [
+                  "Check contraindications: ['hypotension']"
+                ]
+              }
+            ],
+            "message_code_analysis": {
+              "valid_codes": [
+                "1301"
+              ],
+              "invalid_codes": [],
+              "missing_codes": []
+            },
+            "general_compliance": {
+              "compliant": true,
+              "issues": []
+            }
+          },
+          "recommendation": {
+            "action": "hold",
+            "confidence": 0.6,
+            "reason": "SUT compliance issues require manual review",
+            "issues": [
+              "Diagnosis mismatch: Required diagnoses ['N40', 'N42'] not found in []"
+            ]
+          },
+          "processing_time": 0.1
+        },
+        "ai_full_result": {
+          "result": {
+            "action": "hold",
+            "confidence": 0.6,
+            "reason": "SUT: SUT compliance issues require manual review | Claude: Reçetede bazı belirsizlikler ve uyumsuzluklar var, manuel inceleme gerekli.",
+            "clinical_assessment": "Hastanın tanısı belirtilmemiş, bu nedenle ilaç-tanı uyumluluğu değerlendirilemedi. Ayrıca rapor gerekliliği ve ilaç mesaj kodları da tam olarak doğrulanamadı.",
+            "sut_compliance": "SUT uyumsuzluğu var, 1301(13) mesaj kodu nedeniyle Alfuzosin, Tamsulosin, Terazosin, Doksazosin, Silodosin ilaçlarından biri reçete edilmiş ancak tanı kodu belirtilmediği için uygunluğu doğrulanamadı.",
+            "risk_factors": [
+              "Tanı kodu belirtilmemiş",
+              "Rapor gerekliliği doğrulanamadı",
+              "İlaç mesaj kodları tam olarak doğrulanamadı"
+            ],
+            "recommendations": [
+              "Hastanın tanısının netleştirilmesi",
+              "Rapor gerekliliğinin doğrulanması",
+              "İlaç mesaj kodlarının doğrulanması"
+            ],
+            "key_findings": [
+              "Tanı kodu belirtilmemiş",
+              "Rapor gerekliliği doğrulanamadı",
+              "İlaç mesaj kodları tam olarak doğrulanamadı"
+            ],
+            "analysis_details": {
+              "sut_recommendation": {
+                "action": "hold",
+                "confidence": 0.6,
+                "reason": "SUT compliance issues require manual review",
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['N40', 'N42'] not found in []"
+                ]
+              },
+              "claude_analysis": {
+                "action": "hold",
+                "confidence": 0.7,
+                "reason": "Reçetede bazı belirsizlikler ve uyumsuzluklar var, manuel inceleme gerekli.",
+                "clinical_assessment": "Hastanın tanısı belirtilmemiş, bu nedenle ilaç-tanı uyumluluğu değerlendirilemedi. Ayrıca rapor gerekliliği ve ilaç mesaj kodları da tam olarak doğrulanamadı.",
+                "sut_compliance": "SUT uyumsuzluğu var, 1301(13) mesaj kodu nedeniyle Alfuzosin, Tamsulosin, Terazosin, Doksazosin, Silodosin ilaçlarından biri reçete edilmiş ancak tanı kodu belirtilmediği için uygunluğu doğrulanamadı.",
+                "risk_factors": [
+                  "Tanı kodu belirtilmemiş",
+                  "Rapor gerekliliği doğrulanamadı",
+                  "İlaç mesaj kodları tam olarak doğrulanamadı"
+                ],
+                "recommendations": [
+                  "Hastanın tanısının netleştirilmesi",
+                  "Rapor gerekliliğinin doğrulanması",
+                  "İlaç mesaj kodlarının doğrulanması"
+                ],
+                "key_findings": [
+                  "Tanı kodu belirtilmemiş",
+                  "Rapor gerekliliği doğrulanamadı",
+                  "İlaç mesaj kodları tam olarak doğrulanamadı"
+                ]
+              },
+              "decision_logic": "SUT: hold, Claude: hold -> Final: hold"
+            },
+            "analysis_method": "sut_plus_claude",
+            "timestamp": "2025-09-08T17:07:45.669578",
+            "prescription_id": "3GPHER2",
+            "claude_available": true
+          },
+          "processing_time": 3.399005651473999
+        }
+      }
+    },
+    {
+      "prescription_id": "3GPOH2O",
+      "patient_info": {
+        "name": "SULTAN GÜRBÜZ",
+        "tc": "39766791884"
+      },
+      "processing_metadata": {
+        "source": "json_file",
+        "timestamp": "2025-09-08T17:07:50.087619",
+        "processing_time_seconds": 3.889288,
+        "sut_processing_time": 0.1,
+        "ai_processing_time": 3.8891172409057617
+      },
+      "sut_analysis": {
+        "compliant": false,
+        "action": "hold",
+        "confidence": 0.6,
+        "issues_count": 2,
+        "warnings_count": 0
+      },
+      "ai_analysis": {
+        "action": "hold",
+        "confidence": 0.6,
+        "claude_used": true,
+        "method": "sut_plus_claude"
+      },
+      "final_decision": "hold",
+      "details": {
+        "sut_reason": "SUT compliance issues require manual review",
+        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
+        "sut_issues": [
+          "Diagnosis mismatch: Required diagnoses ['E11', 'E10'] not found in []",
+          "Report required for GLIFIX PLUS 15/1000 MG 30 FTB but not found"
+        ],
+        "ai_risk_factors": [
+          "Tanı kodlarının belirtilmemesi",
+          "Bazı ilaçların dozaj ve süre limitlerinin bilinmemesi",
+          "Potansiyel ilaç etkileşimleri ve kontrendikasyonlar"
+        ],
+        "recommendations": [
+          "Hastanın tanı kodlarının belirlenmesi",
+          "İlaçların dozaj ve süre limitlerinin kontrol edilmesi",
+          "Hasta güvenliği açısından ilaç etkileşimlerinin ve kontrendikasyonların değerlendirilmesi",
+          "Raporlu ilaçlar için gerekli raporun olup olmadığının kontrol edilmesi"
+        ]
+      },
+      "raw_data": {
+        "prescription_data": {
+          "index": 3,
+          "recete_no": "3GPOH2O",
+          "hasta_ad": "SULTAN",
+          "hasta_soyad": "GÜRBÜZ",
+          "extraction_time": "2025-09-07T22:39:19.876792",
+          "hasta_tc": "39766791884",
+          "dogum_tarihi": "YOK",
+          "drugs": [
+            {
+              "ilac_adi": "GERALGINE-K 500 MG/30 MG/10 MG 20 TABLET",
+              "barkod": "8699578011253",
+              "adet": "2"
+            },
+            {
+              "ilac_adi": "NEXIUM 40 MG.28 TABLET",
+              "barkod": "8699786040045",
+              "adet": "1"
+            },
+            {
+              "ilac_adi": "NORVASC 10 MG.30 TB.",
+              "barkod": "8699532015334",
+              "adet": "1"
+            },
+            {
+              "ilac_adi": "CARDOPAN PLUS 320/12,5 MG 28 FTB",
+              "barkod": "8699536092300",
+              "adet": "3"
+            },
+            {
+              "ilac_adi": "GLIFIX PLUS 15/1000 MG 30 FTB",
+              "barkod": "8699569091950",
+              "adet": "1"
+            }
+          ],
+          "ilac_mesajlari": "1038 - 4.2.38- Diyabet Tedavisinde İlaç Kullanım İlkeleri",
+          "rapor_no": "512207",
+          "rapor_tarihi": "20/01/2025"
+        },
+        "sut_full_result": {
+          "analysis": {
+            "prescription_id": "3GPOH2O",
+            "analysis_timestamp": "2025-09-08T17:07:46.198330",
+            "overall_compliance": false,
+            "issues": [
+              "Diagnosis mismatch: Required diagnoses ['E11', 'E10'] not found in []",
+              "Report required for GLIFIX PLUS 15/1000 MG 30 FTB but not found"
+            ],
+            "warnings": [],
+            "drug_analyses": [
+              {
+                "drug_name": "GERALGINE-K 500 MG/30 MG/10 MG 20 TABLET",
+                "compliant": true,
+                "issues": [],
+                "warnings": [
+                  "Drug GERALGINE-K 500 MG/30 MG/10 MG 20 TABLET not found in SUT database"
+                ]
+              },
+              {
+                "drug_name": "NEXIUM 40 MG.28 TABLET",
+                "compliant": true,
+                "issues": [],
+                "warnings": []
+              },
+              {
+                "drug_name": "NORVASC 10 MG.30 TB.",
+                "compliant": true,
+                "issues": [],
+                "warnings": [
+                  "Drug NORVASC 10 MG.30 TB. not found in SUT database"
+                ]
+              },
+              {
+                "drug_name": "CARDOPAN PLUS 320/12,5 MG 28 FTB",
+                "compliant": true,
+                "issues": [],
+                "warnings": [
+                  "Drug CARDOPAN PLUS 320/12,5 MG 28 FTB not found in SUT database"
+                ]
+              },
+              {
+                "drug_name": "GLIFIX PLUS 15/1000 MG 30 FTB",
+                "compliant": false,
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['E11', 'E10'] not found in []",
+                  "Report required for GLIFIX PLUS 15/1000 MG 30 FTB but not found"
+                ],
+                "warnings": [
+                  "Check contraindications: ['heart_failure', 'bladder_cancer']"
+                ]
+              }
+            ],
+            "message_code_analysis": {
+              "valid_codes": [
+                "1038"
+              ],
+              "invalid_codes": [],
+              "missing_codes": []
+            },
+            "general_compliance": {
+              "compliant": true,
+              "issues": []
+            }
+          },
+          "recommendation": {
+            "action": "hold",
+            "confidence": 0.6,
+            "reason": "SUT compliance issues require manual review",
+            "issues": [
+              "Diagnosis mismatch: Required diagnoses ['E11', 'E10'] not found in []",
+              "Report required for GLIFIX PLUS 15/1000 MG 30 FTB but not found"
+            ]
+          },
+          "processing_time": 0.1
+        },
+        "ai_full_result": {
+          "result": {
+            "action": "hold",
+            "confidence": 0.6,
+            "reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
+            "clinical_assessment": "Hastanın tanı kodları belirtilmemiştir. Bu nedenle ilaç-tanı uyumluluğu değerlendirilememiştir. Ayrıca, bazı ilaçların dozaj ve süre limitleri hakkında da bilgi eksikliği vardır. Hasta güvenliği açısından da bazı riskler olabilir.",
+            "sut_compliance": "Reçetede SUT uyumluluğu açısından 2 problem tespit edilmiştir. Bunlar, ilaç-tanı uyumsuzluğu ve rapor gerekliliği ile ilgilidir.",
+            "risk_factors": [
+              "Tanı kodlarının belirtilmemesi",
+              "Bazı ilaçların dozaj ve süre limitlerinin bilinmemesi",
+              "Potansiyel ilaç etkileşimleri ve kontrendikasyonlar"
+            ],
+            "recommendations": [
+              "Hastanın tanı kodlarının belirlenmesi",
+              "İlaçların dozaj ve süre limitlerinin kontrol edilmesi",
+              "Hasta güvenliği açısından ilaç etkileşimlerinin ve kontrendikasyonların değerlendirilmesi",
+              "Raporlu ilaçlar için gerekli raporun olup olmadığının kontrol edilmesi"
+            ],
+            "key_findings": [
+              "Tanı kodları belirtilmemiş",
+              "Bazı ilaçların dozaj ve süre limitleri bilinmiyor",
+              "Rapor gerekliliği var ancak rapor bilgisi yok"
+            ],
+            "analysis_details": {
+              "sut_recommendation": {
+                "action": "hold",
+                "confidence": 0.6,
+                "reason": "SUT compliance issues require manual review",
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['E11', 'E10'] not found in []",
+                  "Report required for GLIFIX PLUS 15/1000 MG 30 FTB but not found"
+                ]
+              },
+              "claude_analysis": {
+                "action": "hold",
+                "confidence": 0.7,
+                "reason": "Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
+                "clinical_assessment": "Hastanın tanı kodları belirtilmemiştir. Bu nedenle ilaç-tanı uyumluluğu değerlendirilememiştir. Ayrıca, bazı ilaçların dozaj ve süre limitleri hakkında da bilgi eksikliği vardır. Hasta güvenliği açısından da bazı riskler olabilir.",
+                "sut_compliance": "Reçetede SUT uyumluluğu açısından 2 problem tespit edilmiştir. Bunlar, ilaç-tanı uyumsuzluğu ve rapor gerekliliği ile ilgilidir.",
+                "risk_factors": [
+                  "Tanı kodlarının belirtilmemesi",
+                  "Bazı ilaçların dozaj ve süre limitlerinin bilinmemesi",
+                  "Potansiyel ilaç etkileşimleri ve kontrendikasyonlar"
+                ],
+                "recommendations": [
+                  "Hastanın tanı kodlarının belirlenmesi",
+                  "İlaçların dozaj ve süre limitlerinin kontrol edilmesi",
+                  "Hasta güvenliği açısından ilaç etkileşimlerinin ve kontrendikasyonların değerlendirilmesi",
+                  "Raporlu ilaçlar için gerekli raporun olup olmadığının kontrol edilmesi"
+                ],
+                "key_findings": [
+                  "Tanı kodları belirtilmemiş",
+                  "Bazı ilaçların dozaj ve süre limitleri bilinmiyor",
+                  "Rapor gerekliliği var ancak rapor bilgisi yok"
+                ]
+              },
+              "decision_logic": "SUT: hold, Claude: hold -> Final: hold"
+            },
+            "analysis_method": "sut_plus_claude",
+            "timestamp": "2025-09-08T17:07:50.087483",
+            "prescription_id": "3GPOH2O",
+            "claude_available": true
+          },
+          "processing_time": 3.8891172409057617
+        }
+      }
+    },
+    {
+      "prescription_id": "3GPSRUX",
+      "patient_info": {
+        "name": "ÖZLEM GÜÇ",
+        "tc": "42373585760"
+      },
+      "processing_metadata": {
+        "source": "json_file",
+        "timestamp": "2025-09-08T17:07:53.772038",
+        "processing_time_seconds": 3.168735,
+        "sut_processing_time": 0.1,
+        "ai_processing_time": 3.1686339378356934
+      },
+      "sut_analysis": {
+        "compliant": false,
+        "action": "reject",
+        "confidence": 0.9,
+        "issues_count": 4,
+        "warnings_count": 0
+      },
+      "ai_analysis": {
+        "action": "reject",
+        "confidence": 0.6,
+        "claude_used": true,
+        "method": "sut_plus_claude"
+      },
+      "final_decision": "reject",
+      "details": {
+        "sut_reason": "Multiple SUT violations (4 issues)",
+        "ai_reason": "SUT: Multiple SUT violations (4 issues) | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
+        "sut_issues": [
+          "Diagnosis mismatch: Required diagnoses ['F20', 'F25', 'F31'] not found in []",
+          "Report required for RISPERDAL 3 MG.20 TABLET but not found",
+          "Diagnosis mismatch: Required diagnoses ['F20', 'F25'] not found in []",
+          "Report required for SOLIAN 400 MG.30 FILM TABLET but not found"
+        ],
+        "ai_risk_factors": [
+          "Tanı kodlarının belirtilmemesi",
+          "Rapor gerekliliği",
+          "İlaç mesaj kodlarının doğruluğu",
+          "Dozaj ve süre limitleri"
+        ],
+        "recommendations": [
+          "Hastanın tanısının netleştirilmesi",
+          "Rapor gerekliliğinin kontrol edilmesi",
+          "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
+          "Dozaj ve süre limitlerinin uygunluğunun değerlendirilmesi"
+        ]
+      },
+      "raw_data": {
+        "prescription_data": {
+          "index": 4,
+          "recete_no": "3GPSRUX",
+          "hasta_ad": "ÖZLEM",
+          "hasta_soyad": "GÜÇ",
+          "extraction_time": "2025-09-07T22:44:38.421695",
+          "hasta_tc": "42373585760",
+          "dogum_tarihi": "YOK",
+          "drugs": [
+            {
+              "ilac_adi": "AKINETON 2 MG.100 TB.",
+              "barkod": "8699708011559",
+              "adet": "1"
+            },
+            {
+              "ilac_adi": "RISPERDAL 3 MG.20 TABLET",
+              "barkod": "8699593091162",
+              "adet": "2"
+            },
+            {
+              "ilac_adi": "SOLIAN 400 MG.30 FILM TABLET",
+              "barkod": "8699809097759",
+              "adet": "1"
+            },
+            {
+              "ilac_adi": "REXAPIN 20 MG 28 FTB",
+              "barkod": "8699514090380",
+              "adet": "1"
+            }
+          ],
+          "ilac_mesajlari": "1002(1) - 4.2.2- Antipsikotiklerin Kullanım İlkeleri",
+          "rapor_no": "240090978",
+          "rapor_tarihi": "16/10/2024"
+        },
+        "sut_full_result": {
+          "analysis": {
+            "prescription_id": "3GPSRUX",
+            "analysis_timestamp": "2025-09-08T17:07:50.603299",
+            "overall_compliance": false,
+            "issues": [
+              "Diagnosis mismatch: Required diagnoses ['F20', 'F25', 'F31'] not found in []",
+              "Report required for RISPERDAL 3 MG.20 TABLET but not found",
+              "Diagnosis mismatch: Required diagnoses ['F20', 'F25'] not found in []",
+              "Report required for SOLIAN 400 MG.30 FILM TABLET but not found"
+            ],
+            "warnings": [],
+            "drug_analyses": [
+              {
+                "drug_name": "AKINETON 2 MG.100 TB.",
+                "compliant": true,
+                "issues": [],
+                "warnings": [
+                  "Drug AKINETON 2 MG.100 TB. not found in SUT database"
+                ]
+              },
+              {
+                "drug_name": "RISPERDAL 3 MG.20 TABLET",
+                "compliant": false,
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['F20', 'F25', 'F31'] not found in []",
+                  "Report required for RISPERDAL 3 MG.20 TABLET but not found"
+                ],
+                "warnings": []
+              },
+              {
+                "drug_name": "SOLIAN 400 MG.30 FILM TABLET",
+                "compliant": false,
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['F20', 'F25'] not found in []",
+                  "Report required for SOLIAN 400 MG.30 FILM TABLET but not found"
+                ],
+                "warnings": [
+                  "Check contraindications: ['prolactinoma', 'breast_cancer']"
+                ]
+              },
+              {
+                "drug_name": "REXAPIN 20 MG 28 FTB",
+                "compliant": true,
+                "issues": [],
+                "warnings": [
+                  "Drug REXAPIN 20 MG 28 FTB not found in SUT database"
+                ]
+              }
+            ],
+            "message_code_analysis": {
+              "valid_codes": [
+                "1002"
+              ],
+              "invalid_codes": [],
+              "missing_codes": []
+            },
+            "general_compliance": {
+              "compliant": true,
+              "issues": []
+            }
+          },
+          "recommendation": {
+            "action": "reject",
+            "confidence": 0.9,
+            "reason": "Multiple SUT violations (4 issues)",
+            "issues": [
+              "Diagnosis mismatch: Required diagnoses ['F20', 'F25', 'F31'] not found in []",
+              "Report required for RISPERDAL 3 MG.20 TABLET but not found",
+              "Diagnosis mismatch: Required diagnoses ['F20', 'F25'] not found in []",
+              "Report required for SOLIAN 400 MG.30 FILM TABLET but not found"
+            ]
+          },
+          "processing_time": 0.1
+        },
+        "ai_full_result": {
+          "result": {
+            "action": "reject",
+            "confidence": 0.6,
+            "reason": "SUT: Multiple SUT violations (4 issues) | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
+            "clinical_assessment": "Hastanın tanısı belirtilmemiştir. İlaç-tanı uyumu değerlendirilememiştir. Hasta güvenliği açısından bazı riskler olabilir.",
+            "sut_compliance": "Reçetede SUT uyumsuzlukları tespit edilmiştir. Rapor gerekliliği, ilaç mesaj kodları ve dozaj limitleri ile ilgili sorunlar bulunmaktadır.",
+            "risk_factors": [
+              "Tanı kodlarının belirtilmemesi",
+              "Rapor gerekliliği",
+              "İlaç mesaj kodlarının doğruluğu",
+              "Dozaj ve süre limitleri"
+            ],
+            "recommendations": [
+              "Hastanın tanısının netleştirilmesi",
+              "Rapor gerekliliğinin kontrol edilmesi",
+              "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
+              "Dozaj ve süre limitlerinin uygunluğunun değerlendirilmesi"
+            ],
+            "key_findings": [
+              "Tanı kodları belirtilmemiş",
+              "Rapor gerekliliği var ancak rapor bilgileri eksik",
+              "İlaç mesaj kodları uygun görünmüyor",
+              "Dozaj ve süre limitleri net değil"
+            ],
+            "analysis_details": {
+              "sut_recommendation": {
+                "action": "reject",
+                "confidence": 0.9,
+                "reason": "Multiple SUT violations (4 issues)",
+                "issues": [
+                  "Diagnosis mismatch: Required diagnoses ['F20', 'F25', 'F31'] not found in []",
+                  "Report required for RISPERDAL 3 MG.20 TABLET but not found",
+                  "Diagnosis mismatch: Required diagnoses ['F20', 'F25'] not found in []",
+                  "Report required for SOLIAN 400 MG.30 FILM TABLET but not found"
+                ]
+              },
+              "claude_analysis": {
+                "action": "hold",
+                "confidence": 0.6,
+                "reason": "Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
+                "clinical_assessment": "Hastanın tanısı belirtilmemiştir. İlaç-tanı uyumu değerlendirilememiştir. Hasta güvenliği açısından bazı riskler olabilir.",
+                "sut_compliance": "Reçetede SUT uyumsuzlukları tespit edilmiştir. Rapor gerekliliği, ilaç mesaj kodları ve dozaj limitleri ile ilgili sorunlar bulunmaktadır.",
+                "risk_factors": [
+                  "Tanı kodlarının belirtilmemesi",
+                  "Rapor gerekliliği",
+                  "İlaç mesaj kodlarının doğruluğu",
+                  "Dozaj ve süre limitleri"
+                ],
+                "recommendations": [
+                  "Hastanın tanısının netleştirilmesi",
+                  "Rapor gerekliliğinin kontrol edilmesi",
+                  "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
+                  "Dozaj ve süre limitlerinin uygunluğunun değerlendirilmesi"
+                ],
+                "key_findings": [
+                  "Tanı kodları belirtilmemiş",
+                  "Rapor gerekliliği var ancak rapor bilgileri eksik",
+                  "İlaç mesaj kodları uygun görünmüyor",
+                  "Dozaj ve süre limitleri net değil"
+                ]
+              },
+              "decision_logic": "SUT: reject, Claude: hold -> Final: reject"
+            },
+            "analysis_method": "sut_plus_claude",
+            "timestamp": "2025-09-08T17:07:53.771803",
+            "prescription_id": "3GPSRUX",
+            "claude_available": true
+          },
+          "processing_time": 3.1686339378356934
+        }
+      }
+    },
+    {
+      "prescription_id": "3GPTS9T",
+      "patient_info": {
+        "name": "İBRAHİM AKTAŞ",
+        "tc": "23291216332"
+      },
+      "processing_metadata": {
+        "source": "json_file",
+        "timestamp": "2025-09-08T17:07:58.726424",
+        "processing_time_seconds": 4.426774,
+        "sut_processing_time": 0.1,
+        "ai_processing_time": 4.426677942276001
+      },
+      "sut_analysis": {
+        "compliant": true,
+        "action": "approve",
+        "confidence": 0.95,
+        "issues_count": 0,
+        "warnings_count": 0
+      },
+      "ai_analysis": {
+        "action": "approve",
+        "confidence": 0.9,
+        "claude_used": true,
+        "method": "sut_plus_claude"
+      },
+      "final_decision": "approve",
+      "details": {
+        "sut_reason": "Full SUT compliance, no issues found",
+        "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete genel olarak SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır. Dozaj ve süre limitleri ile hasta güvenliği açısından da bir sorun görülmemektedir.",
+        "sut_issues": [],
+        "ai_risk_factors": [
+          "Belirtilmemiş"
+        ],
+        "recommendations": [
+          "Reçete onaylanabilir."
+        ]
+      },
+      "raw_data": {
+        "prescription_data": {
+          "index": 5,
+          "recete_no": "3GPTS9T",
+          "hasta_ad": "İBRAHİM",
+          "hasta_soyad": "AKTAŞ",
+          "extraction_time": "2025-09-07T22:47:16.304107",
+          "hasta_tc": "23291216332",
+          "dogum_tarihi": "YOK",
+          "drugs": [
+            {
+              "ilac_adi": "MODET 1000 MG 60 TB",
+              "barkod": "8699527091190",
+              "adet": "1"
+            },
+            {
+              "ilac_adi": "ECOPIRIN PRO 81 MG 30 ENTERIK KAPLI TB",
+              "barkod": "8699514041238",
+              "adet": "1"
+            }
+          ],
+          "ilac_mesajlari": "",
+          "rapor_no": "75079",
+          "rapor_tarihi": "29/07/2025"
+        },
+        "sut_full_result": {
+          "analysis": {
+            "prescription_id": "3GPTS9T",
+            "analysis_timestamp": "2025-09-08T17:07:54.299639",
+            "overall_compliance": true,
+            "issues": [],
+            "warnings": [],
+            "drug_analyses": [
+              {
+                "drug_name": "MODET 1000 MG 60 TB",
+                "compliant": true,
+                "issues": [],
+                "warnings": [
+                  "Drug MODET 1000 MG 60 TB not found in SUT database"
+                ]
+              },
+              {
+                "drug_name": "ECOPIRIN PRO 81 MG 30 ENTERIK KAPLI TB",
+                "compliant": true,
+                "issues": [],
+                "warnings": [
+                  "Drug ECOPIRIN PRO 81 MG 30 ENTERIK KAPLI TB not found in SUT database"
+                ]
+              }
+            ],
+            "message_code_analysis": {
+              "valid_codes": [],
+              "invalid_codes": [],
+              "missing_codes": []
+            },
+            "general_compliance": {
+              "compliant": true,
+              "issues": []
+            }
+          },
+          "recommendation": {
+            "action": "approve",
+            "confidence": 0.95,
+            "reason": "Full SUT compliance, no issues found"
+          },
+          "processing_time": 0.1
+        },
+        "ai_full_result": {
+          "result": {
+            "action": "approve",
+            "confidence": 0.9,
+            "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete genel olarak SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır. Dozaj ve süre limitleri ile hasta güvenliği açısından da bir sorun görülmemektedir.",
+            "clinical_assessment": "Reçete edilen ilaçlar, İbrahim Aktaş hastasının klinik durumu için uygun görünmektedir. Modet 1000 mg ve Ecopirin Pro 81 mg kombinasyonu, olası kardiyovasküler risk faktörleri için uygun bir tedavi seçeneği olarak değerlendirilmektedir.",
+            "sut_compliance": "Reçete, SGK SUT kurallarına uygun olarak düzenlenmiştir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır.",
+            "risk_factors": [
+              "Belirtilmemiş"
+            ],
+            "recommendations": [
+              "Reçete onaylanabilir."
+            ],
+            "key_findings": [
+              "İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları uygun görünmektedir.",
+              "Rapor gerekliliği sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır.",
+              "Dozaj ve süre limitleri ile hasta güvenliği açısından bir sorun görülmemektedir."
+            ],
+            "analysis_details": {
+              "sut_recommendation": {
+                "action": "approve",
+                "confidence": 0.95,
+                "reason": "Full SUT compliance, no issues found"
+              },
+              "claude_analysis": {
+                "action": "approve",
+                "confidence": 0.9,
+                "reason": "Bu reçete genel olarak SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır. Dozaj ve süre limitleri ile hasta güvenliği açısından da bir sorun görülmemektedir.",
+                "clinical_assessment": "Reçete edilen ilaçlar, İbrahim Aktaş hastasının klinik durumu için uygun görünmektedir. Modet 1000 mg ve Ecopirin Pro 81 mg kombinasyonu, olası kardiyovasküler risk faktörleri için uygun bir tedavi seçeneği olarak değerlendirilmektedir.",
+                "sut_compliance": "Reçete, SGK SUT kurallarına uygun olarak düzenlenmiştir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır.",
+                "risk_factors": [
+                  "Belirtilmemiş"
+                ],
+                "recommendations": [
+                  "Reçete onaylanabilir."
+                ],
+                "key_findings": [
+                  "İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları uygun görünmektedir.",
+                  "Rapor gerekliliği sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır.",
+                  "Dozaj ve süre limitleri ile hasta güvenliği açısından bir sorun görülmemektedir."
+                ]
+              },
+              "decision_logic": "SUT: approve, Claude: approve -> Final: approve"
+            },
+            "analysis_method": "sut_plus_claude",
+            "timestamp": "2025-09-08T17:07:58.726033",
+            "prescription_id": "3GPTS9T",
+            "claude_available": true
+          },
+          "processing_time": 4.426677942276001
+        }
+      }
+    }
+  ]
+}

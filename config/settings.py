@@ -33,10 +33,11 @@ class Settings:
         self.openai_temperature = float(os.getenv('OPENAI_TEMPERATURE', '0.3'))
         self.openai_max_tokens = int(os.getenv('OPENAI_MAX_TOKENS', '1000'))
         
-        # Claude Ayarları
+        # Claude Ayarları (Aktif)
         self.claude_api_key = os.getenv('CLAUDE_API_KEY', '')
-        self.ai_provider = os.getenv('AI_PROVIDER', 'openai')
-        self.ai_model = os.getenv('AI_MODEL', 'claude-3-sonnet-20240229')
+        self.ANTHROPIC_API_KEY = os.getenv('CLAUDE_API_KEY', '')  # Compatibility
+        self.ai_provider = os.getenv('AI_PROVIDER', 'claude')  # Claude aktif!
+        self.ai_model = os.getenv('AI_MODEL', 'claude-3-sonnet-20240229')  # Claude model
         
         # Logging Ayarları
         self.log_level = os.getenv('LOG_LEVEL', 'INFO')

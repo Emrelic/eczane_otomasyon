@@ -141,8 +141,8 @@ class MedulaBrowser:
             
             # CAPTCHA kontrolü
             print("[CAPTCHA] CAPTCHA çöz ve giriş butonuna bas")
-            print("[BEKLEMEde] Hazır olunca herhangi bir tuşa bas...")
-            input()
+            print("[BEKLEMEde] Otomatik devam ediliyor...")
+            time.sleep(10)  # CAPTCHA çözümü için bekleme
             logger.info("Manuel CAPTCHA çözümü tamamlandı")
             
             # Giriş butonuna tıkla - farklı selector'ları dene
@@ -174,12 +174,11 @@ class MedulaBrowser:
             else:
                 print("[HATA] Giriş butonu hiçbir selector ile bulunamadı")
                 # Manuel tıklama gerektiğini söyle
-                print("[MANUEL] Lütfen giriş butonuna manuel olarak tıklayın")
-                input("Giriş yaptıktan sonra ENTER basın...")
+                print("[MANUEL] Giriş butonu bulunamadı, otomatik devam")
+                time.sleep(5)  # Manuel işlem için bekleme
             
             
             # Ana sayfanın yüklenmesini bekle (daha esnek kontrol)
-            import time
             time.sleep(3)  # Sayfa yüklenmesi için bekle
             
             # Session keep-alive için çerez ayarları
@@ -207,11 +206,47 @@ class MedulaBrowser:
         try:
             logger.info("Bekleyen reçeteler getiriliyor...")
             
-            # Reçete yönetimi sayfasına git
-            self.driver.get(f"{self.settings.medula_url}/prescription/pending")
+            # Ana sayfada kalmaya devam et - menü sistemini kullan
+            logger.info("Ana sayfada menü sistemi aranıyor...")
             
-            # Tablo yüklenene kadar bekle
-            self.wait.until(EC.presence_of_element_located((By.ID, "prescriptionTable")))
+            # Reçete listesi menü linkini bul (Medula sol menü için genişletildi)
+            menu_selectors = [
+                "//a[contains(text(), 'Reçete Listesi')]",
+                "//span[contains(text(), 'Reçete Listesi')]", 
+                "//div[contains(text(), 'Reçete Listesi')]",
+                "//li[contains(text(), 'Reçete Listesi')]",
+                "//a[contains(text(), 'Reçete')]",
+                "//*[contains(text(), 'Reçete Listesi')]",
+                "a[href*='recete']",
+                "*[onclick*='recete']",
+                ".menu-item:contains('Reçete')",
+                "[title*='Reçete']"
+            ]
+            
+            menu_found = False
+            for selector in menu_selectors:
+                try:
+                    if selector.startswith('//') or selector.startswith('//*'):
+                        element = self.driver.find_element(By.XPATH, selector)
+                    else:
+                        element = self.driver.find_element(By.CSS_SELECTOR, selector)
+                    
+                    # JavaScript click kullan - daha güvenli
+                    self.driver.execute_script("arguments[0].click();", element)
+                    menu_found = True
+                    logger.info(f"Menü bulundu ve tıklandı: {selector}")
+                    break
+                except Exception as e:
+                    logger.debug(f"Selector başarısız {selector}: {e}")
+                    continue
+            
+            if not menu_found:
+                logger.warning("Reçete menüsü bulunamadı - Ana sayfada kalınıyor")
+                return []
+            
+            # Sayfa yüklenmesini bekle
+            import time
+            time.sleep(3)
             
             # Reçete satırlarını bul
             prescription_rows = self.driver.find_elements(By.CSS_SELECTOR, "#prescriptionTable tbody tr")

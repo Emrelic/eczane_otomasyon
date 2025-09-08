@@ -1,0 +1,64 @@
+[
+  {
+    "action": "hold",
+    "confidence": 0.6,
+    "reason": "SUT compliance issues require manual review",
+    "issues": [
+      "Diagnosis mismatch: Required diagnoses ['B18.1', '06.01'] not found in []",
+      "Report required for VEMLIDY 25MG 30 FILM KAPLI TABLET but not found"
+    ],
+    "analysis_method": "sut_only",
+    "timestamp": "2025-09-08T11:01:24.117673",
+    "prescription_id": "3GP25RF",
+    "claude_available": false
+  },
+  {
+    "action": "hold",
+    "confidence": 0.6,
+    "reason": "SUT compliance issues require manual review",
+    "issues": [
+      "Diagnosis mismatch: Required diagnoses ['N40', 'N42'] not found in []"
+    ],
+    "analysis_method": "sut_only",
+    "timestamp": "2025-09-08T11:01:24.302246",
+    "prescription_id": "3GPHER2",
+    "claude_available": false
+  },
+  {
+    "action": "hold",
+    "confidence": 0.6,
+    "reason": "SUT compliance issues require manual review",
+    "issues": [
+      "Diagnosis mismatch: Required diagnoses ['E11', 'E10'] not found in []",
+      "Report required for GLIFIX PLUS 15/1000 MG 30 FTB but not found"
+    ],
+    "analysis_method": "sut_only",
+    "timestamp": "2025-09-08T11:01:24.478563",
+    "prescription_id": "3GPOH2O",
+    "claude_available": false
+  },
+  {
+    "action": "reject",
+    "confidence": 0.9,
+    "reason": "Multiple SUT violations (4 issues)",
+    "issues": [
+      "Diagnosis mismatch: Required diagnoses ['F20', 'F25', 'F31'] not found in []",
+      "Report required for RISPERDAL 3 MG.20 TABLET but not found",
+      "Diagnosis mismatch: Required diagnoses ['F20', 'F25'] not found in []",
+      "Report required for SOLIAN 400 MG.30 FILM TABLET but not found"
+    ],
+    "analysis_method": "sut_only",
+    "timestamp": "2025-09-08T11:01:24.660458",
+    "prescription_id": "3GPSRUX",
+    "claude_available": false
+  },
+  {
+    "action": "approve",
+    "confidence": 0.95,
+    "reason": "Full SUT compliance, no issues found",
+    "analysis_method": "sut_only",
+    "timestamp": "2025-09-08T11:01:24.833847",
+    "prescription_id": "3GPTS9T",
+    "claude_available": false
+  }
+]

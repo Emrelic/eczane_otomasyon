@@ -64,7 +64,7 @@ class AdvancedPrescriptionExtractor:
                     continue
             
             print('[MANUEL GEREKLİ] Reçete Listesi linkine manuel tıklayın')
-            input('Devam etmek için ENTER basın...')
+            time.sleep(2)  # Otomatik devam
             return True
             
         except Exception as e:
@@ -116,7 +116,7 @@ class AdvancedPrescriptionExtractor:
                     continue
             
             print('[MANUEL] Filtreyi manuel ayarlayın')
-            input('A Grubu seçip sorgula butonuna bastıktan sonra ENTER basın...')
+            time.sleep(5)  # A Grubu işlemi için bekleme
             return True
             
         except Exception as e:
@@ -808,7 +808,7 @@ def main():
             return
         
         print('\\n[BİLGİ] Otomatik navigasyon başlıyor...')
-        input('Hazırlanmak için ENTER basın...')
+        time.sleep(2)  # Otomatik hazırlanma
         
         # Reçete listesine git
         if not extractor.navigate_to_prescriptions_auto():
@@ -829,7 +829,7 @@ def main():
             print('\\n[HATA] Otomatik işlem başarısız!')
     
     finally:
-        input('İncelemek için ENTER basın...')
+        time.sleep(1)  # Sonuç için kısa bekleme
         extractor.close()
 
 if __name__ == "__main__":

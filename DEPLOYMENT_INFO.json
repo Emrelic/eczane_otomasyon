@@ -1,0 +1,31 @@
+{
+  "deployment_time": "2025-09-08T12:24:09.121736",
+  "version": "1.0.0",
+  "components": [
+    {
+      "name": "Unified Prescription Processor",
+      "file": "unified_prescription_processor.py",
+      "status": "deployed"
+    },
+    {
+      "name": "GUI Interface",
+      "file": "gui_unified_processor.py",
+      "status": "deployed"
+    },
+    {
+      "name": "Advanced Batch Processor",
+      "file": "advanced_batch_processor.py",
+      "status": "deployed"
+    },
+    {
+      "name": "Claude AI Analyzer",
+      "file": "ai_analyzer/claude_prescription_analyzer.py",
+      "status": "deployed"
+    },
+    {
+      "name": "SUT Rules Database",
+      "file": "ai_analyzer/sut_rules_database.py",
+      "status": "deployed"
+    }
+  ]
+}

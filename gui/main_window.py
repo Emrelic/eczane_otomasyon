@@ -343,35 +343,44 @@ class EczaneOtomasyonGUI:
         self.username_entry.insert(0, self.settings.medula_username)
         self.username_entry.pack(fill="x", padx=10, pady=2)
         
-        # OpenAI ayarları
-        openai_frame = ctk.CTkFrame(config_frame)
-        openai_frame.pack(fill="x", pady=5)
+        # Claude AI ayarları
+        claude_frame = ctk.CTkFrame(config_frame)
+        claude_frame.pack(fill="x", pady=5)
         
         ctk.CTkLabel(
-            openai_frame,
-            text="OpenAI Ayarları",
+            claude_frame,
+            text="Claude AI Ayarları",
             font=ctk.CTkFont(size=14, weight="bold")
         ).pack(pady=5)
         
-        # Model
-        ctk.CTkLabel(openai_frame, text="Model:").pack(anchor="w", padx=10)
-        self.model_combo = ctk.CTkComboBox(
-            openai_frame,
-            values=["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"]
+        # AI Provider
+        ctk.CTkLabel(claude_frame, text="AI Provider:").pack(anchor="w", padx=10)
+        self.provider_combo = ctk.CTkComboBox(
+            claude_frame,
+            values=["claude", "openai"]
         )
-        self.model_combo.set(self.settings.openai_model)
+        self.provider_combo.set(self.settings.ai_provider)
+        self.provider_combo.pack(fill="x", padx=10, pady=2)
+        
+        # Model
+        ctk.CTkLabel(claude_frame, text="Model:").pack(anchor="w", padx=10)
+        self.model_combo = ctk.CTkComboBox(
+            claude_frame,
+            values=["claude-3-sonnet-20240229", "claude-3-haiku-20240307", "gpt-4"]
+        )
+        self.model_combo.set(self.settings.ai_model)
         self.model_combo.pack(fill="x", padx=10, pady=2)
         
-        # Temperature
-        ctk.CTkLabel(openai_frame, text="Temperature:").pack(anchor="w", padx=10)
-        self.temp_slider = ctk.CTkSlider(
-            openai_frame,
-            from_=0.0,
+        # Auto Approve Threshold
+        ctk.CTkLabel(claude_frame, text="Auto Approve Threshold:").pack(anchor="w", padx=10)
+        self.threshold_slider = ctk.CTkSlider(
+            claude_frame,
+            from_=0.5,
             to=1.0,
             number_of_steps=10
         )
-        self.temp_slider.set(self.settings.openai_temperature)
-        self.temp_slider.pack(fill="x", padx=10, pady=2)
+        self.threshold_slider.set(self.settings.auto_approve_threshold)
+        self.threshold_slider.pack(fill="x", padx=10, pady=2)
         
         # Kaydet butonu
         self.save_config_btn = ctk.CTkButton(
@@ -391,6 +400,11 @@ class EczaneOtomasyonGUI:
     
     def start_automation(self):
         """Otomasyonu başlat"""
+        # Önceki thread'i kontrol et
+        if self.automation_thread and self.automation_thread.is_alive():
+            self.log_message("⚠️ Otomasyon zaten çalışıyor")
+            return
+            
         self.automation_running = True
         self.start_stop_btn.configure(text="⏹️ Durdur")
         self.status_label.configure(text="▶️ Çalışıyor")
@@ -409,8 +423,19 @@ class EczaneOtomasyonGUI:
         
         # Browser'ı kapat
         if self.browser:
-            self.browser.quit()
+            try:
+                self.browser.quit()
+            except:
+                pass
             self.browser = None
+        
+        # AI engine'i temizle
+        if self.ai_engine:
+            self.ai_engine = None
+            
+        # Thread'i temizle
+        if self.automation_thread:
+            self.automation_thread = None
         
         self.log_message("Otomasyon durduruldu")
     
@@ -534,7 +559,8 @@ class EczaneOtomasyonGUI:
 - Medula URL: {self.settings.medula_url}
 - Browser: {self.settings.browser_type}
 - Headless: {self.settings.headless}
-- AI Model: {self.settings.openai_model}
+- AI Provider: {self.settings.ai_provider}
+- AI Model: {self.settings.ai_model}
 - Kontrol Aralığı: {self.settings.check_interval}s
 - Auto Approve Threshold: {self.settings.auto_approve_threshold}
         """
