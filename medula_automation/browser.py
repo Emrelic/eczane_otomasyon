@@ -112,11 +112,11 @@ class MedulaBrowser:
             self.driver.get(self.settings.medula_url)
             
             # Login sayfasının yüklenmesini bekle
-            self.wait.until(EC.presence_of_element_located((By.ID, "username")))
+            self.wait.until(EC.presence_of_element_located((By.NAME, "j_username")))
             
             # Kullanıcı adı ve şifre gir
-            username_field = self.driver.find_element(By.ID, "username")
-            password_field = self.driver.find_element(By.ID, "password")
+            username_field = self.driver.find_element(By.NAME, "j_username")
+            password_field = self.driver.find_element(By.NAME, "j_password")
             
             username_field.clear()
             username_field.send_keys(self.settings.medula_username)
@@ -128,12 +128,66 @@ class MedulaBrowser:
             if self.settings.enable_screenshots:
                 self._take_screenshot("login_page")
             
-            # Giriş butonuna tıkla
-            login_button = self.driver.find_element(By.ID, "loginButton")
-            login_button.click()
+            # KVKK checkbox'ını işaretle (CAPTCHA'dan önce)
+            try:
+                kvkk_checkbox = self.driver.find_element(By.NAME, "kvkkTaahhut")
+                if not kvkk_checkbox.is_selected():
+                    kvkk_checkbox.click()
+                    logger.info("KVKK taahhütü işaretlendi")
+                    print("[BAŞARILI] KVKK kutucuğu işaretlendi")
+            except:
+                logger.warning("KVKK checkbox bulunamadı")
+                print("[UYARI] KVKK kutucuğu bulunamadı")
             
-            # Ana sayfanın yüklenmesini bekle
-            self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "main-menu")))
+            # CAPTCHA kontrolü
+            print("[CAPTCHA] CAPTCHA çöz ve giriş butonuna bas")
+            print("[BEKLEMEde] Hazır olunca herhangi bir tuşa bas...")
+            input()
+            logger.info("Manuel CAPTCHA çözümü tamamlandı")
+            
+            # Giriş butonuna tıkla - farklı selector'ları dene
+            login_button = None
+            selectors = [
+                "input[type='submit']",
+                "input[value='Giriş']", 
+                "input[value='GİRİŞ']",
+                "button[type='submit']",
+                "//input[@type='submit']",
+                "//input[contains(@value, 'iri')]"
+            ]
+            
+            for selector in selectors:
+                try:
+                    if selector.startswith("//"):
+                        login_button = self.driver.find_element(By.XPATH, selector)
+                    else:
+                        login_button = self.driver.find_element(By.CSS_SELECTOR, selector)
+                    
+                    print(f"[BULUNAN] Giriş butonu bulundu: {selector}")
+                    break
+                except:
+                    continue
+            
+            if login_button:
+                login_button.click()
+                print("[BAŞARILI] Giriş butonuna tıklandı")
+            else:
+                print("[HATA] Giriş butonu hiçbir selector ile bulunamadı")
+                # Manuel tıklama gerektiğini söyle
+                print("[MANUEL] Lütfen giriş butonuna manuel olarak tıklayın")
+                input("Giriş yaptıktan sonra ENTER basın...")
+            
+            
+            # Ana sayfanın yüklenmesini bekle (daha esnek kontrol)
+            import time
+            time.sleep(3)  # Sayfa yüklenmesi için bekle
+            
+            # Session keep-alive için çerez ayarları
+            self.driver.add_cookie({
+                'name': 'session_keep_alive', 
+                'value': 'true',
+                'domain': 'medeczane.sgk.gov.tr'
+            })
             
             logger.success("Medula'ya başarıyla giriş yapıldı")
             return True

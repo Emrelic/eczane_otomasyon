@@ -89,7 +89,7 @@ class SeleniumTester:
             logger.info("Medula erişim testi başlatılıyor...")
             
             # Medula ana sayfasına git
-            self.driver.get("https://medula.sgk.gov.tr")
+            self.driver.get("https://medeczane.sgk.gov.tr/eczane/")
             
             # Sayfa yüklenme kontrolü
             time.sleep(5)  # Sayfa yüklenmesi için bekle

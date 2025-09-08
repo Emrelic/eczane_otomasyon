@@ -8,6 +8,7 @@ import json
 from loguru import logger
 from datetime import datetime, timedelta
 import re
+import anthropic
 
 
 class DecisionEngine:
@@ -15,7 +16,16 @@ class DecisionEngine:
     
     def __init__(self, settings):
         self.settings = settings
-        self.client = openai.OpenAI(api_key=settings.openai_api_key)
+        
+        # AI Provider seçimi
+        self.ai_provider = getattr(settings, 'ai_provider', 'openai').lower()
+        
+        if self.ai_provider == 'claude':
+            self.client = anthropic.Anthropic(api_key=settings.claude_api_key)
+            self.model = getattr(settings, 'ai_model', 'claude-3-sonnet-20240229')
+        else:
+            self.client = openai.OpenAI(api_key=settings.openai_api_key)
+            self.model = settings.openai_model
         
         # Karar kriterleri
         self.approval_criteria = {
@@ -26,7 +36,7 @@ class DecisionEngine:
             'prescription_completeness': True
         }
         
-        logger.info("AI Karar Motoru başlatıldı")
+        logger.info(f"AI Karar Motoru başlatıldı - Provider: {self.ai_provider}, Model: {self.model}")
     
     def analyze_prescription(self, prescription_data):
         """Reçeteyi analiz eder ve karar verir"""
@@ -36,25 +46,14 @@ class DecisionEngine:
             # AI prompt'u hazırla
             prompt = self._create_analysis_prompt(prescription_data)
             
-            # OpenAI API'sine istek gönder
-            response = self.client.chat.completions.create(
-                model=self.settings.openai_model,
-                messages=[
-                    {
-                        "role": "system", 
-                        "content": self._get_system_prompt()
-                    },
-                    {
-                        "role": "user", 
-                        "content": prompt
-                    }
-                ],
-                temperature=self.settings.openai_temperature,
-                max_tokens=self.settings.openai_max_tokens
-            )
+            # AI API'sine istek gönder
+            if self.ai_provider == 'claude':
+                response = self._call_claude_api(prompt)
+            else:
+                response = self._call_openai_api(prompt)
             
             # Yanıtı parse et
-            decision = self._parse_ai_response(response.choices[0].message.content)
+            decision = self._parse_ai_response(response)
             
             # Güvenlik kontrolleri
             decision = self._apply_safety_checks(prescription_data, decision)
@@ -118,6 +117,55 @@ class DecisionEngine:
         Bu reçete için kararını ver ve gerekçelendir.
         """
     
+    def _call_claude_api(self, prompt):
+        """Claude API'yi çağırır"""
+        try:
+            system_prompt = self._get_system_prompt()
+            
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=getattr(self.settings, 'openai_max_tokens', 1000),
+                temperature=getattr(self.settings, 'openai_temperature', 0.3),
+                system=system_prompt,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+            
+            return response.content[0].text
+            
+        except Exception as e:
+            logger.error(f"Claude API hatası: {e}")
+            raise
+    
+    def _call_openai_api(self, prompt):
+        """OpenAI API'yi çağırır"""
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system", 
+                        "content": self._get_system_prompt()
+                    },
+                    {
+                        "role": "user", 
+                        "content": prompt
+                    }
+                ],
+                temperature=getattr(self.settings, 'openai_temperature', 0.3),
+                max_tokens=getattr(self.settings, 'openai_max_tokens', 1000)
+            )
+            
+            return response.choices[0].message.content
+            
+        except Exception as e:
+            logger.error(f"OpenAI API hatası: {e}")
+            raise
+
     def _parse_ai_response(self, response_text):
         """AI yanıtını parse eder"""
         try:

@@ -1,0 +1,147 @@
+[
+  {
+    "index": 1,
+    "recete_no": "3GP25RF",
+    "hasta_ad": "YALÇIN",
+    "hasta_soyad": "DURDAĞI",
+    "extraction_time": "2025-09-07T22:31:07.409991",
+    "hasta_tc": "11916110202",
+    "dogum_tarihi": "YOK",
+    "drugs": [
+      {
+        "ilac_adi": "PANTO 40 MG.28 TABLET",
+        "barkod": "8699516042257",
+        "adet": "3"
+      },
+      {
+        "ilac_adi": "VEMLIDY 25MG 30 FILM KAPLI TABLET",
+        "barkod": "8698760090229",
+        "adet": "33"
+      }
+    ],
+    "ilac_mesajlari": "1013(1) - 4.2.13.1 Kronik Hepatit B tedavisi",
+    "rapor_no": "1992805",
+    "rapor_tarihi": "22/05/2025"
+  },
+  {
+    "index": 2,
+    "recete_no": "3GPHER2",
+    "hasta_ad": "HÜSEYİN",
+    "hasta_soyad": "ERDAL",
+    "extraction_time": "2025-09-07T22:35:56.448165",
+    "hasta_tc": "44140110038",
+    "dogum_tarihi": "YOK",
+    "drugs": [
+      {
+        "ilac_adi": "BELOC-ZOK 25 MG 20 KONT SAL FTB (BETA BLOKOR)",
+        "barkod": "8699786030114",
+        "adet": "5"
+      },
+      {
+        "ilac_adi": "XALFU XL 10 MG UZATILMIS SALIMLI 30 TB",
+        "barkod": "8699586032707",
+        "adet": "3"
+      }
+    ],
+    "ilac_mesajlari": "1301(13) - EK-4/E Madde 13- DİĞERLERİ; 3.madde ; Alfuzosin, Tamsulosin, Terazosin, Doksazosin, Silodosin",
+    "rapor_no": "1736587",
+    "rapor_tarihi": "23/06/2025"
+  },
+  {
+    "index": 3,
+    "recete_no": "3GPOH2O",
+    "hasta_ad": "SULTAN",
+    "hasta_soyad": "GÜRBÜZ",
+    "extraction_time": "2025-09-07T22:39:19.876792",
+    "hasta_tc": "39766791884",
+    "dogum_tarihi": "YOK",
+    "drugs": [
+      {
+        "ilac_adi": "GERALGINE-K 500 MG/30 MG/10 MG 20 TABLET",
+        "barkod": "8699578011253",
+        "adet": "2"
+      },
+      {
+        "ilac_adi": "NEXIUM 40 MG.28 TABLET",
+        "barkod": "8699786040045",
+        "adet": "1"
+      },
+      {
+        "ilac_adi": "NORVASC 10 MG.30 TB.",
+        "barkod": "8699532015334",
+        "adet": "1"
+      },
+      {
+        "ilac_adi": "CARDOPAN PLUS 320/12,5 MG 28 FTB",
+        "barkod": "8699536092300",
+        "adet": "3"
+      },
+      {
+        "ilac_adi": "GLIFIX PLUS 15/1000 MG 30 FTB",
+        "barkod": "8699569091950",
+        "adet": "1"
+      }
+    ],
+    "ilac_mesajlari": "1038 - 4.2.38- Diyabet Tedavisinde İlaç Kullanım İlkeleri",
+    "rapor_no": "512207",
+    "rapor_tarihi": "20/01/2025"
+  },
+  {
+    "index": 4,
+    "recete_no": "3GPSRUX",
+    "hasta_ad": "ÖZLEM",
+    "hasta_soyad": "GÜÇ",
+    "extraction_time": "2025-09-07T22:44:38.421695",
+    "hasta_tc": "42373585760",
+    "dogum_tarihi": "YOK",
+    "drugs": [
+      {
+        "ilac_adi": "AKINETON 2 MG.100 TB.",
+        "barkod": "8699708011559",
+        "adet": "1"
+      },
+      {
+        "ilac_adi": "RISPERDAL 3 MG.20 TABLET",
+        "barkod": "8699593091162",
+        "adet": "2"
+      },
+      {
+        "ilac_adi": "SOLIAN 400 MG.30 FILM TABLET",
+        "barkod": "8699809097759",
+        "adet": "1"
+      },
+      {
+        "ilac_adi": "REXAPIN 20 MG 28 FTB",
+        "barkod": "8699514090380",
+        "adet": "1"
+      }
+    ],
+    "ilac_mesajlari": "1002(1) - 4.2.2- Antipsikotiklerin Kullanım İlkeleri",
+    "rapor_no": "240090978",
+    "rapor_tarihi": "16/10/2024"
+  },
+  {
+    "index": 5,
+    "recete_no": "3GPTS9T",
+    "hasta_ad": "İBRAHİM",
+    "hasta_soyad": "AKTAŞ",
+    "extraction_time": "2025-09-07T22:47:16.304107",
+    "hasta_tc": "23291216332",
+    "dogum_tarihi": "YOK",
+    "drugs": [
+      {
+        "ilac_adi": "MODET 1000 MG 60 TB",
+        "barkod": "8699527091190",
+        "adet": "1"
+      },
+      {
+        "ilac_adi": "ECOPIRIN PRO 81 MG 30 ENTERIK KAPLI TB",
+        "barkod": "8699514041238",
+        "adet": "1"
+      }
+    ],
+    "ilac_mesajlari": "",
+    "rapor_no": "75079",
+    "rapor_tarihi": "29/07/2025"
+  }
+]

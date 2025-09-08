@@ -14,8 +14,8 @@ sys.path.insert(0, str(project_root))
 
 def main():
     """GUI uygulamasını başlat"""
-    print("🚀 Eczane Reçete Kontrol Otomasyonu GUI Başlatılıyor...")
-    print("📁 Proje dizini:", project_root)
+    print("Eczane Recete Kontrol Otomasyonu GUI Baslatiliyor...")
+    print("Proje dizini:", project_root)
     
     try:
         # Gerekli dizinleri oluştur
@@ -31,12 +31,12 @@ def main():
         app.run()
         
     except ImportError as e:
-        print(f"❌ Import hatası: {e}")
-        print("💡 Gerekli kütüphaneleri yükleyin: pip install -r requirements.txt")
+        print(f"Import hatasi: {e}")
+        print("Gerekli kutuphaneleri yukleyin: pip install -r requirements.txt")
         return 1
         
     except Exception as e:
-        print(f"❌ Uygulama hatası: {e}")
+        print(f"Uygulama hatasi: {e}")
         return 1
     
     return 0

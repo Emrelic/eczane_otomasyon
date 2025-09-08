@@ -17,7 +17,7 @@ class Settings:
         load_dotenv(env_path)
         
         # Medula Ayarları
-        self.medula_url = os.getenv('MEDULA_URL', 'https://medula.sgk.gov.tr')
+        self.medula_url = os.getenv('MEDULA_URL', 'https://medeczane.sgk.gov.tr/eczane/')
         self.medula_username = os.getenv('MEDULA_USERNAME', '')
         self.medula_password = os.getenv('MEDULA_PASSWORD', '')
         
@@ -27,11 +27,16 @@ class Settings:
         self.page_load_timeout = int(os.getenv('PAGE_LOAD_TIMEOUT', '30'))
         self.implicit_wait = int(os.getenv('IMPLICIT_WAIT', '10'))
         
-        # OpenAI Ayarları
+        # AI Ayarları
         self.openai_api_key = os.getenv('OPENAI_API_KEY', '')
         self.openai_model = os.getenv('OPENAI_MODEL', 'gpt-4')
         self.openai_temperature = float(os.getenv('OPENAI_TEMPERATURE', '0.3'))
         self.openai_max_tokens = int(os.getenv('OPENAI_MAX_TOKENS', '1000'))
+        
+        # Claude Ayarları
+        self.claude_api_key = os.getenv('CLAUDE_API_KEY', '')
+        self.ai_provider = os.getenv('AI_PROVIDER', 'openai')
+        self.ai_model = os.getenv('AI_MODEL', 'claude-3-sonnet-20240229')
         
         # Logging Ayarları
         self.log_level = os.getenv('LOG_LEVEL', 'INFO')
@@ -59,8 +64,13 @@ class Settings:
         if not self.medula_password:
             errors.append("MEDULA_PASSWORD gerekli")
             
-        if not self.openai_api_key:
-            errors.append("OPENAI_API_KEY gerekli")
+        # AI Provider kontrolü
+        if self.ai_provider.lower() == 'claude':
+            if not self.claude_api_key:
+                errors.append("CLAUDE_API_KEY gerekli")
+        elif self.ai_provider.lower() == 'openai':
+            if not self.openai_api_key:
+                errors.append("OPENAI_API_KEY gerekli")
             
         if self.browser_type not in ['chrome', 'firefox', 'edge']:
             errors.append("BROWSER_TYPE 'chrome', 'firefox' veya 'edge' olmalı")
