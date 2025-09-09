@@ -18,15 +18,15 @@ import json
 
 def test_database_creation():
     """Veritabanı oluşturma testi"""
-    print("🔧 Veritabanı oluşturma testi...")
+    print("[TEST] Veritabani olusturma testi...")
     
     try:
         # Test veritabanı oluştur
         db = DatabaseManager("test_data/test_db.db")
-        print("✅ Veritabanı başarıyla oluşturuldu")
+        print("[OK] Veritabani basariyla olusturuldu")
         return True
     except Exception as e:
-        print(f"❌ Veritabanı oluşturma hatası: {e}")
+        print(f"[ERROR] Veritabani olusturma hatasi: {e}")
         return False
 
 
@@ -280,7 +280,7 @@ def cleanup_test_data():
 
 def run_all_tests():
     """Tüm veritabanı testlerini çalıştır"""
-    print("🚀 Veritabanı Test Süreci Başlatılıyor...")
+    print("[START] Veritabani Test Sureci Baslatiliyor...")
     print("=" * 50)
     
     test_results = {}

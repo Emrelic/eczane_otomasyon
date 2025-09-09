@@ -1,0 +1,24 @@
+{
+  "control_mode": "group_processing",
+  "groups": {
+    "A": true,
+    "B": false,
+    "C": false,
+    "C_blood": false,
+    "temp_protection": false
+  },
+  "date_range_type": "current_month",
+  "start_date": "09.09.2025",
+  "end_date": "09.09.2025",
+  "single_query_type": "tc_id",
+  "tc_id": "",
+  "prescription_no": "",
+  "processing_limit": 50,
+  "auto_stop_errors": true,
+  "save_progress": true,
+  "detailed_logging": false,
+  "control_level": "standard",
+  "skip_processed": true,
+  "use_ai_analysis": true,
+  "conservative_decisions": true
+}

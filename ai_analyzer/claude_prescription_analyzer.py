@@ -30,11 +30,15 @@ class ClaudePrescriptionAnalyzer:
         self.sut_db = SUTRulesDatabase()
         
         # Claude API setup
-        if CLAUDE_AVAILABLE and hasattr(self.settings, 'ANTHROPIC_API_KEY'):
-            self.client = anthropic.Anthropic(api_key=self.settings.ANTHROPIC_API_KEY)
-            self.model = "claude-3-haiku-20240307"  # Working model
-            self.claude_enabled = True
-            logger.info("Claude API initialized")
+        if CLAUDE_AVAILABLE and hasattr(self.settings, 'ANTHROPIC_API_KEY') and self.settings.ANTHROPIC_API_KEY:
+            try:
+                self.client = anthropic.Anthropic(api_key=self.settings.ANTHROPIC_API_KEY)
+                self.model = "claude-3-haiku-20240307"  # Working model
+                self.claude_enabled = True
+                logger.info("Claude API initialized successfully")
+            except Exception as e:
+                logger.error(f"Claude API initialization failed: {e}")
+                self.claude_enabled = False
         else:
             self.claude_enabled = False
             logger.warning("Claude API not available - using SUT rules only")
@@ -167,6 +171,7 @@ class ClaudePrescriptionAnalyzer:
     def _call_claude_api(self, prompt):
         """Claude API çağrısı yapar"""
         try:
+            logger.info("Calling Claude API...")
             response = self.client.messages.create(
                 model=self.model,
                 max_tokens=2000,
@@ -179,7 +184,11 @@ class ClaudePrescriptionAnalyzer:
                 ]
             )
             
-            return response.content[0].text
+            # Newer anthropic library format
+            if hasattr(response.content[0], 'text'):
+                return response.content[0].text
+            else:
+                return str(response.content[0])
             
         except Exception as e:
             logger.error(f"Claude API call failed: {e}")

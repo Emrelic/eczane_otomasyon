@@ -1,6 +1,73 @@
 # 🗺️ MEDULA NAVIGATION MAP - COMPLETE GUIDE
 
-## 📊 OVERVIEW: 13 EKRAN + ALT BUTONLAR
+## 📊 OVERVIEW: 16 EKRAN + 5 REÇETE GRUBU
+
+### 🏥 **REÇETE GRUP TAN IMLARI (Domain Expert Knowledge - 09 Eylül 2025):**
+
+#### **A GRUBU - RAPORLU İLAÇLAR:**
+- ✅ **Tanım:** Reçetenin içinde **bir tane bile raporlu ilaç** olursa A grubuna kaydedilir
+- ✅ **Özellik:** Rapor gerektiren ilaçların bulunduğu reçeteler
+- ✅ **Kritik Kural:** Tek bir raporlu ilaç bile tüm reçeteyi A grubu yapar
+
+#### **B GRUBU - NORMAL RAPORSUZ İLAÇLAR:**
+- ✅ **Tanım:** Normal raporsuz ilaçların bulunduğu reçeteler
+- ✅ **Özellik:** Standart SGK ilaçları, rapor gerektirmez
+- ✅ **En yaygın grup:** Günlük eczane işlemlerinin çoğu
+
+#### **C GRUBU - SIRALI DAĞITIM VE ÜST LİMİTLİ:**
+- ✅ **Tanım:** Sıralı dağıtım veya üst limitli kotalı ilaçların olduğu reçeteler
+- ✅ **Özellik:** Özel dağıtım kuralları, kota kontrolü gerekli
+- ✅ **Dikkat:** Sıkı takip gerektiren ilaçlar
+
+#### **C GRUBU - KAN ÜRÜNLERİ (ALT KATEGORI):**
+- ✅ **Tanım:** Kan ürünü reçetelerinin olduğu, sıralı dağıtım olan ayrı grup
+- ✅ **Özellik:** Kan ürünleri için özel dağıtım kuralları
+- ✅ **Kritik:** En hassas kategori, özel onay süreçleri
+
+#### **GEÇİCİ KORUMA GRUBU - MÜLTECİLER:**
+- ✅ **Tanım:** Suriye savaşı neticesinde Türkiye'de misafir edilen mültecilerin reçeteleri
+- ✅ **Özellik:** Özel sosyal güvenlik statüsü
+- ✅ **Kapsam:** Geçici koruma kimlik belgesi sahipleri
+
+---
+
+## 📊 OVERVIEW: 16 EKRAN + KONTROL MODELLERİ
+
+### 🎯 **YENİ KEŞİF: 3 ANA KONTROL EKRANI (09 Eylül 2025)**
+
+## 🆕 A) E-REÇETE SORGU EKRANI
+**Path:** Sol menü → 1. seçenek  
+**Type:** Single Prescription Query
+**Function:** TC kimlik + reçete/takip no ile spesifik reçete arama
+
+### Kullanım Senaryoları:
+- **Hasta gelir**: "Reçetem çıktı mı?" sorgusu
+- **TC kimlik** + **reçete numarası** ile arama
+- **Tek reçete detay kontrolü**
+
+---
+
+## 🆕 B) KAĞIT MANUEL REÇETE GİRİŞ
+**Path:** Sol menü → 2. seçenek  
+**Type:** Manual Paper Entry
+**Function:** Kağıt reçetelerinin sisteme manuel girişi
+
+### Kullanım Senaryoları:
+- **Eski kağıt reçeteler** için giriş
+- **Sistem dışı reçeteler** entegrasyonu
+- **Manuel fatura oluşturma**
+
+---
+
+## 🆕 C) REÇETE SORGU (HASTA BAZLI)
+**Path:** Sol menü → 5. seçenek  
+**Type:** Patient-Based Query  
+**Function:** TC kimlik ile o hastanın tüm faturası çıkmamış reçetelerini getirme
+
+### Kullanım Senaryoları:
+- **Hasta geçmişi** kontrol
+- **Faturası çıkmamış tüm reçeteler**
+- **Kapsamlı hasta analizi**
 
 ---
 
@@ -11,7 +78,9 @@
 ### Navigation Options:
 - **a) Reçete Listesi** → Reçete Listesi Sorgulama ekranını açar (aylık)
 - **b) Reçete Listesi (Günlük)** → Günlük bazda çalışır
-- **c) Reçete Sorgu** → TC ile o hastanın sonlandırılmamış reçetelerini getirir
+- **c) E-Reçete Sorgu** → TC + reçete no ile spesifik reçete (YENİ!)
+- **d) Manuel Reçete Girişi** → Kağıt reçete sisteme giriş (YENİ!)
+- **e) Hasta Bazlı Reçete Sorgu** → TC ile tüm faturası çıkmamış reçeteler (YENİ!)
 
 ---
 

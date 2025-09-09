@@ -19,6 +19,7 @@ from ai_analyzer.decision_engine import DecisionEngine
 from database.models import get_db_manager
 from unified_prescription_processor import UnifiedPrescriptionProcessor
 from advanced_batch_processor import AdvancedBatchProcessor
+from gui.control_settings_window import ControlSettingsWindow
 
 
 class EczaneOtomasyonGUI:
@@ -220,6 +221,15 @@ class EczaneOtomasyonGUI:
             width=150
         )
         self.settings_btn.pack(pady=5)
+        
+        # Control Settings Button
+        self.control_settings_btn = ctk.CTkButton(
+            settings_frame,
+            text="🎯 Kontrol Ayarları",
+            command=self.open_control_settings,
+            width=150
+        )
+        self.control_settings_btn.pack(pady=5)
         
         # Headless mode toggle
         self.headless_var = ctk.BooleanVar(value=self.settings.headless)
@@ -615,6 +625,24 @@ class EczaneOtomasyonGUI:
 - Auto Approve Threshold: {self.settings.auto_approve_threshold}
         """
         self.log_message(settings_info)
+    
+    def open_control_settings(self):
+        """Kontrol ayarları penceresini aç"""
+        try:
+            control_settings_window = ControlSettingsWindow(self.root)
+            self.log_message("🎯 Kontrol ayarları penceresi açıldı")
+        except Exception as e:
+            self.log_message(f"❌ Kontrol ayarları penceresi hatası: {e}")
+    
+    def apply_control_settings(self, settings):
+        """Kontrol ayarlarını uygula"""
+        self.control_settings = settings
+        self.log_message("✅ Kontrol ayarları uygulandı")
+        
+        # Log the applied settings
+        mode = settings.get('control_mode', 'unknown')
+        groups = ', '.join([k for k, v in settings.get('groups', {}).items() if v])
+        self.log_message(f"🎯 Mod: {mode} | Gruplar: {groups}")
     
     def toggle_headless(self):
         """Headless mode'u değiştir"""

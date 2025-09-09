@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "timestamp": "2025-09-09T11:03:02.949376",
+    "total_prescriptions": 5,
+    "processing_stats": {
+      "total_processed": 5,
+      "approved": 0,
+      "rejected": 0,
+      "held": 0,
+      "errors": 10,
+      "start_time": "2025-09-09T11:02:58.404562",
+      "end_time": "2025-09-09T11:03:02.949180"
+    },
+    "processor_version": "unified_v1.0"
+  },
+  "results": [
+    {
+      "prescription_id": "3GP25RF",
+      "final_decision": "error",
+      "error": "'str' object has no attribute 'get'",
+      "processing_metadata": {
+        "timestamp": "2025-09-09T11:02:59.248065",
+        "processing_time_seconds": 0.0,
+        "source": "error"
+      },
+      "sut_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      },
+      "ai_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      }
+    },
+    {
+      "prescription_id": "3GPHER2",
+      "final_decision": "error",
+      "error": "'str' object has no attribute 'get'",
+      "processing_metadata": {
+        "timestamp": "2025-09-09T11:03:00.186830",
+        "processing_time_seconds": 0.0,
+        "source": "error"
+      },
+      "sut_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      },
+      "ai_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      }
+    },
+    {
+      "prescription_id": "3GPOH2O",
+      "final_decision": "error",
+      "error": "'str' object has no attribute 'get'",
+      "processing_metadata": {
+        "timestamp": "2025-09-09T11:03:00.897667",
+        "processing_time_seconds": 0.0,
+        "source": "error"
+      },
+      "sut_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      },
+      "ai_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      }
+    },
+    {
+      "prescription_id": "3GPSRUX",
+      "final_decision": "error",
+      "error": "'str' object has no attribute 'get'",
+      "processing_metadata": {
+        "timestamp": "2025-09-09T11:03:01.616208",
+        "processing_time_seconds": 0.0,
+        "source": "error"
+      },
+      "sut_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      },
+      "ai_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      }
+    },
+    {
+      "prescription_id": "3GPTS9T",
+      "final_decision": "error",
+      "error": "'str' object has no attribute 'get'",
+      "processing_metadata": {
+        "timestamp": "2025-09-09T11:03:02.424076",
+        "processing_time_seconds": 0.0,
+        "source": "error"
+      },
+      "sut_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      },
+      "ai_analysis": {
+        "action": "error",
+        "confidence": 0.0
+      }
+    }
+  ]
+}

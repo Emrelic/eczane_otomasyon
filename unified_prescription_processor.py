@@ -258,14 +258,40 @@ class UnifiedPrescriptionProcessor:
     def _navigate_to_prescription_list(self):
         """Reçete listesi sayfasına git"""
         try:
-            # Ana menüden reçete listesi linkini bul
+            # Ana menüden reçete listesi linkini bul - Navigation Map'e göre güncellenmiş
             menu_selectors = [
+                # Türkçe text-based selectors
                 "//a[contains(text(), 'Reçete Listesi')]",
-                "//li[contains(text(), 'Reçete Listesi')]",
+                "//a[contains(text(), 'Reçete')]",
+                "//li[contains(text(), 'Reçete Listesi')]", 
+                "//li[contains(text(), 'Reçete')]",
                 "//span[contains(text(), 'Reçete Listesi')]",
+                "//span[contains(text(), 'Reçete')]",
                 "//div[contains(text(), 'Reçete Listesi')]",
+                "//div[contains(text(), 'Reçete')]",
+                "//button[contains(text(), 'Reçete')]",
+                "//td[contains(text(), 'Reçete')]",
+                
+                # Link/URL based selectors
                 "a[href*='recete']",
-                "a[href*='liste']"
+                "a[href*='liste']",
+                "a[href*='prescription']",
+                
+                # Menu structure selectors
+                ".menu-item[href*='recete']",
+                ".navigation a[href*='recete']",
+                "#menu a[href*='recete']",
+                "nav a[href*='recete']",
+                
+                # Form/table based
+                "//form//a[contains(text(), 'Reçete')]",
+                "//table//a[contains(text(), 'Reçete')]",
+                
+                # Generic fallbacks
+                "//a[contains(@title, 'Reçete')]", 
+                "//a[contains(@alt, 'Reçete')]",
+                "[title*='Reçete']",
+                "[alt*='Reçete']"
             ]
             
             for selector in menu_selectors:
@@ -283,7 +309,12 @@ class UnifiedPrescriptionProcessor:
                         return True
                         
                 except Exception as e:
+                    logger.debug(f"Navigation selector failed: {selector} - {e}")
                     continue
+            
+            # Debug: List all available links on page
+            logger.warning("🔍 Navigation failed - analyzing page structure")
+            self._debug_page_structure()
             
             logger.warning("⚠️ Prescription list navigation failed")
             return False
@@ -291,6 +322,37 @@ class UnifiedPrescriptionProcessor:
         except Exception as e:
             logger.error(f"❌ Navigation error: {e}")
             return False
+    
+    def _debug_page_structure(self):
+        """Debug: Sayfadaki tüm linkleri ve menüleri listeler"""
+        try:
+            logger.info("🔍 Analyzing page structure for navigation options:")
+            
+            # All links
+            links = self.browser.driver.find_elements(By.TAG_NAME, "a")
+            logger.info(f"Found {len(links)} links on page:")
+            
+            for i, link in enumerate(links[:20]):  # İlk 20 link
+                try:
+                    text = link.text.strip() or link.get_attribute('title') or '[No Text]'
+                    href = link.get_attribute('href') or '[No Href]'
+                    if 'reçete' in text.lower() or 'recete' in href.lower():
+                        logger.info(f"  🎯 MATCH: Link {i+1}: '{text}' -> '{href[:50]}...'")
+                    else:
+                        logger.debug(f"  Link {i+1}: '{text[:30]}...' -> '{href[:50]}...'")
+                except Exception:
+                    logger.debug(f"  Link {i+1}: [Error reading link]")
+            
+            # Menu structures
+            menus = self.browser.driver.find_elements(By.CSS_SELECTOR, "nav, .menu, .navigation, #menu")
+            logger.info(f"Found {len(menus)} menu structures")
+            
+            # Form elements
+            forms = self.browser.driver.find_elements(By.TAG_NAME, "form")
+            logger.info(f"Found {len(forms)} forms on page")
+            
+        except Exception as e:
+            logger.error(f"Debug page structure failed: {e}")
     
     def _apply_filters_enhanced(self, group='A'):
         """Gelişmiş A Grubu filtreleme"""

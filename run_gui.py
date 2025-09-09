@@ -24,10 +24,10 @@ def main():
         os.makedirs("screenshots", exist_ok=True)
         os.makedirs("backups", exist_ok=True)
         
-        # GUI'yi başlat
-        from gui.main_window import EczaneOtomasyonGUI
+        # GUI'yi başlat - Yeni sekmeli arayüz
+        from gui.tabbed_main_window import TabbedMainWindow
         
-        app = EczaneOtomasyonGUI()
+        app = TabbedMainWindow()
         app.run()
         
     except ImportError as e:
