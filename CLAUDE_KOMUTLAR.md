@@ -1,6 +1,29 @@
 # 🤖 CLAUDE İÇİN HIZLI KOMUTLAR REHBERİ
 
-## 📋 TEST KOMUTLARI - İKİ SEÇENEK
+## 🎉 **YENİ EKLENEN TEST KOMUTLARI (09 Eylül 2025):**
+
+### 🧪 **Dose Control System Tests:**
+```bash
+# Dose Controller Test
+python test_dose_controller_only.py
+
+# Complete System Integration Test  
+python test_unified_system_complete.py
+
+# Real Medula Workflow Test
+python test_real_medula_workflow.py
+
+# Batch Processing Test
+python test_batch_processing.py
+```
+
+### 🚀 **Quick Production Test:**
+```bash
+# Run all major systems
+python test_unified_system_complete.py
+```
+
+## 📋 ESKİ TEST KOMUTLARI - İKİ SEÇENEK
 
 ### 1️⃣ **Program Test Sistemi**
 **KOMUT SATIRI:**
