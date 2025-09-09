@@ -17,6 +17,8 @@ from config.settings import Settings
 from medula_automation.browser import MedulaBrowser
 from ai_analyzer.decision_engine import DecisionEngine
 from database.models import get_db_manager
+from unified_prescription_processor import UnifiedPrescriptionProcessor
+from advanced_batch_processor import AdvancedBatchProcessor
 
 
 class EczaneOtomasyonGUI:
@@ -45,6 +47,8 @@ class EczaneOtomasyonGUI:
         self.browser = None
         self.ai_engine = None
         self.db_manager = get_db_manager()
+        self.unified_processor = UnifiedPrescriptionProcessor()  # NEW: Unified processor
+        self.batch_processor = AdvancedBatchProcessor()  # NEW: Advanced Batch processor
         
         # GUI durumu
         self.automation_running = False
@@ -126,6 +130,52 @@ class EczaneOtomasyonGUI:
             width=150
         )
         self.test_btn.pack(pady=5)
+        
+        # Unified processor butonları
+        unified_frame = ctk.CTkFrame(self.left_panel)
+        unified_frame.pack(fill="x", padx=10, pady=5)
+        
+        ctk.CTkLabel(
+            unified_frame,
+            text="🚀 Unified Processor",
+            font=ctk.CTkFont(size=14, weight="bold")
+        ).pack(pady=5)
+        
+        # JSON'dan işle butonu
+        self.process_json_btn = ctk.CTkButton(
+            unified_frame,
+            text="📄 JSON İşle",
+            command=self.process_json_prescriptions,
+            width=150
+        )
+        self.process_json_btn.pack(pady=2)
+        
+        # Medula Live işle butonu
+        self.process_live_btn = ctk.CTkButton(
+            unified_frame,
+            text="🔄 Medula Live",
+            command=self.process_medula_live,
+            width=150
+        )
+        self.process_live_btn.pack(pady=2)
+        
+        # Batch işle butonu
+        self.batch_process_btn = ctk.CTkButton(
+            unified_frame,
+            text="📊 Batch İşle",
+            command=self.process_batch,
+            width=150
+        )
+        self.batch_process_btn.pack(pady=2)
+        
+        # Advanced Batch butonu  
+        self.advanced_batch_btn = ctk.CTkButton(
+            unified_frame,
+            text="🚀 Gelişmiş Batch",
+            command=self.advanced_batch_processing,
+            width=150
+        )
+        self.advanced_batch_btn.pack(pady=2)
         
         # Veritabanı kontrolleri
         db_frame = ctk.CTkFrame(self.left_panel)
@@ -655,10 +705,401 @@ class EczaneOtomasyonGUI:
         
         self.recent_text.see("end")
     
+    # ================================================================
+    # UNIFIED PROCESSOR METHODS
+    # ================================================================
+    
+    def process_json_prescriptions(self):
+        """JSON dosyasından reçeteleri işle"""
+        import time
+        
+        try:
+            self.log_message("📄 JSON reçete işleme başlatılıyor...")
+            
+            # Dosya seçimi dialog
+            from tkinter import filedialog
+            json_file = filedialog.askopenfilename(
+                title="JSON dosyasını seçin",
+                filetypes=[("JSON dosyaları", "*.json"), ("Tüm dosyalar", "*.*")]
+            )
+            
+            if not json_file:
+                self.log_message("❌ Dosya seçilmedi")
+                return
+            
+            # Thread'de çalıştır
+            def process_thread():
+                try:
+                    results = self.unified_processor.process_from_json_file(
+                        json_file, 
+                        f"gui_json_results_{int(time.time())}.json"
+                    )
+                    
+                    self.log_message(f"✅ JSON işleme tamamlandı: {len(results)} reçete işlendi")
+                    self.log_message(f"📊 Sonuçlar kaydedildi")
+                    
+                    # İstatistikleri güncelle
+                    self.update_statistics()
+                    
+                except Exception as e:
+                    self.log_message(f"❌ JSON işleme hatası: {e}")
+            
+            thread = threading.Thread(target=process_thread, daemon=True)
+            thread.start()
+            
+        except Exception as e:
+            self.log_message(f"❌ JSON işleme başlatma hatası: {e}")
+    
+    def process_medula_live(self):
+        """Medula Live reçete işleme"""
+        try:
+            self.log_message("🔄 Medula Live işleme başlatılıyor...")
+            
+            # Thread'de çalıştır
+            def process_thread():
+                try:
+                    results = self.unified_processor.process_from_medula_live(
+                        limit=5, 
+                        group='A'
+                    )
+                    
+                    self.log_message(f"✅ Medula Live işleme tamamlandı: {len(results)} reçete işlendi")
+                    
+                    # Sonuçları göster
+                    for result in results:
+                        prescription_id = result.get('prescription_id', 'N/A')
+                        decision = result.get('final_decision', 'unknown')
+                        self.log_message(f"  📋 {prescription_id} -> {decision.upper()}")
+                    
+                    # İstatistikleri güncelle
+                    self.update_statistics()
+                    
+                except Exception as e:
+                    self.log_message(f"❌ Medula Live işleme hatası: {e}")
+            
+            thread = threading.Thread(target=process_thread, daemon=True)
+            thread.start()
+            
+        except Exception as e:
+            self.log_message(f"❌ Medula Live başlatma hatası: {e}")
+    
+    def process_batch(self):
+        """Batch reçete işleme"""
+        try:
+            self.log_message("📊 Batch işleme başlatılıyor...")
+            
+            # Basit dialog ile limit al
+            import tkinter.simpledialog as simpledialog
+            limit = simpledialog.askinteger(
+                "Batch İşleme",
+                "Kaç reçete işlemek istiyorsunuz?",
+                initialvalue=10,
+                minvalue=1,
+                maxvalue=50
+            )
+            
+            if not limit:
+                self.log_message("❌ Batch işleme iptal edildi")
+                return
+            
+            # Thread'de çalıştır
+            def process_thread():
+                try:
+                    results = self.unified_processor.process_from_medula_live(
+                        limit=limit, 
+                        group='A'
+                    )
+                    
+                    self.log_message(f"✅ Batch işleme tamamlandı: {len(results)} reçete işlendi")
+                    
+                    # Özet istatistikler
+                    stats = self.unified_processor.get_processing_stats()
+                    self.log_message(f"📈 İstatistikler:")
+                    self.log_message(f"  ✅ Onaylanan: {stats.get('approved', 0)}")
+                    self.log_message(f"  ❌ Reddedilen: {stats.get('rejected', 0)}")
+                    self.log_message(f"  ⏸️ Bekletilen: {stats.get('held', 0)}")
+                    self.log_message(f"  ⚠️ Hata: {stats.get('errors', 0)}")
+                    
+                    # İstatistikleri güncelle
+                    self.update_statistics()
+                    
+                except Exception as e:
+                    self.log_message(f"❌ Batch işleme hatası: {e}")
+            
+            thread = threading.Thread(target=process_thread, daemon=True)
+            thread.start()
+            
+        except Exception as e:
+            self.log_message(f"❌ Batch işleme başlatma hatası: {e}")
+    
+    def update_statistics(self):
+        """İstatistikleri güncelle"""
+        try:
+            # Database'den güncel istatistikleri al
+            all_prescriptions = self.unified_processor.database.get_all_prescriptions(limit=1000)
+            
+            total = len(all_prescriptions)
+            
+            # İstatistikleri güncelle
+            if hasattr(self, 'total_prescriptions_label'):
+                self.total_prescriptions_label.configure(text=f"Toplam Reçete: {total}")
+            
+            self.log_message(f"📊 İstatistikler güncellendi: {total} reçete")
+            
+        except Exception as e:
+            self.log_message(f"❌ İstatistik güncelleme hatası: {e}")
+    
+    def advanced_batch_processing(self):
+        """Gelişmiş batch processing penceresi"""
+        try:
+            # Yeni pencere oluştur
+            batch_window = ctk.CTkToplevel(self.root)
+            batch_window.title("🚀 Gelişmiş Batch Processing")
+            batch_window.geometry("800x600")
+            batch_window.transient(self.root)
+            
+            # Ana frame
+            main_frame = ctk.CTkFrame(batch_window)
+            main_frame.pack(fill="both", expand=True, padx=10, pady=10)
+            
+            # Başlık
+            title_label = ctk.CTkLabel(
+                main_frame,
+                text="🚀 Gelişmiş Batch Processing",
+                font=ctk.CTkFont(size=20, weight="bold")
+            )
+            title_label.pack(pady=10)
+            
+            # Options frame
+            options_frame = ctk.CTkFrame(main_frame)
+            options_frame.pack(fill="x", padx=10, pady=5)
+            
+            # Batch tipi seçimi
+            ctk.CTkLabel(options_frame, text="Batch Tipi:", font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=10, pady=5)
+            
+            batch_type_var = ctk.StringVar(value="json")
+            
+            # Radio buttons
+            type_frame = ctk.CTkFrame(options_frame)
+            type_frame.pack(fill="x", padx=10, pady=5)
+            
+            ctk.CTkRadioButton(type_frame, text="📄 JSON Dosyası", variable=batch_type_var, value="json").pack(side="left", padx=5)
+            ctk.CTkRadioButton(type_frame, text="🔄 Medula Live", variable=batch_type_var, value="medula").pack(side="left", padx=5)
+            ctk.CTkRadioButton(type_frame, text="🔀 Karışık", variable=batch_type_var, value="mixed").pack(side="left", padx=5)
+            
+            # Parametreler frame
+            params_frame = ctk.CTkFrame(options_frame)
+            params_frame.pack(fill="x", padx=10, pady=5)
+            
+            # Limit input
+            ctk.CTkLabel(params_frame, text="İşlenecek Reçete Sayısı:").pack(anchor="w", padx=5, pady=2)
+            limit_entry = ctk.CTkEntry(params_frame, placeholder_text="Örn: 50")
+            limit_entry.pack(fill="x", padx=5, pady=2)
+            limit_entry.insert(0, "25")
+            
+            # Batch size input
+            ctk.CTkLabel(params_frame, text="Batch Boyutu:").pack(anchor="w", padx=5, pady=2)
+            batch_size_entry = ctk.CTkEntry(params_frame, placeholder_text="Örn: 10")
+            batch_size_entry.pack(fill="x", padx=5, pady=2)
+            batch_size_entry.insert(0, "10")
+            
+            # Progress frame
+            progress_frame = ctk.CTkFrame(main_frame)
+            progress_frame.pack(fill="x", padx=10, pady=10)
+            
+            # Progress bar
+            progress_bar = ctk.CTkProgressBar(progress_frame)
+            progress_bar.pack(fill="x", padx=10, pady=5)
+            progress_bar.set(0)
+            
+            # Progress labels
+            progress_label = ctk.CTkLabel(progress_frame, text="Hazır")
+            progress_label.pack(pady=2)
+            
+            stats_label = ctk.CTkLabel(progress_frame, text="")
+            stats_label.pack(pady=2)
+            
+            # Control buttons frame
+            control_frame = ctk.CTkFrame(main_frame)
+            control_frame.pack(fill="x", padx=10, pady=5)
+            
+            # Buttons
+            start_btn = ctk.CTkButton(control_frame, text="▶️ Başlat", width=100)
+            start_btn.pack(side="left", padx=5)
+            
+            pause_btn = ctk.CTkButton(control_frame, text="⏸️ Duraklat", width=100, state="disabled")
+            pause_btn.pack(side="left", padx=5)
+            
+            stop_btn = ctk.CTkButton(control_frame, text="⏹️ Durdur", width=100, state="disabled")
+            stop_btn.pack(side="left", padx=5)
+            
+            # Results frame
+            results_frame = ctk.CTkFrame(main_frame)
+            results_frame.pack(fill="both", expand=True, padx=10, pady=10)
+            
+            # Results text area
+            results_text = ctk.CTkTextbox(results_frame)
+            results_text.pack(fill="both", expand=True, padx=5, pady=5)
+            
+            # Batch processor instance
+            batch_processor_instance = None
+            
+            def update_progress_callback(progress):
+                """Progress güncelleme callback'i"""
+                try:
+                    # Progress bar güncelle
+                    progress_bar.set(progress.progress_percentage / 100.0)
+                    
+                    # Progress label
+                    progress_label.configure(
+                        text=f"İşlem: {progress.processed}/{progress.total_prescriptions} "
+                             f"({progress.progress_percentage:.1f}%) - "
+                             f"Batch {progress.current_batch}/{progress.total_batches}"
+                    )
+                    
+                    # Stats label
+                    stats_label.configure(
+                        text=f"✅ Onay: {progress.approved} | "
+                             f"❌ Red: {progress.rejected} | "
+                             f"⏸️ Beklet: {progress.held} | "
+                             f"⚠️ Hata: {progress.errors}"
+                    )
+                    
+                    # Results text
+                    if progress.estimated_completion:
+                        eta = progress.estimated_completion.strftime("%H:%M:%S")
+                        results_text.insert("end", f"⏱️ Tahmini Bitiş: {eta}\\n")
+                    
+                    # Auto scroll
+                    results_text.see("end")
+                    
+                except Exception as e:
+                    self.log_message(f"❌ Progress update error: {e}")
+            
+            def start_batch():
+                """Batch processing başlat"""
+                nonlocal batch_processor_instance
+                
+                try:
+                    # Parameters al
+                    batch_type = batch_type_var.get()
+                    limit = int(limit_entry.get() or 25)
+                    batch_size = int(batch_size_entry.get() or 10)
+                    
+                    # Buttons güncelle
+                    start_btn.configure(state="disabled")
+                    pause_btn.configure(state="normal")
+                    stop_btn.configure(state="normal")
+                    
+                    # Results temizle
+                    results_text.delete("0.0", "end")
+                    results_text.insert("end", f"🚀 {batch_type.upper()} batch processing başlatılıyor...\\n")
+                    results_text.insert("end", f"📊 Limit: {limit}, Batch Size: {batch_size}\\n\\n")
+                    
+                    # Advanced batch processor oluştur
+                    from advanced_batch_processor import AdvancedBatchProcessor, BatchConfig
+                    
+                    config = BatchConfig()
+                    config.batch_size = batch_size
+                    config.max_concurrent_processes = 2
+                    config.delay_between_batches = 1.0
+                    
+                    batch_processor_instance = AdvancedBatchProcessor(config)
+                    batch_processor_instance.set_progress_callback(update_progress_callback)
+                    
+                    # Thread'de çalıştır
+                    def batch_thread():
+                        try:
+                            if batch_type == "json":
+                                # JSON dosyası seç
+                                from tkinter import filedialog
+                                json_file = filedialog.askopenfilename(
+                                    title="JSON dosyasını seçin",
+                                    filetypes=[("JSON dosyaları", "*.json")]
+                                )
+                                
+                                if json_file:
+                                    results_text.insert("end", f"📄 JSON dosyası: {json_file}\\n")
+                                    report = batch_processor_instance.process_large_json_batch(json_file, "gui_batch_results")
+                                else:
+                                    results_text.insert("end", "❌ JSON dosyası seçilmedi\\n")
+                                    return
+                                    
+                            elif batch_type == "medula":
+                                results_text.insert("end", "🔄 Medula Live batch processing...\\n")
+                                report = batch_processor_instance.process_medula_batch_live(limit, "gui_medula_batch")
+                                
+                            elif batch_type == "mixed":
+                                results_text.insert("end", "🔀 Mixed batch processing...\\n")
+                                sources = [
+                                    {"type": "medula", "limit": limit // 2},
+                                    {"type": "json", "path": "manual_detailed_prescriptions.json"}
+                                ]
+                                report = batch_processor_instance.process_mixed_batch(sources, "gui_mixed_batch")
+                            
+                            # Sonuçları göster
+                            results_text.insert("end", "\\n=== BATCH PROCESSING TAMAMLANDI ===\\n")
+                            results_text.insert("end", f"✅ İşlenen: {report['batch_summary']['processed_prescriptions']}\\n")
+                            results_text.insert("end", f"📈 Başarı Oranı: {report['batch_summary']['success_rate']:.1f}%\\n")
+                            results_text.insert("end", f"⏱️ İşlem Süresi: {report['batch_summary']['processing_time_seconds']:.1f}s\\n")
+                            
+                            # Decision stats
+                            decisions = report['decision_statistics']
+                            results_text.insert("end", f"\\n📊 Kararlar:\\n")
+                            results_text.insert("end", f"  ✅ Onaylanan: {decisions['approved']}\\n")
+                            results_text.insert("end", f"  ❌ Reddedilen: {decisions['rejected']}\\n")
+                            results_text.insert("end", f"  ⏸️ Bekletilen: {decisions['held']}\\n")
+                            results_text.insert("end", f"  ⚠️ Hata: {decisions['errors']}\\n")
+                            
+                            self.log_message(f"🎉 Advanced batch completed: {report['batch_summary']['processed_prescriptions']} prescriptions")
+                            
+                        except Exception as e:
+                            results_text.insert("end", f"\\n❌ BATCH PROCESSING HATASI: {e}\\n")
+                            self.log_message(f"❌ Advanced batch error: {e}")
+                        finally:
+                            # Buttons reset
+                            start_btn.configure(state="normal")
+                            pause_btn.configure(state="disabled") 
+                            stop_btn.configure(state="disabled")
+                    
+                    # Start thread
+                    thread = threading.Thread(target=batch_thread, daemon=True)
+                    thread.start()
+                    
+                except Exception as e:
+                    results_text.insert("end", f"❌ Başlatma hatası: {e}\\n")
+                    self.log_message(f"❌ Advanced batch start error: {e}")
+            
+            def pause_batch():
+                """Batch processing duraklat"""
+                if batch_processor_instance:
+                    batch_processor_instance.pause()
+                    results_text.insert("end", "⏸️ Batch processing duraklatıldı\\n")
+            
+            def stop_batch():
+                """Batch processing durdur"""
+                if batch_processor_instance:
+                    batch_processor_instance.stop()
+                    results_text.insert("end", "⏹️ Batch processing durduruldu\\n")
+                
+                # Buttons reset
+                start_btn.configure(state="normal")
+                pause_btn.configure(state="disabled")
+                stop_btn.configure(state="disabled")
+            
+            # Button commands
+            start_btn.configure(command=start_batch)
+            pause_btn.configure(command=pause_batch)
+            stop_btn.configure(command=stop_batch)
+            
+        except Exception as e:
+            self.log_message(f"❌ Advanced batch window error: {e}")
+    
     def run(self):
         """GUI'yi başlat"""
         try:
             self.log_message("🚀 Eczane Reçete Kontrol Otomasyonu başlatıldı")
+            self.log_message("🚀 Unified Processor entegrasyonu hazır!")
             self.log_message(f"📁 Çalışma dizini: {Path.cwd()}")
             self.root.mainloop()
         except KeyboardInterrupt:

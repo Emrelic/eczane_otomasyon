@@ -1,0 +1,810 @@
+[
+  {
+    "prescription_id": "BATCH_001",
+    "patient_info": {
+      "name": "Ali Yilmaz",
+      "tc": "11111111111"
+    },
+    "processing_metadata": {
+      "source": "batch_test",
+      "timestamp": "2025-09-09T03:01:03.226302",
+      "processing_time_seconds": 2.760608,
+      "dose_processing_time": 0.0,
+      "sut_processing_time": 0.1,
+      "ai_processing_time": 2.7593820095062256
+    },
+    "dose_analysis": {
+      "compliant": false,
+      "action": "hold",
+      "confidence": 0.1,
+      "drugs_analyzed": 0,
+      "reported_drugs": 0,
+      "issues_found": 0
+    },
+    "sut_analysis": {
+      "compliant": true,
+      "action": "approve",
+      "confidence": 0.95,
+      "issues_count": 0,
+      "warnings_count": 0
+    },
+    "ai_analysis": {
+      "action": "approve",
+      "confidence": 0.9,
+      "claude_used": true,
+      "method": "sut_plus_claude"
+    },
+    "final_decision": "hold",
+    "details": {
+      "dose_reason": "Dose control error: 'DoseControlResult' object has no attribute 'analysis_results'",
+      "sut_reason": "Full SUT compliance, no issues found",
+      "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu doğru, rapor gerekliliği bulunmamakta, ilaç mesaj kodları uygun, dozaj ve süre limitleri içerisinde, hasta güvenliği açısından da bir sorun görülmemektedir.",
+      "dose_violations": [],
+      "sut_issues": [],
+      "ai_risk_factors": [],
+      "recommendations": []
+    },
+    "raw_data": {
+      "prescription_data": {
+        "recete_no": "BATCH_001",
+        "hasta_tc": "11111111111",
+        "hasta_ad": "Ali",
+        "hasta_soyad": "Yilmaz",
+        "hasta_dogum_tarihi": "1980-01-01",
+        "drugs": [
+          {
+            "ilac_adi": "TENOFOVIR ALAFENAMID 25mg TABLET",
+            "adet": "120",
+            "rapor_kodu": "R100001",
+            "msj": "var",
+            "mesaj_kodlari": "1013(1), 1301",
+            "etken_madde": "TENOFOVIR ALAFENAMID FUMARAT"
+          }
+        ],
+        "drug_messages": [
+          {
+            "kod": "1013",
+            "aciklama": "Doz asimi"
+          }
+        ],
+        "report_details": {
+          "tani_bilgileri": [
+            "B18.1"
+          ],
+          "doktor_bransi": "Gastroenteroloji"
+        }
+      },
+      "sut_full_result": {
+        "analysis": {
+          "prescription_id": "BATCH_001",
+          "analysis_timestamp": "2025-09-09T03:01:00.466869",
+          "overall_compliance": true,
+          "issues": [],
+          "warnings": [],
+          "drug_analyses": [
+            {
+              "drug_name": "TENOFOVIR ALAFENAMID 25mg TABLET",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug TENOFOVIR ALAFENAMID 25mg TABLET not found in SUT database"
+              ]
+            }
+          ],
+          "message_code_analysis": {
+            "valid_codes": [],
+            "invalid_codes": [],
+            "missing_codes": []
+          },
+          "general_compliance": {
+            "compliant": true,
+            "issues": []
+          }
+        },
+        "recommendation": {
+          "action": "approve",
+          "confidence": 0.95,
+          "reason": "Full SUT compliance, no issues found"
+        },
+        "processing_time": 0.1
+      },
+      "ai_full_result": {
+        "result": {
+          "action": "approve",
+          "confidence": 0.9,
+          "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu doğru, rapor gerekliliği bulunmamakta, ilaç mesaj kodları uygun, dozaj ve süre limitleri içerisinde, hasta güvenliği açısından da bir sorun görülmemektedir.",
+          "clinical_assessment": "Hastanın B18.1 tanısı için Tenofovir Alafenamid 25mg tablet reçete edilmiştir. Bu ilaç endikasyona uygun ve güvenli bir seçimdir.",
+          "sut_compliance": "Reçete SUT kurallarına tamamen uyumludur. Herhangi bir uyumsuzluk tespit edilmemiştir.",
+          "risk_factors": [],
+          "recommendations": [],
+          "key_findings": [
+            "İlaç-tanı uyumluluğu doğru",
+            "Rapor gerekliliği bulunmamakta",
+            "İlaç mesaj kodları uygun",
+            "Dozaj ve süre limitleri içerisinde",
+            "Hasta güvenliği açısından sorun yok"
+          ],
+          "analysis_details": {
+            "sut_recommendation": {
+              "action": "approve",
+              "confidence": 0.95,
+              "reason": "Full SUT compliance, no issues found"
+            },
+            "claude_analysis": {
+              "action": "approve",
+              "confidence": 0.9,
+              "reason": "Bu reçete SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu doğru, rapor gerekliliği bulunmamakta, ilaç mesaj kodları uygun, dozaj ve süre limitleri içerisinde, hasta güvenliği açısından da bir sorun görülmemektedir.",
+              "clinical_assessment": "Hastanın B18.1 tanısı için Tenofovir Alafenamid 25mg tablet reçete edilmiştir. Bu ilaç endikasyona uygun ve güvenli bir seçimdir.",
+              "sut_compliance": "Reçete SUT kurallarına tamamen uyumludur. Herhangi bir uyumsuzluk tespit edilmemiştir.",
+              "risk_factors": [],
+              "recommendations": [],
+              "key_findings": [
+                "İlaç-tanı uyumluluğu doğru",
+                "Rapor gerekliliği bulunmamakta",
+                "İlaç mesaj kodları uygun",
+                "Dozaj ve süre limitleri içerisinde",
+                "Hasta güvenliği açısından sorun yok"
+              ]
+            },
+            "decision_logic": "SUT: approve, Claude: approve -> Final: approve"
+          },
+          "analysis_method": "sut_plus_claude",
+          "timestamp": "2025-09-09T03:01:03.226103",
+          "prescription_id": "BATCH_001",
+          "claude_available": true
+        },
+        "processing_time": 2.7593820095062256
+      }
+    }
+  },
+  {
+    "prescription_id": "BATCH_002",
+    "patient_info": {
+      "name": "Ayse Demir",
+      "tc": "22222222222"
+    },
+    "processing_metadata": {
+      "source": "batch_test",
+      "timestamp": "2025-09-09T03:01:05.884705",
+      "processing_time_seconds": 2.641113,
+      "dose_processing_time": 0.0,
+      "sut_processing_time": 0.1,
+      "ai_processing_time": 2.640255928039551
+    },
+    "dose_analysis": {
+      "compliant": false,
+      "action": "hold",
+      "confidence": 0.1,
+      "drugs_analyzed": 0,
+      "reported_drugs": 0,
+      "issues_found": 0
+    },
+    "sut_analysis": {
+      "compliant": true,
+      "action": "approve",
+      "confidence": 0.95,
+      "issues_count": 0,
+      "warnings_count": 0
+    },
+    "ai_analysis": {
+      "action": "approve",
+      "confidence": 0.9,
+      "claude_used": true,
+      "method": "sut_plus_claude"
+    },
+    "final_decision": "hold",
+    "details": {
+      "dose_reason": "Dose control error: 'DoseControlResult' object has no attribute 'analysis_results'",
+      "sut_reason": "Full SUT compliance, no issues found",
+      "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu, rapor gereklilikleri, ilaç mesaj kodları, dozaj ve süre limitleri, hasta güvenliği açısından herhangi bir sorun tespit edilmemiştir.",
+      "dose_violations": [],
+      "sut_issues": [],
+      "ai_risk_factors": [],
+      "recommendations": []
+    },
+    "raw_data": {
+      "prescription_data": {
+        "recete_no": "BATCH_002",
+        "hasta_tc": "22222222222",
+        "hasta_ad": "Ayse",
+        "hasta_soyad": "Demir",
+        "hasta_dogum_tarihi": "1985-06-15",
+        "drugs": [
+          {
+            "ilac_adi": "PARACETAMOL 500mg TABLET",
+            "adet": "20",
+            "rapor_kodu": "",
+            "msj": "yok"
+          }
+        ],
+        "drug_messages": [],
+        "report_details": {
+          "tani_bilgileri": [
+            "J06.9"
+          ],
+          "doktor_bransi": "Aile Hekimligi"
+        }
+      },
+      "sut_full_result": {
+        "analysis": {
+          "prescription_id": "BATCH_002",
+          "analysis_timestamp": "2025-09-09T03:01:03.244408",
+          "overall_compliance": true,
+          "issues": [],
+          "warnings": [],
+          "drug_analyses": [
+            {
+              "drug_name": "PARACETAMOL 500mg TABLET",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug PARACETAMOL 500mg TABLET not found in SUT database"
+              ]
+            }
+          ],
+          "message_code_analysis": {
+            "valid_codes": [],
+            "invalid_codes": [],
+            "missing_codes": []
+          },
+          "general_compliance": {
+            "compliant": true,
+            "issues": []
+          }
+        },
+        "recommendation": {
+          "action": "approve",
+          "confidence": 0.95,
+          "reason": "Full SUT compliance, no issues found"
+        },
+        "processing_time": 0.1
+      },
+      "ai_full_result": {
+        "result": {
+          "action": "approve",
+          "confidence": 0.9,
+          "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu, rapor gereklilikleri, ilaç mesaj kodları, dozaj ve süre limitleri, hasta güvenliği açısından herhangi bir sorun tespit edilmemiştir.",
+          "clinical_assessment": "Reçete, Paracetamol 500mg tablet için J06.9 ICD tanı kodu ile uyumludur. Hasta güvenliği açısından da herhangi bir risk faktörü bulunmamaktadır.",
+          "sut_compliance": "Reçete, SUT kurallarına tamamen uyumludur. İlaç, tanı ve diğer gereklilikler karşılanmaktadır.",
+          "risk_factors": [],
+          "recommendations": [],
+          "key_findings": [
+            "İlaç-tanı uyumu doğru",
+            "Rapor gerekliliği yok",
+            "İlaç mesaj kodları uygun",
+            "Dozaj ve süre limitleri uygun",
+            "Hasta güvenliği açısından risk yok"
+          ],
+          "analysis_details": {
+            "sut_recommendation": {
+              "action": "approve",
+              "confidence": 0.95,
+              "reason": "Full SUT compliance, no issues found"
+            },
+            "claude_analysis": {
+              "action": "approve",
+              "confidence": 0.9,
+              "reason": "Bu reçete SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu, rapor gereklilikleri, ilaç mesaj kodları, dozaj ve süre limitleri, hasta güvenliği açısından herhangi bir sorun tespit edilmemiştir.",
+              "clinical_assessment": "Reçete, Paracetamol 500mg tablet için J06.9 ICD tanı kodu ile uyumludur. Hasta güvenliği açısından da herhangi bir risk faktörü bulunmamaktadır.",
+              "sut_compliance": "Reçete, SUT kurallarına tamamen uyumludur. İlaç, tanı ve diğer gereklilikler karşılanmaktadır.",
+              "risk_factors": [],
+              "recommendations": [],
+              "key_findings": [
+                "İlaç-tanı uyumu doğru",
+                "Rapor gerekliliği yok",
+                "İlaç mesaj kodları uygun",
+                "Dozaj ve süre limitleri uygun",
+                "Hasta güvenliği açısından risk yok"
+              ]
+            },
+            "decision_logic": "SUT: approve, Claude: approve -> Final: approve"
+          },
+          "analysis_method": "sut_plus_claude",
+          "timestamp": "2025-09-09T03:01:05.884426",
+          "prescription_id": "BATCH_002",
+          "claude_available": true
+        },
+        "processing_time": 2.640255928039551
+      }
+    }
+  },
+  {
+    "prescription_id": "BATCH_003",
+    "patient_info": {
+      "name": "Mehmet Kaya",
+      "tc": "33333333333"
+    },
+    "processing_metadata": {
+      "source": "batch_test",
+      "timestamp": "2025-09-09T03:01:08.891980",
+      "processing_time_seconds": 2.97352,
+      "dose_processing_time": 0.0,
+      "sut_processing_time": 0.1,
+      "ai_processing_time": 2.9675307273864746
+    },
+    "dose_analysis": {
+      "compliant": false,
+      "action": "hold",
+      "confidence": 0.1,
+      "drugs_analyzed": 0,
+      "reported_drugs": 0,
+      "issues_found": 0
+    },
+    "sut_analysis": {
+      "compliant": true,
+      "action": "approve",
+      "confidence": 0.95,
+      "issues_count": 0,
+      "warnings_count": 0
+    },
+    "ai_analysis": {
+      "action": "approve",
+      "confidence": 0.9,
+      "claude_used": true,
+      "method": "sut_plus_claude"
+    },
+    "final_decision": "hold",
+    "details": {
+      "dose_reason": "Dose control error: 'DoseControlResult' object has no attribute 'analysis_results'",
+      "sut_reason": "Full SUT compliance, no issues found",
+      "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu, rapor gereklilikleri, ilaç mesaj kodları, dozaj ve süre limitleri, hasta güvenliği gibi tüm kriterlere uygun olduğu değerlendirilmiştir.",
+      "dose_violations": [],
+      "sut_issues": [],
+      "ai_risk_factors": [],
+      "recommendations": []
+    },
+    "raw_data": {
+      "prescription_data": {
+        "recete_no": "BATCH_003",
+        "hasta_tc": "33333333333",
+        "hasta_ad": "Mehmet",
+        "hasta_soyad": "Kaya",
+        "hasta_dogum_tarihi": "1975-03-20",
+        "drugs": [
+          {
+            "ilac_adi": "INSULIN GLARGINE 100IU/ml",
+            "adet": "5",
+            "rapor_kodu": "R200002",
+            "msj": "var",
+            "mesaj_kodlari": "1038",
+            "etken_madde": "INSULIN GLARGINE"
+          },
+          {
+            "ilac_adi": "METFORMIN 500mg TABLET",
+            "adet": "60",
+            "rapor_kodu": "",
+            "msj": "yok"
+          }
+        ],
+        "drug_messages": [
+          {
+            "kod": "1038",
+            "aciklama": "Yas kisitlama"
+          }
+        ],
+        "report_details": {
+          "tani_bilgileri": [
+            "E11.9"
+          ],
+          "doktor_bransi": "Endokrinoloji"
+        }
+      },
+      "sut_full_result": {
+        "analysis": {
+          "prescription_id": "BATCH_003",
+          "analysis_timestamp": "2025-09-09T03:01:05.924364",
+          "overall_compliance": true,
+          "issues": [],
+          "warnings": [],
+          "drug_analyses": [
+            {
+              "drug_name": "INSULIN GLARGINE 100IU/ml",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug INSULIN GLARGINE 100IU/ml not found in SUT database"
+              ]
+            },
+            {
+              "drug_name": "METFORMIN 500mg TABLET",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug METFORMIN 500mg TABLET not found in SUT database"
+              ]
+            }
+          ],
+          "message_code_analysis": {
+            "valid_codes": [],
+            "invalid_codes": [],
+            "missing_codes": []
+          },
+          "general_compliance": {
+            "compliant": true,
+            "issues": []
+          }
+        },
+        "recommendation": {
+          "action": "approve",
+          "confidence": 0.95,
+          "reason": "Full SUT compliance, no issues found"
+        },
+        "processing_time": 0.1
+      },
+      "ai_full_result": {
+        "result": {
+          "action": "approve",
+          "confidence": 0.9,
+          "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu, rapor gereklilikleri, ilaç mesaj kodları, dozaj ve süre limitleri, hasta güvenliği gibi tüm kriterlere uygun olduğu değerlendirilmiştir.",
+          "clinical_assessment": "Hastanın diyabet tanısı için uygun ilaç kombinasyonu reçete edilmiştir. Insulin glargine ve metformin kombinasyonu standart diyabet tedavisi protokolüne uygundur.",
+          "sut_compliance": "Reçete SUT kurallarına tamamen uyumludur. Herhangi bir uyumsuzluk veya sorun tespit edilmemiştir.",
+          "risk_factors": [],
+          "recommendations": [],
+          "key_findings": [
+            "İlaç-tanı uyumluluğu doğru",
+            "Rapor gereklilikleri karşılanmış",
+            "İlaç mesaj kodları uygun",
+            "Dozaj ve süre limitleri uygun",
+            "Hasta güvenliği açısından sorun yok"
+          ],
+          "analysis_details": {
+            "sut_recommendation": {
+              "action": "approve",
+              "confidence": 0.95,
+              "reason": "Full SUT compliance, no issues found"
+            },
+            "claude_analysis": {
+              "action": "approve",
+              "confidence": 0.9,
+              "reason": "Bu reçete SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu, rapor gereklilikleri, ilaç mesaj kodları, dozaj ve süre limitleri, hasta güvenliği gibi tüm kriterlere uygun olduğu değerlendirilmiştir.",
+              "clinical_assessment": "Hastanın diyabet tanısı için uygun ilaç kombinasyonu reçete edilmiştir. Insulin glargine ve metformin kombinasyonu standart diyabet tedavisi protokolüne uygundur.",
+              "sut_compliance": "Reçete SUT kurallarına tamamen uyumludur. Herhangi bir uyumsuzluk veya sorun tespit edilmemiştir.",
+              "risk_factors": [],
+              "recommendations": [],
+              "key_findings": [
+                "İlaç-tanı uyumluluğu doğru",
+                "Rapor gereklilikleri karşılanmış",
+                "İlaç mesaj kodları uygun",
+                "Dozaj ve süre limitleri uygun",
+                "Hasta güvenliği açısından sorun yok"
+              ]
+            },
+            "decision_logic": "SUT: approve, Claude: approve -> Final: approve"
+          },
+          "analysis_method": "sut_plus_claude",
+          "timestamp": "2025-09-09T03:01:08.891846",
+          "prescription_id": "BATCH_003",
+          "claude_available": true
+        },
+        "processing_time": 2.9675307273864746
+      }
+    }
+  },
+  {
+    "prescription_id": "BATCH_004",
+    "patient_info": {
+      "name": "Fatma Ozturk",
+      "tc": "44444444444"
+    },
+    "processing_metadata": {
+      "source": "batch_test",
+      "timestamp": "2025-09-09T03:01:11.317374",
+      "processing_time_seconds": 2.410921,
+      "dose_processing_time": 0.0,
+      "sut_processing_time": 0.1,
+      "ai_processing_time": 2.40868878364563
+    },
+    "dose_analysis": {
+      "compliant": false,
+      "action": "hold",
+      "confidence": 0.1,
+      "drugs_analyzed": 0,
+      "reported_drugs": 0,
+      "issues_found": 0
+    },
+    "sut_analysis": {
+      "compliant": true,
+      "action": "approve",
+      "confidence": 0.95,
+      "issues_count": 0,
+      "warnings_count": 0
+    },
+    "ai_analysis": {
+      "action": "approve",
+      "confidence": 0.9,
+      "claude_used": true,
+      "method": "sut_plus_claude"
+    },
+    "final_decision": "hold",
+    "details": {
+      "dose_reason": "Dose control error: 'DoseControlResult' object has no attribute 'analysis_results'",
+      "sut_reason": "Full SUT compliance, no issues found",
+      "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete SUT kurallarına uygun görünmektedir. İlaç-tanı uyumu, rapor gereklilikleri, ilaç mesaj kodları ve dozaj/süre limitleri açısından herhangi bir sorun tespit edilmemiştir. Hasta güvenliği açısından da önemli bir risk faktörü bulunmamaktadır.",
+      "dose_violations": [],
+      "sut_issues": [],
+      "ai_risk_factors": [],
+      "recommendations": []
+    },
+    "raw_data": {
+      "prescription_data": {
+        "recete_no": "BATCH_004",
+        "hasta_tc": "44444444444",
+        "hasta_ad": "Fatma",
+        "hasta_soyad": "Ozturk",
+        "hasta_dogum_tarihi": "1990-12-10",
+        "drugs": [
+          {
+            "ilac_adi": "EXPENSIVE_DRUG_TEST 250mg",
+            "adet": "30",
+            "rapor_kodu": "R300003",
+            "msj": "var",
+            "mesaj_kodlari": "1002",
+            "etken_madde": "TEST_COMPOUND"
+          }
+        ],
+        "drug_messages": [
+          {
+            "kod": "1002",
+            "aciklama": "Etkilesim uyarisi"
+          }
+        ],
+        "report_details": {
+          "tani_bilgileri": [
+            "Z99.9"
+          ],
+          "doktor_bransi": "Test_Brans"
+        }
+      },
+      "sut_full_result": {
+        "analysis": {
+          "prescription_id": "BATCH_004",
+          "analysis_timestamp": "2025-09-09T03:01:08.908648",
+          "overall_compliance": true,
+          "issues": [],
+          "warnings": [],
+          "drug_analyses": [
+            {
+              "drug_name": "EXPENSIVE_DRUG_TEST 250mg",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug EXPENSIVE_DRUG_TEST 250mg not found in SUT database"
+              ]
+            }
+          ],
+          "message_code_analysis": {
+            "valid_codes": [],
+            "invalid_codes": [],
+            "missing_codes": []
+          },
+          "general_compliance": {
+            "compliant": true,
+            "issues": []
+          }
+        },
+        "recommendation": {
+          "action": "approve",
+          "confidence": 0.95,
+          "reason": "Full SUT compliance, no issues found"
+        },
+        "processing_time": 0.1
+      },
+      "ai_full_result": {
+        "result": {
+          "action": "approve",
+          "confidence": 0.9,
+          "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete SUT kurallarına uygun görünmektedir. İlaç-tanı uyumu, rapor gereklilikleri, ilaç mesaj kodları ve dozaj/süre limitleri açısından herhangi bir sorun tespit edilmemiştir. Hasta güvenliği açısından da önemli bir risk faktörü bulunmamaktadır.",
+          "clinical_assessment": "Reçetedeki ilaç, hastanın tanısı için uygun ve güvenli görünmektedir. Doz ve süre limitleri de uygun şekilde belirtilmiştir.",
+          "sut_compliance": "Reçete SUT kurallarına tamamen uyumludur. Herhangi bir uyumsuzluk veya sorun tespit edilmemiştir.",
+          "risk_factors": [],
+          "recommendations": [],
+          "key_findings": [],
+          "analysis_details": {
+            "sut_recommendation": {
+              "action": "approve",
+              "confidence": 0.95,
+              "reason": "Full SUT compliance, no issues found"
+            },
+            "claude_analysis": {
+              "action": "approve",
+              "confidence": 0.9,
+              "reason": "Bu reçete SUT kurallarına uygun görünmektedir. İlaç-tanı uyumu, rapor gereklilikleri, ilaç mesaj kodları ve dozaj/süre limitleri açısından herhangi bir sorun tespit edilmemiştir. Hasta güvenliği açısından da önemli bir risk faktörü bulunmamaktadır.",
+              "clinical_assessment": "Reçetedeki ilaç, hastanın tanısı için uygun ve güvenli görünmektedir. Doz ve süre limitleri de uygun şekilde belirtilmiştir.",
+              "sut_compliance": "Reçete SUT kurallarına tamamen uyumludur. Herhangi bir uyumsuzluk veya sorun tespit edilmemiştir.",
+              "risk_factors": [],
+              "recommendations": [],
+              "key_findings": []
+            },
+            "decision_logic": "SUT: approve, Claude: approve -> Final: approve"
+          },
+          "analysis_method": "sut_plus_claude",
+          "timestamp": "2025-09-09T03:01:11.317149",
+          "prescription_id": "BATCH_004",
+          "claude_available": true
+        },
+        "processing_time": 2.40868878364563
+      }
+    }
+  },
+  {
+    "prescription_id": "BATCH_005",
+    "patient_info": {
+      "name": "Hasan Celik",
+      "tc": "55555555555"
+    },
+    "processing_metadata": {
+      "source": "batch_test",
+      "timestamp": "2025-09-09T03:01:14.286919",
+      "processing_time_seconds": 2.946414,
+      "dose_processing_time": 0.0,
+      "sut_processing_time": 0.1,
+      "ai_processing_time": 2.9418227672576904
+    },
+    "dose_analysis": {
+      "compliant": false,
+      "action": "hold",
+      "confidence": 0.1,
+      "drugs_analyzed": 0,
+      "reported_drugs": 0,
+      "issues_found": 0
+    },
+    "sut_analysis": {
+      "compliant": true,
+      "action": "approve",
+      "confidence": 0.95,
+      "issues_count": 0,
+      "warnings_count": 0
+    },
+    "ai_analysis": {
+      "action": "approve",
+      "confidence": 0.9,
+      "claude_used": true,
+      "method": "sut_plus_claude"
+    },
+    "final_decision": "hold",
+    "details": {
+      "dose_reason": "Dose control error: 'DoseControlResult' object has no attribute 'analysis_results'",
+      "sut_reason": "Full SUT compliance, no issues found",
+      "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete genel olarak SUT kurallarına uygun görünüyor. İlaç-tanı uyumluluğu, rapor gereklilikleri ve ilaç mesaj kodları doğru. Dozaj ve süre limitleri de uygun. Hasta güvenliği açısından da önemli bir risk faktörü görünmüyor.",
+      "dose_violations": [],
+      "sut_issues": [],
+      "ai_risk_factors": [],
+      "recommendations": []
+    },
+    "raw_data": {
+      "prescription_data": {
+        "recete_no": "BATCH_005",
+        "hasta_tc": "55555555555",
+        "hasta_ad": "Hasan",
+        "hasta_soyad": "Celik",
+        "hasta_dogum_tarihi": "1965-08-25",
+        "drugs": [
+          {
+            "ilac_adi": "ADALIMUMAB 40mg/0.8ml",
+            "adet": "2",
+            "rapor_kodu": "R400004",
+            "msj": "var",
+            "mesaj_kodlari": "1301, 1013, 1038",
+            "etken_madde": "ADALIMUMAB"
+          },
+          {
+            "ilac_adi": "PREDNISOLON 5mg TABLET",
+            "adet": "30",
+            "rapor_kodu": "",
+            "msj": "yok"
+          }
+        ],
+        "drug_messages": [
+          {
+            "kod": "1301",
+            "aciklama": "Endikasyon uyarisi"
+          },
+          {
+            "kod": "1013",
+            "aciklama": "Doz asimi"
+          },
+          {
+            "kod": "1038",
+            "aciklama": "Yas kisitlama"
+          }
+        ],
+        "report_details": {
+          "tani_bilgileri": [
+            "M05.9",
+            "M79.3"
+          ],
+          "doktor_bransi": "Romatoloji"
+        }
+      },
+      "sut_full_result": {
+        "analysis": {
+          "prescription_id": "BATCH_005",
+          "analysis_timestamp": "2025-09-09T03:01:11.345018",
+          "overall_compliance": true,
+          "issues": [],
+          "warnings": [],
+          "drug_analyses": [
+            {
+              "drug_name": "ADALIMUMAB 40mg/0.8ml",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug ADALIMUMAB 40mg/0.8ml not found in SUT database"
+              ]
+            },
+            {
+              "drug_name": "PREDNISOLON 5mg TABLET",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug PREDNISOLON 5mg TABLET not found in SUT database"
+              ]
+            }
+          ],
+          "message_code_analysis": {
+            "valid_codes": [],
+            "invalid_codes": [],
+            "missing_codes": []
+          },
+          "general_compliance": {
+            "compliant": true,
+            "issues": []
+          }
+        },
+        "recommendation": {
+          "action": "approve",
+          "confidence": 0.95,
+          "reason": "Full SUT compliance, no issues found"
+        },
+        "processing_time": 0.1
+      },
+      "ai_full_result": {
+        "result": {
+          "action": "approve",
+          "confidence": 0.9,
+          "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete genel olarak SUT kurallarına uygun görünüyor. İlaç-tanı uyumluluğu, rapor gereklilikleri ve ilaç mesaj kodları doğru. Dozaj ve süre limitleri de uygun. Hasta güvenliği açısından da önemli bir risk faktörü görünmüyor.",
+          "clinical_assessment": "Hastanın romatizmal bir hastalığı olduğu ve bu hastalığa yönelik uygun ilaç tedavisi aldığı değerlendiriliyor.",
+          "sut_compliance": "Reçete SUT kurallarına uyumlu görünüyor. Herhangi bir uyumsuzluk tespit edilmedi.",
+          "risk_factors": [],
+          "recommendations": [],
+          "key_findings": [
+            "İlaç-tanı uyumluluğu doğru",
+            "Rapor gereklilikleri karşılanmış",
+            "İlaç mesaj kodları uygun",
+            "Dozaj ve süre limitleri uygun",
+            "Hasta güvenliği açısından önemli bir risk faktörü yok"
+          ],
+          "analysis_details": {
+            "sut_recommendation": {
+              "action": "approve",
+              "confidence": 0.95,
+              "reason": "Full SUT compliance, no issues found"
+            },
+            "claude_analysis": {
+              "action": "approve",
+              "confidence": 0.9,
+              "reason": "Bu reçete genel olarak SUT kurallarına uygun görünüyor. İlaç-tanı uyumluluğu, rapor gereklilikleri ve ilaç mesaj kodları doğru. Dozaj ve süre limitleri de uygun. Hasta güvenliği açısından da önemli bir risk faktörü görünmüyor.",
+              "clinical_assessment": "Hastanın romatizmal bir hastalığı olduğu ve bu hastalığa yönelik uygun ilaç tedavisi aldığı değerlendiriliyor.",
+              "sut_compliance": "Reçete SUT kurallarına uyumlu görünüyor. Herhangi bir uyumsuzluk tespit edilmedi.",
+              "risk_factors": [],
+              "recommendations": [],
+              "key_findings": [
+                "İlaç-tanı uyumluluğu doğru",
+                "Rapor gereklilikleri karşılanmış",
+                "İlaç mesaj kodları uygun",
+                "Dozaj ve süre limitleri uygun",
+                "Hasta güvenliği açısından önemli bir risk faktörü yok"
+              ]
+            },
+            "decision_logic": "SUT: approve, Claude: approve -> Final: approve"
+          },
+          "analysis_method": "sut_plus_claude",
+          "timestamp": "2025-09-09T03:01:14.286735",
+          "prescription_id": "BATCH_005",
+          "claude_available": true
+        },
+        "processing_time": 2.9418227672576904
+      }
+    }
+  }
+]

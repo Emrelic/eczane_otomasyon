@@ -1,15 +1,15 @@
 {
   "metadata": {
-    "timestamp": "2025-09-08T17:07:59.262528",
+    "timestamp": "2025-09-08T23:32:55.441761",
     "total_prescriptions": 5,
     "processing_stats": {
       "total_processed": 5,
       "approved": 2,
-      "rejected": 4,
-      "held": 4,
+      "rejected": 2,
+      "held": 6,
       "errors": 0,
-      "start_time": "2025-09-08T17:07:38.310753",
-      "end_time": "2025-09-08T17:07:59.262335"
+      "start_time": "2025-09-08T23:32:35.472162",
+      "end_time": "2025-09-08T23:32:55.441625"
     },
     "processor_version": "unified_v1.0"
   },
@@ -22,10 +22,10 @@
       },
       "processing_metadata": {
         "source": "json_file",
-        "timestamp": "2025-09-08T17:07:41.749857",
-        "processing_time_seconds": 3.438998,
+        "timestamp": "2025-09-08T23:32:39.326506",
+        "processing_time_seconds": 3.85423,
         "sut_processing_time": 0.1,
-        "ai_processing_time": 3.43892765045166
+        "ai_processing_time": 3.8541579246520996
       },
       "sut_analysis": {
         "compliant": false,
@@ -35,26 +35,29 @@
         "warnings_count": 0
       },
       "ai_analysis": {
-        "action": "reject",
+        "action": "hold",
         "confidence": 0.6,
         "claude_used": true,
         "method": "sut_plus_claude"
       },
-      "final_decision": "reject",
+      "final_decision": "hold",
       "details": {
         "sut_reason": "SUT compliance issues require manual review",
-        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçete SGK SUT kurallarına uygun değil. Özellikle ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete reddedilmelidir.",
+        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha ayrıntılı bir inceleme gereklidir.",
         "sut_issues": [
           "Diagnosis mismatch: Required diagnoses ['B18.1', '06.01'] not found in []",
           "Report required for VEMLIDY 25MG 30 FILM KAPLI TABLET but not found"
         ],
         "ai_risk_factors": [
-          "ICD tanı kodlarının eksikliği",
-          "Raporlu ilaçlar için rapor olmaması"
+          "Tanı bilgisinin olmaması",
+          "Rapor gerekliliğinin belirtilmemesi",
+          "İlaç mesaj kodlarının doğruluğunun teyit edilmemesi"
         ],
         "recommendations": [
-          "Reçetedeki ICD tanı kodlarının eklenmesi",
-          "VEMLIDY için gerekli raporun temin edilmesi"
+          "Hastanın tanısının netleştirilmesi",
+          "Rapor gerekliliğinin kontrol edilmesi",
+          "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
+          "Dozaj ve süre limitlerinin kontrol edilmesi"
         ]
       },
       "raw_data": {
@@ -85,7 +88,7 @@
         "sut_full_result": {
           "analysis": {
             "prescription_id": "3GP25RF",
-            "analysis_timestamp": "2025-09-08T17:07:38.310858",
+            "analysis_timestamp": "2025-09-08T23:32:35.472274",
             "overall_compliance": false,
             "issues": [
               "Diagnosis mismatch: Required diagnoses ['B18.1', '06.01'] not found in []",
@@ -134,22 +137,26 @@
         },
         "ai_full_result": {
           "result": {
-            "action": "reject",
+            "action": "hold",
             "confidence": 0.6,
-            "reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçete SGK SUT kurallarına uygun değil. Özellikle ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete reddedilmelidir.",
-            "clinical_assessment": "Hastanın kronik hepatit B tedavisi için PANTO ve VEMLIDY ilaçları reçete edilmiş. Ancak ICD tanı kodları belirtilmediği için ilaç-tanı uyumluluğu değerlendirilememiştir. Ayrıca VEMLIDY için rapor gerekli olmasına rağmen rapor bilgileri mevcut değil.",
-            "sut_compliance": "SUT uyumluluğu açısından ciddi sorunlar var. ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete SUT kurallarına uygun değil.",
+            "reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha ayrıntılı bir inceleme gereklidir.",
+            "clinical_assessment": "Hastanın tanısı belirtilmemiştir. İlaç-tanı uyumu değerlendirilememiştir. Hepatit B tedavisi için kullanılan ilaçlar reçete edilmiş ancak hasta bilgileri yetersizdir.",
+            "sut_compliance": "SUT uyumluluğu konusunda bazı sorunlar bulunmaktadır. Rapor gerekliliği, ilaç mesaj kodları ve dozaj/süre limitleri açısından daha detaylı inceleme gereklidir.",
             "risk_factors": [
-              "ICD tanı kodlarının eksikliği",
-              "Raporlu ilaçlar için rapor olmaması"
+              "Tanı bilgisinin olmaması",
+              "Rapor gerekliliğinin belirtilmemesi",
+              "İlaç mesaj kodlarının doğruluğunun teyit edilmemesi"
             ],
             "recommendations": [
-              "Reçetedeki ICD tanı kodlarının eklenmesi",
-              "VEMLIDY için gerekli raporun temin edilmesi"
+              "Hastanın tanısının netleştirilmesi",
+              "Rapor gerekliliğinin kontrol edilmesi",
+              "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
+              "Dozaj ve süre limitlerinin kontrol edilmesi"
             ],
             "key_findings": [
-              "ICD tanı kodları eksik",
-              "VEMLIDY için rapor gerekli ancak mevcut değil"
+              "Tanı bilgisi eksik",
+              "Rapor gerekliliği belirsiz",
+              "İlaç mesaj kodlarının doğruluğu teyit edilmemiş"
             ],
             "analysis_details": {
               "sut_recommendation": {
@@ -162,32 +169,36 @@
                 ]
               },
               "claude_analysis": {
-                "action": "reject",
-                "confidence": 0.9,
-                "reason": "Bu reçete SGK SUT kurallarına uygun değil. Özellikle ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete reddedilmelidir.",
-                "clinical_assessment": "Hastanın kronik hepatit B tedavisi için PANTO ve VEMLIDY ilaçları reçete edilmiş. Ancak ICD tanı kodları belirtilmediği için ilaç-tanı uyumluluğu değerlendirilememiştir. Ayrıca VEMLIDY için rapor gerekli olmasına rağmen rapor bilgileri mevcut değil.",
-                "sut_compliance": "SUT uyumluluğu açısından ciddi sorunlar var. ICD tanı kodlarının eksikliği ve raporlu ilaçlar için rapor olmaması nedeniyle reçete SUT kurallarına uygun değil.",
+                "action": "hold",
+                "confidence": 0.6,
+                "reason": "Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha ayrıntılı bir inceleme gereklidir.",
+                "clinical_assessment": "Hastanın tanısı belirtilmemiştir. İlaç-tanı uyumu değerlendirilememiştir. Hepatit B tedavisi için kullanılan ilaçlar reçete edilmiş ancak hasta bilgileri yetersizdir.",
+                "sut_compliance": "SUT uyumluluğu konusunda bazı sorunlar bulunmaktadır. Rapor gerekliliği, ilaç mesaj kodları ve dozaj/süre limitleri açısından daha detaylı inceleme gereklidir.",
                 "risk_factors": [
-                  "ICD tanı kodlarının eksikliği",
-                  "Raporlu ilaçlar için rapor olmaması"
+                  "Tanı bilgisinin olmaması",
+                  "Rapor gerekliliğinin belirtilmemesi",
+                  "İlaç mesaj kodlarının doğruluğunun teyit edilmemesi"
                 ],
                 "recommendations": [
-                  "Reçetedeki ICD tanı kodlarının eklenmesi",
-                  "VEMLIDY için gerekli raporun temin edilmesi"
+                  "Hastanın tanısının netleştirilmesi",
+                  "Rapor gerekliliğinin kontrol edilmesi",
+                  "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
+                  "Dozaj ve süre limitlerinin kontrol edilmesi"
                 ],
                 "key_findings": [
-                  "ICD tanı kodları eksik",
-                  "VEMLIDY için rapor gerekli ancak mevcut değil"
+                  "Tanı bilgisi eksik",
+                  "Rapor gerekliliği belirsiz",
+                  "İlaç mesaj kodlarının doğruluğu teyit edilmemiş"
                 ]
               },
-              "decision_logic": "SUT: hold, Claude: reject -> Final: reject"
+              "decision_logic": "SUT: hold, Claude: hold -> Final: hold"
             },
             "analysis_method": "sut_plus_claude",
-            "timestamp": "2025-09-08T17:07:41.749707",
+            "timestamp": "2025-09-08T23:32:39.326344",
             "prescription_id": "3GP25RF",
             "claude_available": true
           },
-          "processing_time": 3.43892765045166
+          "processing_time": 3.8541579246520996
         }
       }
     },
@@ -199,10 +210,10 @@
       },
       "processing_metadata": {
         "source": "json_file",
-        "timestamp": "2025-09-08T17:07:45.669767",
-        "processing_time_seconds": 3.399088,
+        "timestamp": "2025-09-08T23:32:42.928222",
+        "processing_time_seconds": 3.079825,
         "sut_processing_time": 0.1,
-        "ai_processing_time": 3.399005651473999
+        "ai_processing_time": 3.0797367095947266
       },
       "sut_analysis": {
         "compliant": false,
@@ -220,19 +231,20 @@
       "final_decision": "hold",
       "details": {
         "sut_reason": "SUT compliance issues require manual review",
-        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Reçetede bazı belirsizlikler ve uyumsuzluklar var, manuel inceleme gerekli.",
+        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar var. Daha ayrıntılı bir inceleme gerekli.",
         "sut_issues": [
           "Diagnosis mismatch: Required diagnoses ['N40', 'N42'] not found in []"
         ],
         "ai_risk_factors": [
-          "Tanı kodu belirtilmemiş",
-          "Rapor gerekliliği doğrulanamadı",
-          "İlaç mesaj kodları tam olarak doğrulanamadı"
+          "Tanı kodlarının belirtilmemesi",
+          "Raporlu ilaç kullanımı için rapor olmaması",
+          "İlaç mesaj kodlarının doğru kullanılmaması"
         ],
         "recommendations": [
           "Hastanın tanısının netleştirilmesi",
-          "Rapor gerekliliğinin doğrulanması",
-          "İlaç mesaj kodlarının doğrulanması"
+          "Raporlu ilaçlar için gerekli raporun temin edilmesi",
+          "İlaç mesaj kodlarının doğru kullanılması",
+          "Hasta güvenliği açısından ilaç etkileşimleri ve kontrendikasyonların kontrol edilmesi"
         ]
       },
       "raw_data": {
@@ -263,7 +275,7 @@
         "sut_full_result": {
           "analysis": {
             "prescription_id": "3GPHER2",
-            "analysis_timestamp": "2025-09-08T17:07:42.270677",
+            "analysis_timestamp": "2025-09-08T23:32:39.848397",
             "overall_compliance": false,
             "issues": [
               "Diagnosis mismatch: Required diagnoses ['N40', 'N42'] not found in []"
@@ -315,23 +327,24 @@
           "result": {
             "action": "hold",
             "confidence": 0.6,
-            "reason": "SUT: SUT compliance issues require manual review | Claude: Reçetede bazı belirsizlikler ve uyumsuzluklar var, manuel inceleme gerekli.",
-            "clinical_assessment": "Hastanın tanısı belirtilmemiş, bu nedenle ilaç-tanı uyumluluğu değerlendirilemedi. Ayrıca rapor gerekliliği ve ilaç mesaj kodları da tam olarak doğrulanamadı.",
-            "sut_compliance": "SUT uyumsuzluğu var, 1301(13) mesaj kodu nedeniyle Alfuzosin, Tamsulosin, Terazosin, Doksazosin, Silodosin ilaçlarından biri reçete edilmiş ancak tanı kodu belirtilmediği için uygunluğu doğrulanamadı.",
+            "reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar var. Daha ayrıntılı bir inceleme gerekli.",
+            "clinical_assessment": "Hastanın tanısı belirtilmemiş. İlaçların endikasyonları tam olarak anlaşılamamaktadır. Hasta güvenliği açısından bazı riskler olabilir.",
+            "sut_compliance": "SUT uyumluluğu konusunda sorunlar var. Rapor gerekliliği ve ilaç mesaj kodları doğru kullanılmamış.",
             "risk_factors": [
-              "Tanı kodu belirtilmemiş",
-              "Rapor gerekliliği doğrulanamadı",
-              "İlaç mesaj kodları tam olarak doğrulanamadı"
+              "Tanı kodlarının belirtilmemesi",
+              "Raporlu ilaç kullanımı için rapor olmaması",
+              "İlaç mesaj kodlarının doğru kullanılmaması"
             ],
             "recommendations": [
               "Hastanın tanısının netleştirilmesi",
-              "Rapor gerekliliğinin doğrulanması",
-              "İlaç mesaj kodlarının doğrulanması"
+              "Raporlu ilaçlar için gerekli raporun temin edilmesi",
+              "İlaç mesaj kodlarının doğru kullanılması",
+              "Hasta güvenliği açısından ilaç etkileşimleri ve kontrendikasyonların kontrol edilmesi"
             ],
             "key_findings": [
-              "Tanı kodu belirtilmemiş",
-              "Rapor gerekliliği doğrulanamadı",
-              "İlaç mesaj kodları tam olarak doğrulanamadı"
+              "Tanı kodları belirtilmemiş",
+              "Raporlu ilaçlar için rapor yok",
+              "İlaç mesaj kodları doğru kullanılmamış"
             ],
             "analysis_details": {
               "sut_recommendation": {
@@ -345,33 +358,34 @@
               "claude_analysis": {
                 "action": "hold",
                 "confidence": 0.7,
-                "reason": "Reçetede bazı belirsizlikler ve uyumsuzluklar var, manuel inceleme gerekli.",
-                "clinical_assessment": "Hastanın tanısı belirtilmemiş, bu nedenle ilaç-tanı uyumluluğu değerlendirilemedi. Ayrıca rapor gerekliliği ve ilaç mesaj kodları da tam olarak doğrulanamadı.",
-                "sut_compliance": "SUT uyumsuzluğu var, 1301(13) mesaj kodu nedeniyle Alfuzosin, Tamsulosin, Terazosin, Doksazosin, Silodosin ilaçlarından biri reçete edilmiş ancak tanı kodu belirtilmediği için uygunluğu doğrulanamadı.",
+                "reason": "Bu reçetede bazı belirsizlikler ve potansiyel sorunlar var. Daha ayrıntılı bir inceleme gerekli.",
+                "clinical_assessment": "Hastanın tanısı belirtilmemiş. İlaçların endikasyonları tam olarak anlaşılamamaktadır. Hasta güvenliği açısından bazı riskler olabilir.",
+                "sut_compliance": "SUT uyumluluğu konusunda sorunlar var. Rapor gerekliliği ve ilaç mesaj kodları doğru kullanılmamış.",
                 "risk_factors": [
-                  "Tanı kodu belirtilmemiş",
-                  "Rapor gerekliliği doğrulanamadı",
-                  "İlaç mesaj kodları tam olarak doğrulanamadı"
+                  "Tanı kodlarının belirtilmemesi",
+                  "Raporlu ilaç kullanımı için rapor olmaması",
+                  "İlaç mesaj kodlarının doğru kullanılmaması"
                 ],
                 "recommendations": [
                   "Hastanın tanısının netleştirilmesi",
-                  "Rapor gerekliliğinin doğrulanması",
-                  "İlaç mesaj kodlarının doğrulanması"
+                  "Raporlu ilaçlar için gerekli raporun temin edilmesi",
+                  "İlaç mesaj kodlarının doğru kullanılması",
+                  "Hasta güvenliği açısından ilaç etkileşimleri ve kontrendikasyonların kontrol edilmesi"
                 ],
                 "key_findings": [
-                  "Tanı kodu belirtilmemiş",
-                  "Rapor gerekliliği doğrulanamadı",
-                  "İlaç mesaj kodları tam olarak doğrulanamadı"
+                  "Tanı kodları belirtilmemiş",
+                  "Raporlu ilaçlar için rapor yok",
+                  "İlaç mesaj kodları doğru kullanılmamış"
                 ]
               },
               "decision_logic": "SUT: hold, Claude: hold -> Final: hold"
             },
             "analysis_method": "sut_plus_claude",
-            "timestamp": "2025-09-08T17:07:45.669578",
+            "timestamp": "2025-09-08T23:32:42.928069",
             "prescription_id": "3GPHER2",
             "claude_available": true
           },
-          "processing_time": 3.399005651473999
+          "processing_time": 3.0797367095947266
         }
       }
     },
@@ -383,10 +397,10 @@
       },
       "processing_metadata": {
         "source": "json_file",
-        "timestamp": "2025-09-08T17:07:50.087619",
-        "processing_time_seconds": 3.889288,
+        "timestamp": "2025-09-08T23:32:46.764559",
+        "processing_time_seconds": 3.320372,
         "sut_processing_time": 0.1,
-        "ai_processing_time": 3.8891172409057617
+        "ai_processing_time": 3.3202548027038574
       },
       "sut_analysis": {
         "compliant": false,
@@ -404,21 +418,19 @@
       "final_decision": "hold",
       "details": {
         "sut_reason": "SUT compliance issues require manual review",
-        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
+        "ai_reason": "SUT: SUT compliance issues require manual review | Claude: Reçetede bazı belirsizlikler ve potansiyel uyumsuzluklar var. Daha detaylı inceleme gerekli.",
         "sut_issues": [
           "Diagnosis mismatch: Required diagnoses ['E11', 'E10'] not found in []",
           "Report required for GLIFIX PLUS 15/1000 MG 30 FTB but not found"
         ],
         "ai_risk_factors": [
-          "Tanı kodlarının belirtilmemesi",
-          "Bazı ilaçların dozaj ve süre limitlerinin bilinmemesi",
-          "Potansiyel ilaç etkileşimleri ve kontrendikasyonlar"
+          "Tanı bilgisinin eksikliği",
+          "Raporlu ilaçlar için rapor bilgisinin olmaması"
         ],
         "recommendations": [
-          "Hastanın tanı kodlarının belirlenmesi",
-          "İlaçların dozaj ve süre limitlerinin kontrol edilmesi",
-          "Hasta güvenliği açısından ilaç etkileşimlerinin ve kontrendikasyonların değerlendirilmesi",
-          "Raporlu ilaçlar için gerekli raporun olup olmadığının kontrol edilmesi"
+          "Hastanın tanısının netleştirilmesi",
+          "Raporlu ilaçlar için rapor bilgisinin sağlanması",
+          "İlaç dozajlarının ve kullanım endikasyonlarının doğrulanması"
         ]
       },
       "raw_data": {
@@ -464,7 +476,7 @@
         "sut_full_result": {
           "analysis": {
             "prescription_id": "3GPOH2O",
-            "analysis_timestamp": "2025-09-08T17:07:46.198330",
+            "analysis_timestamp": "2025-09-08T23:32:43.444185",
             "overall_compliance": false,
             "issues": [
               "Diagnosis mismatch: Required diagnoses ['E11', 'E10'] not found in []",
@@ -541,24 +553,22 @@
           "result": {
             "action": "hold",
             "confidence": 0.6,
-            "reason": "SUT: SUT compliance issues require manual review | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
-            "clinical_assessment": "Hastanın tanı kodları belirtilmemiştir. Bu nedenle ilaç-tanı uyumluluğu değerlendirilememiştir. Ayrıca, bazı ilaçların dozaj ve süre limitleri hakkında da bilgi eksikliği vardır. Hasta güvenliği açısından da bazı riskler olabilir.",
-            "sut_compliance": "Reçetede SUT uyumluluğu açısından 2 problem tespit edilmiştir. Bunlar, ilaç-tanı uyumsuzluğu ve rapor gerekliliği ile ilgilidir.",
+            "reason": "SUT: SUT compliance issues require manual review | Claude: Reçetede bazı belirsizlikler ve potansiyel uyumsuzluklar var. Daha detaylı inceleme gerekli.",
+            "clinical_assessment": "Hastanın tanısı belirtilmemiş. İlaç-tanı uyumu değerlendirilemedi. Bazı ilaçların kullanım endikasyonları ve dozajları açısından ek bilgi gerekli.",
+            "sut_compliance": "Raporlu ilaçlar için rapor bilgisi eksik. İlaç mesaj kodları doğru görünse de, ilaç-tanı uyumu ve doz limitleri açısından ek kontrol gerekli.",
             "risk_factors": [
-              "Tanı kodlarının belirtilmemesi",
-              "Bazı ilaçların dozaj ve süre limitlerinin bilinmemesi",
-              "Potansiyel ilaç etkileşimleri ve kontrendikasyonlar"
+              "Tanı bilgisinin eksikliği",
+              "Raporlu ilaçlar için rapor bilgisinin olmaması"
             ],
             "recommendations": [
-              "Hastanın tanı kodlarının belirlenmesi",
-              "İlaçların dozaj ve süre limitlerinin kontrol edilmesi",
-              "Hasta güvenliği açısından ilaç etkileşimlerinin ve kontrendikasyonların değerlendirilmesi",
-              "Raporlu ilaçlar için gerekli raporun olup olmadığının kontrol edilmesi"
+              "Hastanın tanısının netleştirilmesi",
+              "Raporlu ilaçlar için rapor bilgisinin sağlanması",
+              "İlaç dozajlarının ve kullanım endikasyonlarının doğrulanması"
             ],
             "key_findings": [
-              "Tanı kodları belirtilmemiş",
-              "Bazı ilaçların dozaj ve süre limitleri bilinmiyor",
-              "Rapor gerekliliği var ancak rapor bilgisi yok"
+              "Tanı bilgisi eksik",
+              "Raporlu ilaçlar için rapor bilgisi yok",
+              "Bazı ilaçların kullanım endikasyonları ve dozajları açısından belirsizlikler var"
             ],
             "analysis_details": {
               "sut_recommendation": {
@@ -573,34 +583,32 @@
               "claude_analysis": {
                 "action": "hold",
                 "confidence": 0.7,
-                "reason": "Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
-                "clinical_assessment": "Hastanın tanı kodları belirtilmemiştir. Bu nedenle ilaç-tanı uyumluluğu değerlendirilememiştir. Ayrıca, bazı ilaçların dozaj ve süre limitleri hakkında da bilgi eksikliği vardır. Hasta güvenliği açısından da bazı riskler olabilir.",
-                "sut_compliance": "Reçetede SUT uyumluluğu açısından 2 problem tespit edilmiştir. Bunlar, ilaç-tanı uyumsuzluğu ve rapor gerekliliği ile ilgilidir.",
+                "reason": "Reçetede bazı belirsizlikler ve potansiyel uyumsuzluklar var. Daha detaylı inceleme gerekli.",
+                "clinical_assessment": "Hastanın tanısı belirtilmemiş. İlaç-tanı uyumu değerlendirilemedi. Bazı ilaçların kullanım endikasyonları ve dozajları açısından ek bilgi gerekli.",
+                "sut_compliance": "Raporlu ilaçlar için rapor bilgisi eksik. İlaç mesaj kodları doğru görünse de, ilaç-tanı uyumu ve doz limitleri açısından ek kontrol gerekli.",
                 "risk_factors": [
-                  "Tanı kodlarının belirtilmemesi",
-                  "Bazı ilaçların dozaj ve süre limitlerinin bilinmemesi",
-                  "Potansiyel ilaç etkileşimleri ve kontrendikasyonlar"
+                  "Tanı bilgisinin eksikliği",
+                  "Raporlu ilaçlar için rapor bilgisinin olmaması"
                 ],
                 "recommendations": [
-                  "Hastanın tanı kodlarının belirlenmesi",
-                  "İlaçların dozaj ve süre limitlerinin kontrol edilmesi",
-                  "Hasta güvenliği açısından ilaç etkileşimlerinin ve kontrendikasyonların değerlendirilmesi",
-                  "Raporlu ilaçlar için gerekli raporun olup olmadığının kontrol edilmesi"
+                  "Hastanın tanısının netleştirilmesi",
+                  "Raporlu ilaçlar için rapor bilgisinin sağlanması",
+                  "İlaç dozajlarının ve kullanım endikasyonlarının doğrulanması"
                 ],
                 "key_findings": [
-                  "Tanı kodları belirtilmemiş",
-                  "Bazı ilaçların dozaj ve süre limitleri bilinmiyor",
-                  "Rapor gerekliliği var ancak rapor bilgisi yok"
+                  "Tanı bilgisi eksik",
+                  "Raporlu ilaçlar için rapor bilgisi yok",
+                  "Bazı ilaçların kullanım endikasyonları ve dozajları açısından belirsizlikler var"
                 ]
               },
               "decision_logic": "SUT: hold, Claude: hold -> Final: hold"
             },
             "analysis_method": "sut_plus_claude",
-            "timestamp": "2025-09-08T17:07:50.087483",
+            "timestamp": "2025-09-08T23:32:46.764406",
             "prescription_id": "3GPOH2O",
             "claude_available": true
           },
-          "processing_time": 3.8891172409057617
+          "processing_time": 3.3202548027038574
         }
       }
     },
@@ -612,10 +620,10 @@
       },
       "processing_metadata": {
         "source": "json_file",
-        "timestamp": "2025-09-08T17:07:53.772038",
-        "processing_time_seconds": 3.168735,
+        "timestamp": "2025-09-08T23:32:51.281171",
+        "processing_time_seconds": 4.001363,
         "sut_processing_time": 0.1,
-        "ai_processing_time": 3.1686339378356934
+        "ai_processing_time": 4.001231908798218
       },
       "sut_analysis": {
         "compliant": false,
@@ -626,14 +634,14 @@
       },
       "ai_analysis": {
         "action": "reject",
-        "confidence": 0.6,
+        "confidence": 0.9,
         "claude_used": true,
         "method": "sut_plus_claude"
       },
       "final_decision": "reject",
       "details": {
         "sut_reason": "Multiple SUT violations (4 issues)",
-        "ai_reason": "SUT: Multiple SUT violations (4 issues) | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
+        "ai_reason": "SUT: Multiple SUT violations (4 issues) | Claude: Bu reçetede ciddi uyumsuzluklar ve hasta güvenliği riskleri bulunmaktadır. Reçetenin reddedilmesi gerekmektedir.",
         "sut_issues": [
           "Diagnosis mismatch: Required diagnoses ['F20', 'F25', 'F31'] not found in []",
           "Report required for RISPERDAL 3 MG.20 TABLET but not found",
@@ -641,16 +649,14 @@
           "Report required for SOLIAN 400 MG.30 FILM TABLET but not found"
         ],
         "ai_risk_factors": [
-          "Tanı kodlarının belirtilmemesi",
-          "Rapor gerekliliği",
-          "İlaç mesaj kodlarının doğruluğu",
-          "Dozaj ve süre limitleri"
+          "Tanı kodlarının eksikliği",
+          "Raporlu ilaç kullanımı için rapor gerekliliği",
+          "İlaç etkileşimleri ve kontrendikasyonlar"
         ],
         "recommendations": [
-          "Hastanın tanısının netleştirilmesi",
-          "Rapor gerekliliğinin kontrol edilmesi",
-          "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
-          "Dozaj ve süre limitlerinin uygunluğunun değerlendirilmesi"
+          "Reçetenin reddedilmesi",
+          "Hastanın doktoru ile iletişime geçilerek tanı ve tedavi planının netleştirilmesi",
+          "Raporlu ilaçlar için gerekli raporun temini"
         ]
       },
       "raw_data": {
@@ -691,7 +697,7 @@
         "sut_full_result": {
           "analysis": {
             "prescription_id": "3GPSRUX",
-            "analysis_timestamp": "2025-09-08T17:07:50.603299",
+            "analysis_timestamp": "2025-09-08T23:32:47.279807",
             "overall_compliance": false,
             "issues": [
               "Diagnosis mismatch: Required diagnoses ['F20', 'F25', 'F31'] not found in []",
@@ -766,27 +772,25 @@
         "ai_full_result": {
           "result": {
             "action": "reject",
-            "confidence": 0.6,
-            "reason": "SUT: Multiple SUT violations (4 issues) | Claude: Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
-            "clinical_assessment": "Hastanın tanısı belirtilmemiştir. İlaç-tanı uyumu değerlendirilememiştir. Hasta güvenliği açısından bazı riskler olabilir.",
-            "sut_compliance": "Reçetede SUT uyumsuzlukları tespit edilmiştir. Rapor gerekliliği, ilaç mesaj kodları ve dozaj limitleri ile ilgili sorunlar bulunmaktadır.",
+            "confidence": 0.9,
+            "reason": "SUT: Multiple SUT violations (4 issues) | Claude: Bu reçetede ciddi uyumsuzluklar ve hasta güvenliği riskleri bulunmaktadır. Reçetenin reddedilmesi gerekmektedir.",
+            "clinical_assessment": "Hastanın tanısı belirtilmemiş olup, verilen ilaçların endikasyonları net değil. Antipsikotik ilaçların kullanımı için rapor gerekliliği bulunmaktadır ancak rapor bilgisi mevcut değil. Ayrıca ilaç etkileşimleri ve kontrendikasyonlar açısından da riskler söz konusu.",
+            "sut_compliance": "Reçetede SUT uyumsuzlukları bulunmaktadır. Tanı kodlarının eksikliği, raporlu ilaç kullanımı için rapor gerekliliği, ilaç mesaj kodlarının uyumsuzluğu gibi sorunlar mevcuttur.",
             "risk_factors": [
-              "Tanı kodlarının belirtilmemesi",
-              "Rapor gerekliliği",
-              "İlaç mesaj kodlarının doğruluğu",
-              "Dozaj ve süre limitleri"
+              "Tanı kodlarının eksikliği",
+              "Raporlu ilaç kullanımı için rapor gerekliliği",
+              "İlaç etkileşimleri ve kontrendikasyonlar"
             ],
             "recommendations": [
-              "Hastanın tanısının netleştirilmesi",
-              "Rapor gerekliliğinin kontrol edilmesi",
-              "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
-              "Dozaj ve süre limitlerinin uygunluğunun değerlendirilmesi"
+              "Reçetenin reddedilmesi",
+              "Hastanın doktoru ile iletişime geçilerek tanı ve tedavi planının netleştirilmesi",
+              "Raporlu ilaçlar için gerekli raporun temini"
             ],
             "key_findings": [
-              "Tanı kodları belirtilmemiş",
-              "Rapor gerekliliği var ancak rapor bilgileri eksik",
-              "İlaç mesaj kodları uygun görünmüyor",
-              "Dozaj ve süre limitleri net değil"
+              "Tanı kodlarının eksikliği",
+              "Raporlu ilaç kullanımı için rapor gerekliliği",
+              "İlaç mesaj kodlarının uyumsuzluğu",
+              "İlaç etkileşimleri ve kontrendikasyonlar"
             ],
             "analysis_details": {
               "sut_recommendation": {
@@ -801,38 +805,36 @@
                 ]
               },
               "claude_analysis": {
-                "action": "hold",
-                "confidence": 0.6,
-                "reason": "Bu reçetede bazı belirsizlikler ve potansiyel sorunlar bulunmaktadır. Daha detaylı bir inceleme gereklidir.",
-                "clinical_assessment": "Hastanın tanısı belirtilmemiştir. İlaç-tanı uyumu değerlendirilememiştir. Hasta güvenliği açısından bazı riskler olabilir.",
-                "sut_compliance": "Reçetede SUT uyumsuzlukları tespit edilmiştir. Rapor gerekliliği, ilaç mesaj kodları ve dozaj limitleri ile ilgili sorunlar bulunmaktadır.",
+                "action": "reject",
+                "confidence": 0.9,
+                "reason": "Bu reçetede ciddi uyumsuzluklar ve hasta güvenliği riskleri bulunmaktadır. Reçetenin reddedilmesi gerekmektedir.",
+                "clinical_assessment": "Hastanın tanısı belirtilmemiş olup, verilen ilaçların endikasyonları net değil. Antipsikotik ilaçların kullanımı için rapor gerekliliği bulunmaktadır ancak rapor bilgisi mevcut değil. Ayrıca ilaç etkileşimleri ve kontrendikasyonlar açısından da riskler söz konusu.",
+                "sut_compliance": "Reçetede SUT uyumsuzlukları bulunmaktadır. Tanı kodlarının eksikliği, raporlu ilaç kullanımı için rapor gerekliliği, ilaç mesaj kodlarının uyumsuzluğu gibi sorunlar mevcuttur.",
                 "risk_factors": [
-                  "Tanı kodlarının belirtilmemesi",
-                  "Rapor gerekliliği",
-                  "İlaç mesaj kodlarının doğruluğu",
-                  "Dozaj ve süre limitleri"
+                  "Tanı kodlarının eksikliği",
+                  "Raporlu ilaç kullanımı için rapor gerekliliği",
+                  "İlaç etkileşimleri ve kontrendikasyonlar"
                 ],
                 "recommendations": [
-                  "Hastanın tanısının netleştirilmesi",
-                  "Rapor gerekliliğinin kontrol edilmesi",
-                  "İlaç mesaj kodlarının doğruluğunun teyit edilmesi",
-                  "Dozaj ve süre limitlerinin uygunluğunun değerlendirilmesi"
+                  "Reçetenin reddedilmesi",
+                  "Hastanın doktoru ile iletişime geçilerek tanı ve tedavi planının netleştirilmesi",
+                  "Raporlu ilaçlar için gerekli raporun temini"
                 ],
                 "key_findings": [
-                  "Tanı kodları belirtilmemiş",
-                  "Rapor gerekliliği var ancak rapor bilgileri eksik",
-                  "İlaç mesaj kodları uygun görünmüyor",
-                  "Dozaj ve süre limitleri net değil"
+                  "Tanı kodlarının eksikliği",
+                  "Raporlu ilaç kullanımı için rapor gerekliliği",
+                  "İlaç mesaj kodlarının uyumsuzluğu",
+                  "İlaç etkileşimleri ve kontrendikasyonlar"
                 ]
               },
-              "decision_logic": "SUT: reject, Claude: hold -> Final: reject"
+              "decision_logic": "SUT: reject, Claude: reject -> Final: reject"
             },
             "analysis_method": "sut_plus_claude",
-            "timestamp": "2025-09-08T17:07:53.771803",
+            "timestamp": "2025-09-08T23:32:51.281025",
             "prescription_id": "3GPSRUX",
             "claude_available": true
           },
-          "processing_time": 3.1686339378356934
+          "processing_time": 4.001231908798218
         }
       }
     },
@@ -844,10 +846,10 @@
       },
       "processing_metadata": {
         "source": "json_file",
-        "timestamp": "2025-09-08T17:07:58.726424",
-        "processing_time_seconds": 4.426774,
+        "timestamp": "2025-09-08T23:32:54.924921",
+        "processing_time_seconds": 3.127186,
         "sut_processing_time": 0.1,
-        "ai_processing_time": 4.426677942276001
+        "ai_processing_time": 3.1271207332611084
       },
       "sut_analysis": {
         "compliant": true,
@@ -865,14 +867,10 @@
       "final_decision": "approve",
       "details": {
         "sut_reason": "Full SUT compliance, no issues found",
-        "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete genel olarak SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır. Dozaj ve süre limitleri ile hasta güvenliği açısından da bir sorun görülmemektedir.",
+        "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete genel olarak SUT kurallarına uygun görünüyor. İlaç-tanı uyumluluğu belirtilmemiş olsa da, verilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış durumda. İlaç mesaj kodları ve dozaj-süre limitleri de uygun görünüyor. Hasta güvenliği açısından da önemli bir risk faktörü bulunmuyor.",
         "sut_issues": [],
-        "ai_risk_factors": [
-          "Belirtilmemiş"
-        ],
-        "recommendations": [
-          "Reçete onaylanabilir."
-        ]
+        "ai_risk_factors": [],
+        "recommendations": []
       },
       "raw_data": {
         "prescription_data": {
@@ -902,7 +900,7 @@
         "sut_full_result": {
           "analysis": {
             "prescription_id": "3GPTS9T",
-            "analysis_timestamp": "2025-09-08T17:07:54.299639",
+            "analysis_timestamp": "2025-09-08T23:32:51.797732",
             "overall_compliance": true,
             "issues": [],
             "warnings": [],
@@ -945,19 +943,15 @@
           "result": {
             "action": "approve",
             "confidence": 0.9,
-            "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete genel olarak SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır. Dozaj ve süre limitleri ile hasta güvenliği açısından da bir sorun görülmemektedir.",
-            "clinical_assessment": "Reçete edilen ilaçlar, İbrahim Aktaş hastasının klinik durumu için uygun görünmektedir. Modet 1000 mg ve Ecopirin Pro 81 mg kombinasyonu, olası kardiyovasküler risk faktörleri için uygun bir tedavi seçeneği olarak değerlendirilmektedir.",
-            "sut_compliance": "Reçete, SGK SUT kurallarına uygun olarak düzenlenmiştir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır.",
-            "risk_factors": [
-              "Belirtilmemiş"
-            ],
-            "recommendations": [
-              "Reçete onaylanabilir."
-            ],
+            "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçete genel olarak SUT kurallarına uygun görünüyor. İlaç-tanı uyumluluğu belirtilmemiş olsa da, verilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış durumda. İlaç mesaj kodları ve dozaj-süre limitleri de uygun görünüyor. Hasta güvenliği açısından da önemli bir risk faktörü bulunmuyor.",
+            "clinical_assessment": "Reçetedeki ilaçlar, hastanın muhtemel tanıları için uygun görünmektedir. Herhangi bir kontrendikasyon veya ciddi ilaç etkileşimi tespit edilmemiştir.",
+            "sut_compliance": "Reçete SUT kurallarına uyumlu olarak değerlendirilmektedir.",
+            "risk_factors": [],
+            "recommendations": [],
             "key_findings": [
-              "İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları uygun görünmektedir.",
-              "Rapor gerekliliği sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır.",
-              "Dozaj ve süre limitleri ile hasta güvenliği açısından bir sorun görülmemektedir."
+              "İlaç-tanı uyumluluğu belirtilmemiş",
+              "Rapor gerekliliği sağlanmış",
+              "İlaç mesaj kodları ve dozaj-süre limitleri uygun"
             ],
             "analysis_details": {
               "sut_recommendation": {
@@ -968,29 +962,25 @@
               "claude_analysis": {
                 "action": "approve",
                 "confidence": 0.9,
-                "reason": "Bu reçete genel olarak SGK SUT kurallarına uygun görünmektedir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır. Dozaj ve süre limitleri ile hasta güvenliği açısından da bir sorun görülmemektedir.",
-                "clinical_assessment": "Reçete edilen ilaçlar, İbrahim Aktaş hastasının klinik durumu için uygun görünmektedir. Modet 1000 mg ve Ecopirin Pro 81 mg kombinasyonu, olası kardiyovasküler risk faktörleri için uygun bir tedavi seçeneği olarak değerlendirilmektedir.",
-                "sut_compliance": "Reçete, SGK SUT kurallarına uygun olarak düzenlenmiştir. İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır.",
-                "risk_factors": [
-                  "Belirtilmemiş"
-                ],
-                "recommendations": [
-                  "Reçete onaylanabilir."
-                ],
+                "reason": "Bu reçete genel olarak SUT kurallarına uygun görünüyor. İlaç-tanı uyumluluğu belirtilmemiş olsa da, verilen ilaçların endikasyonları göz önüne alındığında uygun olduğu değerlendirilmektedir. Rapor gerekliliği de sağlanmış durumda. İlaç mesaj kodları ve dozaj-süre limitleri de uygun görünüyor. Hasta güvenliği açısından da önemli bir risk faktörü bulunmuyor.",
+                "clinical_assessment": "Reçetedeki ilaçlar, hastanın muhtemel tanıları için uygun görünmektedir. Herhangi bir kontrendikasyon veya ciddi ilaç etkileşimi tespit edilmemiştir.",
+                "sut_compliance": "Reçete SUT kurallarına uyumlu olarak değerlendirilmektedir.",
+                "risk_factors": [],
+                "recommendations": [],
                 "key_findings": [
-                  "İlaç-tanı uyumluluğu belirtilmemiş olsa da, reçete edilen ilaçların endikasyonları uygun görünmektedir.",
-                  "Rapor gerekliliği sağlanmış ve ilaç mesaj kodları doğru kullanılmıştır.",
-                  "Dozaj ve süre limitleri ile hasta güvenliği açısından bir sorun görülmemektedir."
+                  "İlaç-tanı uyumluluğu belirtilmemiş",
+                  "Rapor gerekliliği sağlanmış",
+                  "İlaç mesaj kodları ve dozaj-süre limitleri uygun"
                 ]
               },
               "decision_logic": "SUT: approve, Claude: approve -> Final: approve"
             },
             "analysis_method": "sut_plus_claude",
-            "timestamp": "2025-09-08T17:07:58.726033",
+            "timestamp": "2025-09-08T23:32:54.924751",
             "prescription_id": "3GPTS9T",
             "claude_available": true
           },
-          "processing_time": 4.426677942276001
+          "processing_time": 3.1271207332611084
         }
       }
     }

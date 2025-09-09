@@ -50,6 +50,26 @@ class SQLiteHandler:
             
             conn.commit()
     
+    def execute_query(self, query, params=None):
+        """Execute a SQL query and return results"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                if params:
+                    cursor.execute(query, params)
+                else:
+                    cursor.execute(query)
+                
+                if query.strip().upper().startswith(('INSERT', 'UPDATE', 'DELETE', 'CREATE')):
+                    conn.commit()
+                    return cursor.rowcount
+                else:
+                    return cursor.fetchall()
+                    
+        except Exception as e:
+            logger.error(f"Query execution error: {e}")
+            return None
+    
     def save_prescription(self, prescription_data, analysis_result=None, decision=None):
         """Save prescription to database"""
         try:

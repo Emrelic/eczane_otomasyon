@@ -1,0 +1,330 @@
+[
+  {
+    "prescription_id": "FALLBACK001",
+    "patient_info": {
+      "name": " ",
+      "tc": "98765432101"
+    },
+    "processing_metadata": {
+      "source": "medula_live",
+      "timestamp": "2025-09-09T03:04:01.171294",
+      "processing_time_seconds": 4.567959,
+      "dose_processing_time": 0.0,
+      "sut_processing_time": 0.1,
+      "ai_processing_time": 4.566483736038208
+    },
+    "dose_analysis": {
+      "compliant": false,
+      "action": "hold",
+      "confidence": 0.1,
+      "drugs_analyzed": 0,
+      "reported_drugs": 0,
+      "issues_found": 0
+    },
+    "sut_analysis": {
+      "compliant": true,
+      "action": "approve",
+      "confidence": 0.95,
+      "issues_count": 0,
+      "warnings_count": 0
+    },
+    "ai_analysis": {
+      "action": "hold",
+      "confidence": 0.7,
+      "claude_used": true,
+      "method": "sut_plus_claude"
+    },
+    "final_decision": "hold",
+    "details": {
+      "dose_reason": "Dose control error: 'DoseControlResult' object has no attribute 'analysis_results'",
+      "sut_reason": "Full SUT compliance, no issues found",
+      "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçetede bazı belirsizlikler var ve manuel inceleme gerekli. İlaç-tanı uyumluluğu, rapor gereklilikleri ve ilaç mesaj kodları tam olarak belirtilmemiş. Ayrıca hasta güvenliği açısından da bazı riskler olabilir.",
+      "dose_violations": [],
+      "sut_issues": [],
+      "ai_risk_factors": [
+        "İlaç-tanı uyumsuzluğu",
+        "Rapor gerekliliğinin belirsizliği",
+        "İlaç mesaj kodlarının doğruluğunun teyit edilmemesi",
+        "Hasta güvenliği riskleri"
+      ],
+      "recommendations": [
+        "İlaç-tanı uyumluluğunun kontrol edilmesi",
+        "Rapor gerekliliğinin teyit edilmesi",
+        "İlaç mesaj kodlarının doğruluğunun kontrol edilmesi",
+        "Hasta güvenliği açısından daha detaylı değerlendirme yapılması"
+      ]
+    },
+    "raw_data": {
+      "prescription_data": {
+        "recete_no": "FALLBACK001",
+        "hasta_ad_soyad": "Fallback Patient 1",
+        "hasta_tc": "98765432101",
+        "drugs": [
+          {
+            "ilac_adi": "Fallback Drug 1",
+            "adet": "1"
+          }
+        ],
+        "ilac_mesajlari": "Fallback message 1",
+        "rapor_no": "FALLBACK_RPT001",
+        "extraction_method": "medula_fallback",
+        "extraction_timestamp": "2025-09-09T03:03:56.602943"
+      },
+      "sut_full_result": {
+        "analysis": {
+          "prescription_id": "FALLBACK001",
+          "analysis_timestamp": "2025-09-09T03:03:56.604759",
+          "overall_compliance": true,
+          "issues": [],
+          "warnings": [],
+          "drug_analyses": [
+            {
+              "drug_name": "Fallback Drug 1",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug Fallback Drug 1 not found in SUT database"
+              ]
+            }
+          ],
+          "message_code_analysis": {
+            "valid_codes": [],
+            "invalid_codes": [],
+            "missing_codes": []
+          },
+          "general_compliance": {
+            "compliant": true,
+            "issues": []
+          }
+        },
+        "recommendation": {
+          "action": "approve",
+          "confidence": 0.95,
+          "reason": "Full SUT compliance, no issues found"
+        },
+        "processing_time": 0.1
+      },
+      "ai_full_result": {
+        "result": {
+          "action": "hold",
+          "confidence": 0.7,
+          "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçetede bazı belirsizlikler var ve manuel inceleme gerekli. İlaç-tanı uyumluluğu, rapor gereklilikleri ve ilaç mesaj kodları tam olarak belirtilmemiş. Ayrıca hasta güvenliği açısından da bazı riskler olabilir.",
+          "clinical_assessment": "Reçetede belirtilen ilaç ve tanı kodları arasında uyumsuzluk olduğu görülüyor. Rapor gereklilikleri de net değil. İlaç mesaj kodlarının doğruluğu da teyit edilmeli. Hasta güvenliği açısından da bazı riskler olabilir, bu nedenle daha detaylı bir inceleme gerekli.",
+          "sut_compliance": "SUT uyumluluğu konusunda bazı belirsizlikler var. İlaç-tanı uyumluluğu, rapor gereklilikleri ve ilaç mesaj kodlarının doğruluğu tam olarak belirlenemedi.",
+          "risk_factors": [
+            "İlaç-tanı uyumsuzluğu",
+            "Rapor gerekliliğinin belirsizliği",
+            "İlaç mesaj kodlarının doğruluğunun teyit edilmemesi",
+            "Hasta güvenliği riskleri"
+          ],
+          "recommendations": [
+            "İlaç-tanı uyumluluğunun kontrol edilmesi",
+            "Rapor gerekliliğinin teyit edilmesi",
+            "İlaç mesaj kodlarının doğruluğunun kontrol edilmesi",
+            "Hasta güvenliği açısından daha detaylı değerlendirme yapılması"
+          ],
+          "key_findings": [
+            "İlaç-tanı uyumsuzluğu",
+            "Rapor gerekliliğinin belirsizliği",
+            "İlaç mesaj kodlarının doğruluğunun teyit edilmemesi",
+            "Hasta güvenliği riskleri"
+          ],
+          "analysis_details": {
+            "sut_recommendation": {
+              "action": "approve",
+              "confidence": 0.95,
+              "reason": "Full SUT compliance, no issues found"
+            },
+            "claude_analysis": {
+              "action": "hold",
+              "confidence": 0.7,
+              "reason": "Bu reçetede bazı belirsizlikler var ve manuel inceleme gerekli. İlaç-tanı uyumluluğu, rapor gereklilikleri ve ilaç mesaj kodları tam olarak belirtilmemiş. Ayrıca hasta güvenliği açısından da bazı riskler olabilir.",
+              "clinical_assessment": "Reçetede belirtilen ilaç ve tanı kodları arasında uyumsuzluk olduğu görülüyor. Rapor gereklilikleri de net değil. İlaç mesaj kodlarının doğruluğu da teyit edilmeli. Hasta güvenliği açısından da bazı riskler olabilir, bu nedenle daha detaylı bir inceleme gerekli.",
+              "sut_compliance": "SUT uyumluluğu konusunda bazı belirsizlikler var. İlaç-tanı uyumluluğu, rapor gereklilikleri ve ilaç mesaj kodlarının doğruluğu tam olarak belirlenemedi.",
+              "risk_factors": [
+                "İlaç-tanı uyumsuzluğu",
+                "Rapor gerekliliğinin belirsizliği",
+                "İlaç mesaj kodlarının doğruluğunun teyit edilmemesi",
+                "Hasta güvenliği riskleri"
+              ],
+              "recommendations": [
+                "İlaç-tanı uyumluluğunun kontrol edilmesi",
+                "Rapor gerekliliğinin teyit edilmesi",
+                "İlaç mesaj kodlarının doğruluğunun kontrol edilmesi",
+                "Hasta güvenliği açısından daha detaylı değerlendirme yapılması"
+              ],
+              "key_findings": [
+                "İlaç-tanı uyumsuzluğu",
+                "Rapor gerekliliğinin belirsizliği",
+                "İlaç mesaj kodlarının doğruluğunun teyit edilmemesi",
+                "Hasta güvenliği riskleri"
+              ]
+            },
+            "decision_logic": "SUT: approve, Claude: hold -> Final: hold"
+          },
+          "analysis_method": "sut_plus_claude",
+          "timestamp": "2025-09-09T03:04:01.171081",
+          "prescription_id": "FALLBACK001",
+          "claude_available": true
+        },
+        "processing_time": 4.566483736038208
+      }
+    }
+  },
+  {
+    "prescription_id": "FALLBACK002",
+    "patient_info": {
+      "name": " ",
+      "tc": "98765432102"
+    },
+    "processing_metadata": {
+      "source": "medula_live",
+      "timestamp": "2025-09-09T03:04:04.159001",
+      "processing_time_seconds": 2.471523,
+      "dose_processing_time": 0.0,
+      "sut_processing_time": 0.1,
+      "ai_processing_time": 2.4700100421905518
+    },
+    "dose_analysis": {
+      "compliant": false,
+      "action": "hold",
+      "confidence": 0.1,
+      "drugs_analyzed": 0,
+      "reported_drugs": 0,
+      "issues_found": 0
+    },
+    "sut_analysis": {
+      "compliant": true,
+      "action": "approve",
+      "confidence": 0.95,
+      "issues_count": 0,
+      "warnings_count": 0
+    },
+    "ai_analysis": {
+      "action": "hold",
+      "confidence": 0.6,
+      "claude_used": true,
+      "method": "sut_plus_claude"
+    },
+    "final_decision": "hold",
+    "details": {
+      "dose_reason": "Dose control error: 'DoseControlResult' object has no attribute 'analysis_results'",
+      "sut_reason": "Full SUT compliance, no issues found",
+      "ai_reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçetede bazı belirsizlikler var ve manuel inceleme gerekiyor. İlaç-tanı uyumluluğu ve rapor gereklilikleri konusunda net bilgi yok.",
+      "dose_violations": [],
+      "sut_issues": [],
+      "ai_risk_factors": [
+        "Tanı kodlarının belirtilmemiş olması",
+        "Rapor bilgilerinin eksik olması"
+      ],
+      "recommendations": [
+        "Hastanın tanısının ve tedavi planının netleştirilmesi",
+        "Rapor bilgilerinin tamamlanması"
+      ]
+    },
+    "raw_data": {
+      "prescription_data": {
+        "recete_no": "FALLBACK002",
+        "hasta_ad_soyad": "Fallback Patient 2",
+        "hasta_tc": "98765432102",
+        "drugs": [
+          {
+            "ilac_adi": "Fallback Drug 2",
+            "adet": "1"
+          }
+        ],
+        "ilac_mesajlari": "Fallback message 2",
+        "rapor_no": "FALLBACK_RPT002",
+        "extraction_method": "medula_fallback",
+        "extraction_timestamp": "2025-09-09T03:03:56.602954"
+      },
+      "sut_full_result": {
+        "analysis": {
+          "prescription_id": "FALLBACK002",
+          "analysis_timestamp": "2025-09-09T03:04:01.688955",
+          "overall_compliance": true,
+          "issues": [],
+          "warnings": [],
+          "drug_analyses": [
+            {
+              "drug_name": "Fallback Drug 2",
+              "compliant": true,
+              "issues": [],
+              "warnings": [
+                "Drug Fallback Drug 2 not found in SUT database"
+              ]
+            }
+          ],
+          "message_code_analysis": {
+            "valid_codes": [],
+            "invalid_codes": [],
+            "missing_codes": []
+          },
+          "general_compliance": {
+            "compliant": true,
+            "issues": []
+          }
+        },
+        "recommendation": {
+          "action": "approve",
+          "confidence": 0.95,
+          "reason": "Full SUT compliance, no issues found"
+        },
+        "processing_time": 0.1
+      },
+      "ai_full_result": {
+        "result": {
+          "action": "hold",
+          "confidence": 0.6,
+          "reason": "SUT: Full SUT compliance, no issues found | Claude: Bu reçetede bazı belirsizlikler var ve manuel inceleme gerekiyor. İlaç-tanı uyumluluğu ve rapor gereklilikleri konusunda net bilgi yok.",
+          "clinical_assessment": "Hastanın tanısı ve tedavi planı hakkında yeterli bilgi bulunmadığından klinik değerlendirme yapılamamaktadır.",
+          "sut_compliance": "SUT uyumluluğu kısmen sağlanmış görünüyor, ancak bazı eksiklikler var.",
+          "risk_factors": [
+            "Tanı kodlarının belirtilmemiş olması",
+            "Rapor bilgilerinin eksik olması"
+          ],
+          "recommendations": [
+            "Hastanın tanısının ve tedavi planının netleştirilmesi",
+            "Rapor bilgilerinin tamamlanması"
+          ],
+          "key_findings": [
+            "İlaç-tanı uyumluluğu belirsiz",
+            "Rapor gereklilikleri karşılanmamış"
+          ],
+          "analysis_details": {
+            "sut_recommendation": {
+              "action": "approve",
+              "confidence": 0.95,
+              "reason": "Full SUT compliance, no issues found"
+            },
+            "claude_analysis": {
+              "action": "hold",
+              "confidence": 0.6,
+              "reason": "Bu reçetede bazı belirsizlikler var ve manuel inceleme gerekiyor. İlaç-tanı uyumluluğu ve rapor gereklilikleri konusunda net bilgi yok.",
+              "clinical_assessment": "Hastanın tanısı ve tedavi planı hakkında yeterli bilgi bulunmadığından klinik değerlendirme yapılamamaktadır.",
+              "sut_compliance": "SUT uyumluluğu kısmen sağlanmış görünüyor, ancak bazı eksiklikler var.",
+              "risk_factors": [
+                "Tanı kodlarının belirtilmemiş olması",
+                "Rapor bilgilerinin eksik olması"
+              ],
+              "recommendations": [
+                "Hastanın tanısının ve tedavi planının netleştirilmesi",
+                "Rapor bilgilerinin tamamlanması"
+              ],
+              "key_findings": [
+                "İlaç-tanı uyumluluğu belirsiz",
+                "Rapor gereklilikleri karşılanmamış"
+              ]
+            },
+            "decision_logic": "SUT: approve, Claude: hold -> Final: hold"
+          },
+          "analysis_method": "sut_plus_claude",
+          "timestamp": "2025-09-09T03:04:04.158802",
+          "prescription_id": "FALLBACK002",
+          "claude_available": true
+        },
+        "processing_time": 2.4700100421905518
+      }
+    }
+  }
+]
