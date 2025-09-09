@@ -70,7 +70,7 @@ def test_dose_controller_with_json():
                 print(f"   Dose compliant: {drug.dose_compliant}")
                 print(f"   Details: {drug.dose_check_details}")
         
-        print(f"\nAnalysis results: {result.analysis_results}")
+        print(f"\nControl notes: {result.control_notes}")
         
         # 2. Unified processor test
         print("\n\n--- UNIFIED PROCESSOR WITH DOSE CONTROL ---")

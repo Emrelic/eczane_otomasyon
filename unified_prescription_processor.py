@@ -1596,11 +1596,18 @@ class UnifiedPrescriptionProcessor:
             dose_result = self.dose_controller.control_prescription_doses(prescription_data)
             
             return {
-                "analysis": dose_result.analysis_results,
+                "analysis": {
+                    "overall_compliance": dose_result.dose_violations == 0,
+                    "total_drugs": dose_result.total_drugs,
+                    "reported_drugs": dose_result.reported_drugs,
+                    "compliant_drugs": dose_result.dose_compliant_drugs,
+                    "violations": dose_result.dose_violations,
+                    "issues": dose_result.control_notes or []
+                },
                 "recommendation": dose_result.overall_decision,
                 "processing_time": dose_result.processing_time,
-                "drugs_analyzed": len(dose_result.drugs_info),
-                "reported_drugs": len([d for d in dose_result.drugs_info if d.has_report_code])
+                "drugs_analyzed": dose_result.total_drugs,
+                "reported_drugs": dose_result.reported_drugs
             }
             
         except Exception as e:
@@ -1675,22 +1682,32 @@ class UnifiedPrescriptionProcessor:
                     "source": source,
                     "timestamp": datetime.now().isoformat(),
                     "processing_time_seconds": processing_time,
-                    "dose_processing_time": dose_result.get("processing_time", 0),
+                    "dose_processing_time": dose_result.get("processing_time", 0) if isinstance(dose_result, dict) else 0,
                     "sut_processing_time": sut_result.get("processing_time", 0),
                     "ai_processing_time": ai_result.get("processing_time", 0)
                 }
             }
             
             # Dose control sonuçları
-            dose_rec = dose_result.get("recommendation", {})
-            result["dose_analysis"] = {
-                "compliant": dose_rec.get("action") == "approve",
-                "action": dose_rec.get("action", "hold"),
-                "confidence": dose_rec.get("confidence", 0.0),
-                "drugs_analyzed": dose_result.get("drugs_analyzed", 0),
-                "reported_drugs": dose_result.get("reported_drugs", 0),
-                "issues_found": len(dose_result.get("analysis", {}).get("dose_violations", []))
-            }
+            if isinstance(dose_result, dict):
+                dose_rec = dose_result.get("recommendation", {})
+                result["dose_analysis"] = {
+                    "compliant": dose_result.get("analysis", {}).get("overall_compliance", False),
+                    "action": dose_result.get("recommendation", "hold"),
+                    "confidence": 0.8,
+                    "drugs_analyzed": dose_result.get("drugs_analyzed", 0),
+                    "reported_drugs": dose_result.get("reported_drugs", 0),
+                    "issues_found": len(dose_result.get("analysis", {}).get("issues", []))
+                }
+            else:
+                result["dose_analysis"] = {
+                    "compliant": False,
+                    "action": "hold",
+                    "confidence": 0.0,
+                    "drugs_analyzed": 0,
+                    "reported_drugs": 0,
+                    "issues_found": 0
+                }
             
             # SUT sonuçları
             sut_rec = sut_result.get("recommendation", {})

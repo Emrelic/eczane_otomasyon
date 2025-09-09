@@ -1,0 +1,92 @@
+[
+  {
+    "prescription_id": "BATCH_001",
+    "final_decision": "error",
+    "error": "'str' object has no attribute 'get'",
+    "processing_metadata": {
+      "timestamp": "2025-09-09T03:30:09.463833",
+      "processing_time_seconds": 0.0,
+      "source": "error"
+    },
+    "sut_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    },
+    "ai_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    }
+  },
+  {
+    "prescription_id": "BATCH_002",
+    "final_decision": "error",
+    "error": "'str' object has no attribute 'get'",
+    "processing_metadata": {
+      "timestamp": "2025-09-09T03:30:12.629865",
+      "processing_time_seconds": 0.0,
+      "source": "error"
+    },
+    "sut_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    },
+    "ai_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    }
+  },
+  {
+    "prescription_id": "BATCH_003",
+    "final_decision": "error",
+    "error": "'str' object has no attribute 'get'",
+    "processing_metadata": {
+      "timestamp": "2025-09-09T03:30:16.454714",
+      "processing_time_seconds": 0.0,
+      "source": "error"
+    },
+    "sut_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    },
+    "ai_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    }
+  },
+  {
+    "prescription_id": "BATCH_004",
+    "final_decision": "error",
+    "error": "'str' object has no attribute 'get'",
+    "processing_metadata": {
+      "timestamp": "2025-09-09T03:30:19.967878",
+      "processing_time_seconds": 0.0,
+      "source": "error"
+    },
+    "sut_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    },
+    "ai_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    }
+  },
+  {
+    "prescription_id": "BATCH_005",
+    "final_decision": "error",
+    "error": "'str' object has no attribute 'get'",
+    "processing_metadata": {
+      "timestamp": "2025-09-09T03:30:23.510386",
+      "processing_time_seconds": 0.0,
+      "source": "error"
+    },
+    "sut_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    },
+    "ai_analysis": {
+      "action": "error",
+      "confidence": 0.0
+    }
+  }
+]
