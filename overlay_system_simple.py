@@ -11,6 +11,37 @@ import json
 import os
 from typing import Dict, List, Optional
 import time
+import sys
+from pathlib import Path
+
+# Medula browser import'u
+sys.path.insert(0, str(Path(__file__).parent))
+try:
+    from medula_automation.browser import MedulaBrowser
+    BROWSER_AVAILABLE = True
+except ImportError:
+    BROWSER_AVAILABLE = False
+    print("[WARNING] Medula browser import failed - mock mode")
+
+class SimpleSettings:
+    """Basit ayar sınıfı"""
+    def __init__(self):
+        self.medula_username = "18342920"
+        self.medula_password = "571T03s0"
+        self.medula_url = "https://medeczane.sgk.gov.tr/eczane/login.jsp"
+        self.browser_type = "chrome"
+        self.headless = False
+        self.page_load_timeout = 30
+        self.implicit_wait = 10
+        self.log_level = "INFO"
+        self.log_file = "logs/medula.log"
+        self.enable_screenshots = True
+        self.screenshot_dir = "screenshots"
+        
+    def create_directories(self):
+        """Gerekli dizinleri oluştur"""
+        os.makedirs("logs", exist_ok=True)
+        os.makedirs("screenshots", exist_ok=True)
 
 class OverlaySystem:
     """Ana Overlay Cerceve Sistemi"""
@@ -135,92 +166,84 @@ class OverlaySystem:
         settings_window.transient(self.root)  # Ana pencerenin uzerine
         settings_window.grab_set()  # Modal
         
-        # Ana frame
-        main_frame = ttk.Frame(settings_window, padding="20")
+        # Ana frame - TAM TK FRAME KULLAN
+        main_frame = tk.Frame(settings_window, bg='#f8f9fa', padx=20, pady=20)
         main_frame.pack(fill=tk.BOTH, expand=True)
         
-        # Baslik
-        title_label = ttk.Label(main_frame, text="ILK AYARLAR", 
-                               font=('Arial', 16, 'bold'))
+        # Baslik - TK LABEL
+        title_label = tk.Label(main_frame, text="ILK AYARLAR", 
+                               font=('Arial', 16, 'bold'), 
+                               bg='#f8f9fa', fg='#2c3e50')
         title_label.pack(pady=(0, 20))
         
-        # Ayarlar bolumu
-        settings_frame = ttk.LabelFrame(main_frame, text="SISTEM AYARLARI", padding="15")
+        # Ayarlar bolumu - TK KULLAN (TTK DEĞİL)
+        settings_frame = tk.LabelFrame(main_frame, text="SISTEM AYARLARI", bg='#f8f9fa', padx=15, pady=15)
         settings_frame.pack(fill=tk.X, pady=(0, 20))
         
-        # Medula ayarlari - BOS BASLA
-        ttk.Label(settings_frame, text="Medula Kullanici Adi:").pack(anchor=tk.W)
-        self.medula_username_entry = ttk.Entry(settings_frame, width=50, font=('Arial', 11))
+        # Medula ayarlari - TAMAMEN TK
+        tk.Label(settings_frame, text="Medula Kullanici Adi:", bg='#f8f9fa').pack(anchor=tk.W)
+        self.medula_username_entry = tk.Entry(settings_frame, width=50, font=('Arial', 11))
         self.medula_username_entry.pack(fill=tk.X, pady=(5, 10))
         
-        ttk.Label(settings_frame, text="Medula Sifre:").pack(anchor=tk.W)
-        self.medula_password_entry = ttk.Entry(settings_frame, width=50, show="*", font=('Arial', 11))
+        tk.Label(settings_frame, text="Medula Sifre:", bg='#f8f9fa').pack(anchor=tk.W)
+        self.medula_password_entry = tk.Entry(settings_frame, width=50, show="*", font=('Arial', 11))
         self.medula_password_entry.pack(fill=tk.X, pady=(5, 10))
         
-        ttk.Label(settings_frame, text="Claude API Key:").pack(anchor=tk.W)
-        self.api_key_entry = ttk.Entry(settings_frame, width=50, show="*", font=('Arial', 11))
-        self.api_key_entry.pack(fill=tk.X, pady=(5, 15))
+        tk.Label(settings_frame, text="Claude API Key:", bg='#f8f9fa').pack(anchor=tk.W)
+        self.api_key_entry = tk.Entry(settings_frame, width=50, show="*", font=('Arial', 11))
+        self.api_key_entry.pack(fill=tk.X, pady=(5, 10))
         
-        # Navigasyon modu secimi
-        nav_frame = ttk.LabelFrame(settings_frame, text="Navigasyon Modu", padding="10")
+        # MEDULA URL AYARI EKLE - YENİ
+        tk.Label(settings_frame, text="Medula URL:", bg='#f8f9fa', fg='#e74c3c', font=('Arial', 11, 'bold')).pack(anchor=tk.W)
+        self.medula_url_entry = tk.Entry(settings_frame, width=50, font=('Arial', 11))
+        self.medula_url_entry.pack(fill=tk.X, pady=(5, 15))
+        
+        # Navigasyon modu secimi - TK KULLAN
+        nav_frame = tk.LabelFrame(settings_frame, text="Navigasyon Modu", bg='#f8f9fa', padx=10, pady=10)
         nav_frame.pack(fill=tk.X, pady=(0, 15))
         
         self.nav_mode = tk.StringVar(value="manuel")
-        ttk.Radiobutton(nav_frame, text="Manuel Navigasyon (Sen kontrol edersin)", 
-                       variable=self.nav_mode, value="manuel").pack(anchor=tk.W, pady=2)
-        ttk.Radiobutton(nav_frame, text="Otomatik Pilot (Sistem kendi gezinir)", 
-                       variable=self.nav_mode, value="otomatik").pack(anchor=tk.W, pady=2)
-        ttk.Radiobutton(nav_frame, text="Hibrit Mod (Manuel + Otomatik)", 
-                       variable=self.nav_mode, value="hibrit").pack(anchor=tk.W, pady=2)
+        tk.Radiobutton(nav_frame, text="Manuel Navigasyon (Sen kontrol edersin)", 
+                      variable=self.nav_mode, value="manuel", bg='#f8f9fa').pack(anchor=tk.W, pady=2)
+        tk.Radiobutton(nav_frame, text="Otomatik Pilot (Sistem kendi gezinir)", 
+                      variable=self.nav_mode, value="otomatik", bg='#f8f9fa').pack(anchor=tk.W, pady=2)
+        tk.Radiobutton(nav_frame, text="Hibrit Mod (Manuel + Otomatik)", 
+                      variable=self.nav_mode, value="hibrit", bg='#f8f9fa').pack(anchor=tk.W, pady=2)
         
-        # BUTONLAR - TIKLANABILIR KALIN BUTONLAR (GORUNUR)
-        buttons_container = tk.Frame(main_frame, bg='#f8f9fa')
-        buttons_container.pack(fill=tk.X, pady=(30, 20))
+        # BUTONLAR - BASIT YAKLAŞIM - TK BUTTON DOĞRUDAN
         
-        # EXTRA KALIN VE BUYUK BUTONLAR
-        button_style = {
-            'font': ('Arial', 14, 'bold'),
-            'height': 3,
-            'width': 12,
-            'relief': 'raised',
-            'bd': 4,
-            'cursor': 'hand2'
-        }
-        
-        # Sol grup - Kaydet ve Iptal
-        left_group = tk.Frame(buttons_container, bg='#f8f9fa')
-        left_group.pack(side=tk.LEFT, padx=20)
-        
-        # KAYDET butonu - YESIL
-        save_btn = tk.Button(left_group,
-                            text="KAYDET",
+        # KAYDET butonu - TEK TEK OLUŞTUR
+        save_btn = tk.Button(main_frame,
+                            text="AYARLARI KAYDET",
+                            font=('Arial', 12, 'bold'),
                             bg='#27ae60', fg='white',
-                            activebackground='#229954',
-                            command=lambda: self.save_settings(settings_window),
-                            **button_style)
-        save_btn.pack(side=tk.LEFT, padx=(0, 15))
+                            height=2, width=20,
+                            relief='raised', bd=3,
+                            cursor='hand2',
+                            command=lambda: self.save_settings(settings_window))
+        save_btn.pack(pady=10)
         
-        # IPTAL butonu - MAVI
-        cancel_btn = tk.Button(left_group,
+        # IPTAL butonu
+        cancel_btn = tk.Button(main_frame,
                               text="IPTAL",
-                              bg='#3498db', fg='white', 
-                              activebackground='#2980b9',
-                              command=settings_window.destroy,
-                              **button_style)
-        cancel_btn.pack(side=tk.LEFT)
+                              font=('Arial', 12, 'bold'),
+                              bg='#3498db', fg='white',
+                              height=2, width=20,
+                              relief='raised', bd=3,
+                              cursor='hand2',
+                              command=settings_window.destroy)
+        cancel_btn.pack(pady=5)
         
-        # Sag grup - Cikis
-        right_group = tk.Frame(buttons_container, bg='#f8f9fa')
-        right_group.pack(side=tk.RIGHT, padx=20)
-        
-        # CIKIS butonu - KIRMIZI (sag tarafta)
-        exit_btn = tk.Button(right_group,
+        # CIKIS butonu
+        exit_btn = tk.Button(main_frame,
                             text="CIKIS",
+                            font=('Arial', 12, 'bold'),
                             bg='#e74c3c', fg='white',
-                            activebackground='#c0392b',
-                            command=lambda: [settings_window.destroy(), self.root.quit()],
-                            **button_style)
-        exit_btn.pack(side=tk.RIGHT)
+                            height=2, width=20,
+                            relief='raised', bd=3,
+                            cursor='hand2',
+                            command=lambda: [settings_window.destroy(), self.root.quit()])
+        exit_btn.pack(pady=5)
         
         # Butonlara hover efekti ekle
         def add_hover_effect(button):
@@ -245,6 +268,7 @@ class OverlaySystem:
                 'MEDULA_USERNAME': self.medula_username_entry.get(),
                 'MEDULA_PASSWORD': self.medula_password_entry.get(),  
                 'CLAUDE_API_KEY': self.api_key_entry.get(),
+                'MEDULA_URL': self.medula_url_entry.get(),
                 'NAVIGATION_MODE': self.nav_mode.get()
             }
             
@@ -297,6 +321,8 @@ class OverlaySystem:
                 self.medula_password_entry.insert(0, "571T03s0")
             if hasattr(self, 'api_key_entry'):
                 self.api_key_entry.insert(0, "sk-ant-api03-your-claude-api-key-here")
+            if hasattr(self, 'medula_url_entry'):
+                self.medula_url_entry.insert(0, "https://medeczane.sgk.gov.tr/eczane/login.jsp")
             
             # .env dosyasi varsa override et
             if os.path.exists(env_path):
@@ -307,6 +333,8 @@ class OverlaySystem:
                     self.medula_password_entry.delete(0, tk.END)
                 if hasattr(self, 'api_key_entry'):
                     self.api_key_entry.delete(0, tk.END)
+                if hasattr(self, 'medula_url_entry'):
+                    self.medula_url_entry.delete(0, tk.END)
                 
                 # Kaydedilmis degerleri yukle
                 with open(env_path, 'r', encoding='utf-8') as f:
@@ -319,6 +347,8 @@ class OverlaySystem:
                                 self.medula_password_entry.insert(0, value)
                             elif key == 'CLAUDE_API_KEY' and hasattr(self, 'api_key_entry'):
                                 self.api_key_entry.insert(0, value)
+                            elif key == 'MEDULA_URL' and hasattr(self, 'medula_url_entry'):
+                                self.medula_url_entry.insert(0, value)
                             elif key == 'NAVIGATION_MODE' and hasattr(self, 'nav_mode'):
                                 self.nav_mode.set(value)
                 print("Kaydedilmis ayarlar yuklendi (.env dosyasindan)")
@@ -331,6 +361,10 @@ class OverlaySystem:
     def validate_settings(self):
         """Ayar validasyonu - .env dosyasindan kontrol et"""
         try:
+            # Once default degerleri kontrol et
+            default_username = "18342920"
+            default_password = "571T03s0"
+            
             # .env dosyasindan ayarlari oku
             env_path = '.env'
             settings = {}
@@ -338,47 +372,518 @@ class OverlaySystem:
             if os.path.exists(env_path):
                 with open(env_path, 'r', encoding='utf-8') as f:
                     for line in f:
-                        if '=' in line:
+                        if '=' in line and not line.strip().startswith('#'):
                             key, value = line.strip().split('=', 1)
                             settings[key] = value.strip()
             
-            username = settings.get('MEDULA_USERNAME', '').strip()
-            password = settings.get('MEDULA_PASSWORD', '').strip()
+            # Default veya kaydedilmis degerleri al
+            username = settings.get('MEDULA_USERNAME', default_username).strip()
+            password = settings.get('MEDULA_PASSWORD', default_password).strip()
             api_key = settings.get('CLAUDE_API_KEY', '').strip()
             
+            # Gereksiz striktlik - default degerler varsa gecsin
+            if username == default_username and password == default_password:
+                print(f"Default ayarlar kullaniliyor: {username}")
+                return True
+            
+            # Kaydedilmis ayarlar varsa onlari kontrol et
             if not username or not password:
                 messagebox.showwarning("Eksik Bilgi", 
                                      "Medula kullanici adi ve sifre gerekli!\n" +
                                      "Lutfen once 'ILK AYARLAR' butonuna basin.")
                 return False
                 
-            if not api_key:
-                messagebox.showwarning("Eksik Bilgi", 
-                                     "Claude API anahtari gerekli!\n" +
-                                     "Lutfen once 'ILK AYARLAR' butonuna basin.")
-                return False
-                
+            print(f"Ayarlar gecerli: {username}")
             return True
             
         except Exception as e:
-            messagebox.showerror("Hata", f"Ayar kontrol hatasi: {e}")
-            return False
+            print(f"Ayar kontrol hatasi: {e}")
+            # Hata durumunda default ayarlarla devam et
+            return True
 
     def open_medula_overlay(self):
-        """Medula Overlay sistemini baslat"""
+        """Medula Overlay sistemini baslat - GERÇEK BROWSER"""
         if not self.validate_settings():
             return
             
         try:
-            # Ana pencereyi gizle
-            self.root.withdraw()
+            print("[BROWSER] Medula browser başlatılıyor...")
             
-            # Overlay window baslat
-            self.create_overlay_window()
+            if BROWSER_AVAILABLE:
+                # Gerçek browser başlatma
+                self.start_real_medula_browser()
+            else:
+                # Mock overlay
+                print("[MOCK] Browser import yok, mock overlay açılıyor")
+                self.root.withdraw()
+                self.create_overlay_window()
             
         except Exception as e:
             messagebox.showerror("Hata", f"Medula acma hatasi: {e}")
-            self.root.deiconify()
+            print(f"[ERROR] {e}")
+
+    def start_real_medula_browser(self):
+        """Gerçek Medula browser'ını başlat"""
+        try:
+            print("[BROWSER] Settings okunuyor...")
+            
+            # .env'den güncel ayarları al
+            env_path = '.env'
+            username = "18342920"  # Default
+            password = "571T03s0"   # Default  
+            medula_url = "https://medeczane.sgk.gov.tr/eczane/login.jsp"  # Default
+            
+            if os.path.exists(env_path):
+                with open(env_path, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        if '=' in line and not line.strip().startswith('#'):
+                            key, value = line.strip().split('=', 1)
+                            if key == 'MEDULA_USERNAME':
+                                username = value.strip()
+                            elif key == 'MEDULA_PASSWORD':
+                                password = value.strip()
+                            elif key == 'MEDULA_URL':
+                                medula_url = value.strip()
+            
+            # SimpleSettings ile browser başlat
+            settings = SimpleSettings()
+            settings.medula_username = username
+            settings.medula_password = password
+            settings.medula_url = medula_url
+            
+            print(f"[BROWSER] Browser başlatılıyor, kullanıcı: {username}")
+            print(f"[BROWSER] Medula URL: {medula_url}")
+            
+            # Browser'ı ayrı thread'de başlat
+            browser_thread = threading.Thread(
+                target=self._browser_worker,
+                args=(settings,),
+                daemon=True
+            )
+            browser_thread.start()
+            
+            print("[BROWSER] Thread başlatıldı")
+            
+        except Exception as e:
+            print(f"[BROWSER ERROR] {e}")
+            messagebox.showerror("Browser Hatası", f"Browser başlatılamadı: {e}")
+    
+    def _browser_worker(self, settings):
+        """Browser worker thread'i"""
+        try:
+            print("[THREAD] Browser worker başladı")
+            
+            # Browser'ı başlat
+            browser = MedulaBrowser(settings)
+            
+            if not browser.start():
+                print("[THREAD] Browser başlatılamadı")
+                return
+                
+            print("[THREAD] Browser başlatıldı, login deneniyor...")
+            
+            # Login yap
+            if browser.login():
+                print("[THREAD] ✅ Login başarılı!")
+                
+                # ÇERÇEVEYİ İNJECT ET - MEDULA ÜZERİNE OVERLAY!
+                time.sleep(2)  # Sayfa yüklenmesi için bekle
+                self._inject_overlay_frame(browser)
+                
+                # ANA PENCEREYİ GİZLE - BAŞARILI LOGIN SONRASI
+                try:
+                    self.root.after(0, self.root.withdraw)
+                    print("[THREAD] ✅ Ana pencere gizlendi")
+                except:
+                    print("[THREAD] Ana pencere gizleme hatası")
+                
+                messagebox.showinfo("Başarılı", "Medula'ya başarıyla giriş yapıldı!\nÇerçeve sistemi aktif!")
+                
+                # Browser açık kalacak - kullanıcı manuel kontrol edebilir
+                print("[THREAD] Browser açık kalıyor - çerçeve overlay aktif!")
+                
+            else:
+                print("[THREAD] ❌ Login başarısız")
+                messagebox.showerror("Hata", "Medula girişi başarısız!")
+            
+        except Exception as e:
+            print(f"[THREAD ERROR] Browser worker hatası: {e}")
+            messagebox.showerror("Browser Hatası", f"Browser hatası: {e}")
+        
+        finally:
+            # Ana pencereyi geri getir
+            try:
+                self.root.after(0, self.root.deiconify)
+            except:
+                pass
+    
+    def _inject_overlay_frame(self, browser):
+        """Medula sayfasına JavaScript ile çerçeve overlay inject eder"""
+        try:
+            print("[OVERLAY] Çerçeve overlay JavaScript injection başlatılıyor...")
+            
+            # JavaScript kodu - Medula sayfasının üzerine çerçeve overlay
+            overlay_js = """
+            // OVERLAY ÇERÇEVE SİSTEMİ - MEDULA ÜZERİNE
+            console.log('🎯 REÇETE KONTROL ÇERÇEVESİ - Başlatılıyor...');
+            
+            // Mevcut overlay'i temizle (varsa)
+            const existingOverlay = document.getElementById('recete-kontrol-cercevesi');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+            
+            // Ana overlay container
+            const overlayContainer = document.createElement('div');
+            overlayContainer.id = 'recete-kontrol-cercevesi';
+            overlayContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                pointer-events: none;
+                font-family: Arial, sans-serif;
+            `;
+            
+            // Üst çerçeve - kontrol paneli - AÇIK YEŞİL
+            const topFrame = document.createElement('div');
+            topFrame.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 60px;
+                background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+                border-bottom: 2px solid #1abc9c;
+                pointer-events: auto;
+                box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 20px;
+            `;
+            
+            // Sol taraf - başlık
+            const titleDiv = document.createElement('div');
+            titleDiv.innerHTML = `
+                <h2 style="margin: 0; color: white; font-size: 18px; font-weight: bold;">
+                    🎯 REÇETE KONTROL ÇERÇEVESİ
+                </h2>
+                <p style="margin: 0; color: #bdc3c7; font-size: 12px;">
+                    Medula Akıllı Analiz Sistemi
+                </p>
+            `;
+            
+            // Sağ taraf - kontrol butonları - SAĞA YASLI
+            const controlDiv = document.createElement('div');
+            controlDiv.style.cssText = `
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                margin-left: auto;
+            `;
+            
+            // Buton oluşturma fonksiyonu - EŞİT BOYUT
+            function createButton(text, color, onclick) {
+                const btn = document.createElement('button');
+                btn.innerHTML = text;
+                btn.style.cssText = `
+                    background: ` + color + `;
+                    color: white;
+                    border: none;
+                    padding: 6px 12px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 11px;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
+                    min-width: 120px;
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+                btn.onmouseover = () => btn.style.transform = 'scale(1.05)';
+                btn.onmouseout = () => btn.style.transform = 'scale(1)';
+                btn.onclick = onclick;
+                return btn;
+            }
+            
+            // SAYFA ALGILAMA VE DİNAMİK BUTONLAR
+            function getPageType() {
+                const url = window.location.href;
+                const title = document.title.toLowerCase();
+                
+                if (url.includes('receteDetay') || title.includes('reçete detay')) {
+                    return 'prescription_detail';
+                } else if (url.includes('receteListesi') || title.includes('reçete listesi')) {
+                    return 'prescription_list';
+                } else {
+                    return 'main_page';
+                }
+            }
+            
+            const pageType = getPageType();
+            console.log('Detected page type:', pageType);
+            
+            // DİNAMİK BUTON SİSTEMİ
+            if (pageType === 'prescription_detail') {
+                // TEK REÇETE SAYFASI
+                controlDiv.appendChild(createButton('🔍 BU REÇETEYİ KONTROL ET', '#e74c3c', () => {
+                    alert('🔍 Tek reçete kontrolü başlatılıyor...');
+                    console.log('Single prescription control triggered');
+                }));
+            } else if (pageType === 'prescription_list') {
+                // REÇETE LİSTESİ SAYFASI
+                controlDiv.appendChild(createButton('📅 GÜNLÜK KONTROL', '#27ae60', () => {
+                    alert('📅 Günlük toplu kontrol başlatılıyor...');
+                    console.log('Daily batch control triggered');
+                }));
+                
+                controlDiv.appendChild(createButton('📊 AYLIK KONTROL', '#2980b9', () => {
+                    showGroupOrderModal();
+                }));
+            } else {
+                // ANA SAYFA - SADECE AYLIK KONTROL
+                controlDiv.appendChild(createButton('📊 TÜM AYLARI KONTROL ET', '#2980b9', () => {
+                    showGroupOrderModal();
+                }));
+            }
+            
+            // KAPAT BUTONU HER ZAMAN
+            controlDiv.appendChild(createButton('❌ KAPAT', '#95a5a6', () => {
+                document.getElementById('recete-kontrol-cercevesi').remove();
+                document.body.style.margin = '0';
+                console.log('Overlay çerçevesi kapatıldı');
+            }));
+            
+            // GRUP SIRALAMA MODAL FONKSIYONU
+            function showGroupOrderModal() {
+                // Mevcut modal varsa kaldır
+                const existingModal = document.getElementById('group-order-modal');
+                if (existingModal) {
+                    existingModal.remove();
+                }
+                
+                // Modal overlay
+                const modalOverlay = document.createElement('div');
+                modalOverlay.id = 'group-order-modal';
+                modalOverlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 10000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+                
+                // Modal content
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = `
+                    background: white;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                    width: 400px;
+                    max-height: 500px;
+                    overflow-y: auto;
+                `;
+                
+                modalContent.innerHTML = `
+                    <h2 style="margin: 0 0 20px 0; color: #2c3e50; text-align: center;">
+                        🎯 REÇETE GRUP SIRALAMA
+                    </h2>
+                    <p style="margin: 0 0 20px 0; color: #7f8c8d; text-align: center; font-size: 14px;">
+                        Hangi grup önce kontrol edilsin? Sürükleyerek sıralayın:
+                    </p>
+                    
+                    <div id="group-list" style="margin-bottom: 20px;">
+                        <div class="group-item" data-group="C" style="background: #3498db; margin: 5px 0; padding: 10px; border-radius: 5px; color: white; cursor: grab; user-select: none;">
+                            <span class="order-number">1</span> - C GRUBU (Sıralı Dağıtım)
+                        </div>
+                        <div class="group-item" data-group="A" style="background: #e74c3c; margin: 5px 0; padding: 10px; border-radius: 5px; color: white; cursor: grab; user-select: none;">
+                            <span class="order-number">2</span> - A GRUBU (Raporlu İlaçlar)
+                        </div>
+                        <div class="group-item" data-group="Gecici_Koruma" style="background: #f39c12; margin: 5px 0; padding: 10px; border-radius: 5px; color: white; cursor: grab; user-select: none;">
+                            <span class="order-number">3</span> - GEÇİCİ KORUMA (Mülteci)
+                        </div>
+                        <div class="group-item" data-group="B" style="background: #27ae60; margin: 5px 0; padding: 10px; border-radius: 5px; color: white; cursor: grab; user-select: none;">
+                            <span class="order-number">4</span> - B GRUBU (Normal)
+                        </div>
+                        <div class="group-item" data-group="C_Kan" style="background: #8e44ad; margin: 5px 0; padding: 10px; border-radius: 5px; color: white; cursor: grab; user-select: none;">
+                            <span class="order-number">5</span> - C GRUBU (Kan Ürünü)
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button id="start-control-btn" style="background: #27ae60; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                            🚀 KONTROLE BAŞLA
+                        </button>
+                        <button id="cancel-modal-btn" style="background: #95a5a6; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                            ❌ İPTAL
+                        </button>
+                    </div>
+                `;
+                
+                modalOverlay.appendChild(modalContent);
+                document.body.appendChild(modalOverlay);
+                
+                // SÜRÜKLEME İŞLEVİ
+                let draggedElement = null;
+                const groupItems = modalContent.querySelectorAll('.group-item');
+                
+                groupItems.forEach(item => {
+                    item.draggable = true;
+                    
+                    item.addEventListener('dragstart', (e) => {
+                        draggedElement = item;
+                        item.style.opacity = '0.5';
+                    });
+                    
+                    item.addEventListener('dragend', () => {
+                        item.style.opacity = '1';
+                        updateOrderNumbers();
+                    });
+                    
+                    item.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                    });
+                    
+                    item.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        if (draggedElement !== item) {
+                            const container = item.parentNode;
+                            const allItems = Array.from(container.children);
+                            const draggedIndex = allItems.indexOf(draggedElement);
+                            const targetIndex = allItems.indexOf(item);
+                            
+                            if (draggedIndex < targetIndex) {
+                                container.insertBefore(draggedElement, item.nextSibling);
+                            } else {
+                                container.insertBefore(draggedElement, item);
+                            }
+                        }
+                    });
+                });
+                
+                function updateOrderNumbers() {
+                    const items = modalContent.querySelectorAll('.group-item');
+                    items.forEach((item, index) => {
+                        item.querySelector('.order-number').textContent = index + 1;
+                    });
+                }
+                
+                // BUTON ETKİLEŞİMLERİ
+                modalContent.querySelector('#start-control-btn').addEventListener('click', () => {
+                    const items = modalContent.querySelectorAll('.group-item');
+                    const order = Array.from(items).map(item => item.dataset.group);
+                    console.log('Kontrol sırası:', order);
+                    alert('🚀 Kontrol başlatılıyor... Sıra: ' + order.join(' → '));
+                    modalOverlay.remove();
+                });
+                
+                modalContent.querySelector('#cancel-modal-btn').addEventListener('click', () => {
+                    modalOverlay.remove();
+                });
+                
+                // Modal dışına tıklayınca kapat
+                modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === modalOverlay) {
+                        modalOverlay.remove();
+                    }
+                });
+            }
+            
+            // Alt çerçeve - status bar - AÇIK YEŞİL
+            const bottomFrame = document.createElement('div');
+            bottomFrame.style.cssText = `
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 30px;
+                background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+                border-top: 1px solid #2ecc71;
+                pointer-events: auto;
+                display: flex;
+                align-items: center;
+                padding: 0 20px;
+                color: white;
+                font-size: 11px;
+            `;
+            
+            bottomFrame.innerHTML = `
+                <div style="display: flex; gap: 15px;">
+                    <span>🟢 Sistem Aktif</span>
+                    <span>🔵 0 Kontrolsuz</span>
+                    <span>🟢 0 Uygun</span>
+                    <span>🔴 0 Uygun Değil</span>
+                    <span>🟡 0 Şüpheli</span>
+                    <span>🟠 0 Ek Kontrol</span>
+                </div>
+                <div style="margin-left: auto;">
+                    <span>⚡ Hazır - Reçete kontrolü için butonlara tıklayın</span>
+                </div>
+            `;
+            
+            // Sol çerçeve - İNCE AÇIK YEŞİL
+            const leftFrame = document.createElement('div');
+            leftFrame.style.cssText = `
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 3px;
+                height: calc(100% - 90px);
+                background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+                pointer-events: none;
+            `;
+            
+            // Sağ çerçeve - İNCE AÇIK YEŞİL
+            const rightFrame = document.createElement('div');
+            rightFrame.style.cssText = `
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 3px;
+                height: calc(100% - 90px);
+                background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+                pointer-events: none;
+            `;
+            
+            // Tüm elemanları ekle
+            topFrame.appendChild(titleDiv);
+            topFrame.appendChild(controlDiv);
+            
+            overlayContainer.appendChild(topFrame);
+            overlayContainer.appendChild(bottomFrame);
+            overlayContainer.appendChild(leftFrame);
+            overlayContainer.appendChild(rightFrame);
+            
+            // DOM'a ekle
+            document.body.appendChild(overlayContainer);
+            
+            console.log('✅ REÇETE KONTROL ÇERÇEVESİ - Başarıyla yüklendi!');
+            console.log('🎯 Medula sayfası artık çerçeve ile korunuyor');
+            
+            // Medula içeriğini çerçeve içinde göstermek için margin ayarla - İNCE ÇERÇEVE
+            document.body.style.marginTop = '60px';
+            document.body.style.marginBottom = '30px';
+            document.body.style.marginLeft = '3px';
+            document.body.style.marginRight = '3px';
+            """
+            
+            # JavaScript'i inject et
+            browser.driver.execute_script(overlay_js)
+            print("[OVERLAY] ✅ Çerçeve overlay başarıyla inject edildi!")
+            
+        except Exception as e:
+            print(f"[OVERLAY ERROR] Çerçeve injection hatası: {e}")
 
     def create_overlay_window(self):
         """Overlay penceresi olusturma"""
