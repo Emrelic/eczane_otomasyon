@@ -10,7 +10,8 @@
       "Bash(git branch:*)",
       "Bash(git push:*)",
       "Bash(rg:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(sed:*)"
     ],
     "deny": [],
     "ask": []
