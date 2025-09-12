@@ -11,7 +11,10 @@
       "Bash(git push:*)",
       "Bash(rg:*)",
       "Bash(taskkill:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(chcp 65001)",
+      "Read(/C:\\c\\Users\\emrem\\AndroidStudioProjects/**)",
+      "Read(/C:\\c\\Users\\emrem\\AndroidStudioProjects/**)"
     ],
     "deny": [],
     "ask": []
